@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,9 +51,11 @@ Route::get('/student_com', function () {
     return view('student_com');
 });
 
-Route::get('/student', function () {
-    return view('student');
-});
+Route::get('/student','LoginController@authenticate');
+
+// Route::get('/student', function (Request $request) {
+//     return view('student');
+// });
 
 Route::get('/teacher_com', function () {
     return view('teacher_com');

@@ -19,6 +19,11 @@ class CreateStudentLoginsTable extends Migration
         });
     }
 
+    public function check()
+    {
+        
+    }
+
     /**
      * Reverse the migrations.
      *
