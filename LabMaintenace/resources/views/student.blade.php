@@ -17,7 +17,7 @@
 	<br><br><br><br>
 	
 	<div class="studentinfo">
-    <p>Name: <input type="text" name="namev" readonly></p>
+    <p>Name: <input type="text" name="namev" value="" readonly></p>
     <p>Roll no.: <input type="text" name="rollv" readonly></p>
     <p>Division: <input type="text" name="divisionv" readonly></p>
     <p>Batch: <input type="text" name="batchv" readonly></p>
@@ -49,36 +49,21 @@
     </th>
     <th>
       Status
-    </th>    
-
-    <tr>
-      <td>1</td>
-      <td>516-A</td>
-      <td>20</td>
-      <td>Mouse</td>
-      <td>Ongoing</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>513-A</td>
-      <td>20</td>
-      <td>keyboard</td>
-      <td>Ongoing</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>513-A</td>
-      <td>20</td>
-      <td>keyboard</td>
-      <td>Ongoing</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>513-A</td>
-      <td>20</td>
-      <td>keyboard</td>
-      <td>Ongoing</td>
-    </tr>
+    </th>   
+    
+    @for ($i=0;$i<$complaint->count();$i++)
+      @if($complaint[$i]->status==3)
+      <tr>
+          <td>{{$complaint[$i]->comp_no}}</td>
+          <td>{{$complaint[$i]->labno}}</td>
+          <td>{{$complaint[$i]->sysno}}</td>
+          <td>Mouse</td>
+          <td>{{$complaint[$i]->status}}</td>
+      </tr>
+      @endif
+          
+    @endfor
+     
   </table>
 </div>
 
@@ -99,21 +84,29 @@
         <th>
           Status
         </th>    
-    
+        
+        @for ($i=0;$i<$complaint->count();$i++)
+        @if($complaint[$i]->status!=3)
         <tr>
-          <td>1</td>
-          <td>516-A</td>
-          <td>20</td>
-          <td>Mouse</td>
-          <td>completed</td>
+          <td>{{$complaint[$i]->comp_no}}</td>
+          <td>{{$complaint[$i]->labno}}</td>
+          <td>{{$complaint[$i]->sysno}}</td>
+          <td>{{$complaint[$i]->description}}</td>
+          <td>
+          @if ($complaint[$i]->status==0)
+            Not yet Approved
+          @elseif ($complaint[$i]->status==1)
+            Yet to be configured by admin
+          @else
+            Underprocess
+          @endif
+          </td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>513-A</td>
-          <td>20</td>
-          <td>keyboard</td>
-          <td>completed</td>
-        </tr>
+        @endif
+        
+        @endfor
+        
+
         
       </table>
    

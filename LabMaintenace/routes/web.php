@@ -51,7 +51,7 @@ Route::get('/student_com', function () {
     return view('student_com');
 });
 
-Route::get('/student','LoginController@authenticate');
+Route::get('/student','LoginController@login');
 
 // Route::get('/student', function (Request $request) {
 //     return view('student');
@@ -61,6 +61,8 @@ Route::get('/teacher_com', function () {
     return view('teacher_com');
 });
 
-Route::get('/teacher', function () {
-    return view('teacher');
-});
+Route::get('/teacher','LoginController@teacher');
+// Route::get('/teacher', function () {
+//     return view('teacher');
+// });
+

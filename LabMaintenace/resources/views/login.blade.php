@@ -34,9 +34,9 @@
 	      <h1>Student</h1>
 	      <div class="input-field">
 	        <label for="rollno">Roll No</label>
-	        <input type="text" name="rollno" required/><br>
+	        <input type="text" name="rollno"  required/><br>
 	        <label for="password">Password</label> 
-	        <input type="password" name="password" required/><br>
+	        <input type="password" name="pass" required/><br>
 	        <input type="submit" value="Login" class="button"/>
 	        <p class="text-p"> <a href="#">Forgot password?</a> </p>
 	      </div>
