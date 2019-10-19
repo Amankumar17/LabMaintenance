@@ -3,6 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/student.css">
+
 </head>
 
 
@@ -57,8 +58,9 @@
           <td>{{$complaint[$i]->comp_no}}</td>
           <td>{{$complaint[$i]->labno}}</td>
           <td>{{$complaint[$i]->sysno}}</td>
-          <td>Mouse</td>
-          <td>{{$complaint[$i]->status}}</td>
+          <td>{{$complaint[$i]->description}}</td>
+          <td>
+          </td>
       </tr>
       @endif
           

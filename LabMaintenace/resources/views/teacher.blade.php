@@ -29,13 +29,13 @@
   </div>
 <br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-<button class="select" onclick="openPage('Home', this, '#4CAF50')" id="defaultOpen"><b>solved complaints</b></button>
-<button class="select" onclick="openPage('News', this, '#4CAF50')" ><b>ongoing complaints</b></button>
-<button class="select" onclick="openPage('page', this, '#4CAF50')" ><b>confirmations</b></button>
-<button class="select" onclick="openPage('line', this, '#4CAF50')" ><b>confirmed</b></button>
+<button class="select" onclick="openPage('solved', this, '#4CAF50')" id="defaultOpen"><b>solved complaints</b></button>
+<button class="select" onclick="openPage('ongoing', this, '#4CAF50')" ><b>ongoing complaints</b></button>
+<button class="select" onclick="openPage('stud_confirmation', this, '#4CAF50')" ><b>students confirmations</b></button>
+<button class="select" onclick="openPage('stud_confirmed', this, '#4CAF50')" ><b>students confirmed</b></button>
 
 
-<div id="Home" class="complaintinfo">
+<div id="solved" class="complaintinfo">
   <table id="myTable" >
     <th>
       Serial No.
@@ -53,6 +53,22 @@
       Status
     </th>    
 
+    @for ($i=0;$i<$complaint->count();$i++)
+      @if($complaint[$i]->status==3 && $complaint[$i]->rollno=="null")
+      <tr>
+          <td>{{$complaint[$i]->comp_no}}</td>
+          <td>{{$complaint[$i]->labno}}</td>
+          <td>{{$complaint[$i]->sysno}}</td>
+          <td>{{$complaint[$i]->description}}</td>
+          <td>
+          Solved
+          </td>
+      </tr>
+      @endif
+          
+    @endfor
+    
+<!-- 
     <tr>
       <td>1</td>
       <td>516-A</td>
@@ -80,11 +96,11 @@
       <td>20</td>
       <td>Mouse</td>
       <td>Ongoing</td>
-    </tr>
+    </tr> -->
   </table>
 </div>
 
-<div id="News" class="complaintinfo">
+<div id="ongoing" class="complaintinfo">
     <table id="myTable" >
         <th>
           Serial No.
@@ -101,7 +117,27 @@
         <th>
           Status
         </th>    
-    
+        @for ($i=0;$i<$complaint->count();$i++)
+      @if(($complaint[$i]->status==1 || $complaint[$i]->status==2) && $complaint[$i]->rollno=="null")
+      <tr>
+          <td>{{$complaint[$i]->comp_no}}</td>
+          <td>{{$complaint[$i]->labno}}</td>
+          <td>{{$complaint[$i]->sysno}}</td>
+          <td>{{$complaint[$i]->description}}</td>
+          <td>
+          @if ($complaint[$i]->status==0)
+            Not yet Approved
+          @elseif ($complaint[$i]->status==1)
+            Yet to be configured by admin
+          @else
+            Underprocess
+          @endif
+          </td>
+      </tr>
+      @endif
+          
+    @endfor
+<!--     
         <tr>
           <td>1</td>
           <td>516-A</td>
@@ -116,13 +152,13 @@
           <td>keyboard</td>
           <td>completed</td>
         </tr>
-        
+         -->
       </table>
    
 </div>
 
 
-<div id="page" class="complaintinfo">
+<div id="stud_confirmation" class="complaintinfo">
     <table id="myTable" >
         <th>
           Serial No.
@@ -146,6 +182,30 @@
           Status
         </th>    
     
+        @for ($i=0;$i<$complaint->count();$i++)
+      @if($complaint[$i]->status==0 && $complaint[$i]->rollno!="null")
+      <tr>
+          <td>{{$complaint[$i]->comp_no}}</td>
+          <td>{{$complaint[$i]->labno}}</td>
+          <td>{{$complaint[$i]->sysno}}</td>
+          <td>{{$complaint[$i]->rollno}}</td>
+          <td>TE</td>
+          <td>{{$complaint[$i]->description}}</td>
+          <td>
+          @if ($complaint[$i]->status==0)
+            Not yet Approved
+          @elseif ($complaint[$i]->status==1)
+            Yet to be configured by admin
+          @else
+            Underprocess
+          @endif
+          </td>
+      </tr>
+      @endif
+          
+    @endfor
+    
+<!-- 
         <tr>
           <td>1</td>
           <td>516-A</td>
@@ -164,12 +224,12 @@
           <td>keyboard</td>
           <td>-</td>
         </tr>
-        
+         -->
       </table>
   
 </div>
   
-<div id="line" class="complaintinfo">
+<div id="stud_confirmed" class="complaintinfo">
     <table id="myTable" >
         <th>
           Serial No.
@@ -193,6 +253,30 @@
           Status
         </th>    
     
+        @for ($i=0;$i<$complaint->count();$i++)
+      @if($complaint[$i]->status>0 && $complaint[$i]->rollno!="null")
+      <tr>
+          <td>{{$complaint[$i]->comp_no}}</td>
+          <td>{{$complaint[$i]->labno}}</td>
+          <td>{{$complaint[$i]->sysno}}</td>
+          <td>{{$complaint[$i]->rollno}}</td>
+          <td>TE</td>
+          <td>{{$complaint[$i]->description}}</td>
+          <td>
+          @if ($complaint[$i]->status==0)
+            Not yet Approved
+          @elseif ($complaint[$i]->status==1)
+            Yet to be configured by admin
+          @else
+            Underprocess
+          @endif
+          </td>
+      </tr>
+      @endif
+          
+    @endfor
+    
+<!-- 
         <tr>
           <td>1</td>
           <td>516-A</td>
@@ -200,7 +284,7 @@
           <td>17CE2032</td>
           <td>TE</td>
           <td>Mouse</td>
-          <td>confirmed</td>
+          <td>confirmed234</td>
         </tr>
         <tr>
           <td>2</td>
@@ -211,7 +295,7 @@
           <td>keyboard</td>
           <td>confrimed</td>
         </tr>
-        
+         -->
       </table>
   
      

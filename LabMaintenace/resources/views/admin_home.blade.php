@@ -103,24 +103,134 @@ p {
 
 <br><br>
 
-<button class="tablink" onclick="openPage('New', this, '#c88380')" id="defaultOpen">New</button>
-<button class="tablink" onclick="openPage('Ongoing', this, '#c88380')">Ongoing</button>
-<button class="tablink" onclick="openPage('History', this, '#c88380')">History</button>
+  <button class="tablink" onclick="openPage('New', this, '#c88380')" id="defaultOpen">New</button>
+  <button class="tablink" onclick="openPage('Ongoing', this, '#c88380')">Ongoing</button>
+  <button class="tablink" onclick="openPage('History', this, '#c88380')">History</button>
 
 <div id="New" class="tabcontent">
-  <h3>New Complaints</h3>
-  <p>New Complaints...</p>
+<table id="myTable" >
+    <th>
+      Complaint no.
+    </th>
+    <th>
+      Lab no.
+    </th>
+    <th>
+      System no.
+    </th>
+    <th>
+      roll no.
+    </th>
+    <th>
+      sdrn
+    </th>        
+    <th>
+      description
+    </th>
+    <th>
+      change status
+    </th>   
+    
+    @for ($i=0;$i<$complaint->count();$i++)
+      @if($complaint[$i]->status==1)
+      <tr>
+          <td>{{$complaint[$i]->comp_no}}</td>
+          <td>{{$complaint[$i]->labno}}</td>
+          <td>{{$complaint[$i]->sysno}}</td>
+          <td>{{$complaint[$i]->rollno}}</td>
+          <td>{{$complaint[$i]->sdrn}}</td>
+          <td>{{$complaint[$i]->description}}</td>
+          <td><button>confirm</button></td>
+      </tr>
+      @endif
+          
+    @endfor
+     
+  </table>
 </div>
 
 <div id="Ongoing" class="tabcontent">
-  <h3>Ongoing Complaints</h3>
-  <p>Ongoing Complaints...</p> 
+<table id="myTable" >
+    <th>
+      Complaint no.
+    </th>
+    <th>
+      Lab no.
+    </th>
+    <th>
+      System no.
+    </th>
+    <th>
+      roll no.
+    </th>
+    <th>
+      sdrn
+    </th>        
+    <th>
+      description
+    </th>
+    <th>
+      change status
+    </th>   
+    
+    @for ($i=0;$i<$complaint->count();$i++)
+      @if($complaint[$i]->status==2)
+      <tr>
+          <td>{{$complaint[$i]->comp_no}}</td>
+          <td>{{$complaint[$i]->labno}}</td>
+          <td>{{$complaint[$i]->sysno}}</td>
+          <td>{{$complaint[$i]->rollno}}</td>
+          <td>{{$complaint[$i]->sdrn}}</td>
+          <td>{{$complaint[$i]->description}}</td>
+done          <td><button>done</button></td>
+      </tr>
+      @endif
+          
+    @endfor
+     
+  </table>
 </div>
 
 <div id="History" class="tabcontent">
-  <h3>Previous Complaints</h3>
-  <p>Previous Complaints...</p>
+<table id="myTable" >
+    <th>
+      Complaint no.
+    </th>
+    <th>
+      Lab no.
+    </th>
+    <th>
+      System no.
+    </th>
+    <th>
+      roll no.
+    </th>
+    <th>
+      sdrn
+    </th>        
+    <th>
+      description
+    </th>
+    
+    @for ($i=0;$i<$complaint->count();$i++)
+      @if($complaint[$i]->status==3)
+      <tr>
+          <td>{{$complaint[$i]->comp_no}}</td>
+          <td>{{$complaint[$i]->labno}}</td>
+          <td>{{$complaint[$i]->sysno}}</td>
+          <td>{{$complaint[$i]->rollno}}</td>
+          <td>{{$complaint[$i]->sdrn}}</td>
+          <td>{{$complaint[$i]->description}}</td>
+          
+      </tr>
+      @endif
+          
+    @endfor
+     
+  </table>
 </div>
+
+
 
 
 <script>

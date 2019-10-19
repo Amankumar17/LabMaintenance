@@ -44,6 +44,7 @@
 
 
     <body>
+    
         <center>
             <br>
             <h3>Student Complaint</h3>
@@ -52,15 +53,24 @@
         <br><br><br>
         <label>Faculty:</label><input type="text" placeholder="Faculty Name" class="in">
         <br><br><br>
-        <label>Lab No:</label><input type="text" placeholder="Lab No" class="in">
+        <label>Lab No:</label>
+        <select class="in" id="lb" name="op" val="">
+            @for($i=0;$i<$lab->count();$i++)
+                <option value="">{{$lab[$i]->labno}}</option>
+            @endfor
+        </select>
         <br><br><br>
         <label >System:</label>
-                <select class="in">
-                <option value="1">B-1</option>
-                <option value="2">B-2</option>
-                <option value="3">B-3</option>
-                <option value="4">B-4</option>
-              </select>
+            <select class="in">
+                @for($i=0;$i<$systems->count();$i++)
+                
+                    @if($systems[$i]->labno==getVal())
+                        <option value="">{{$systems[$i]->sys}}
+                    @endif
+                @endfor
+                <option value="1"></option>
+                
+            </select>
         <br><br><br>
         <button type="submit" onclick="myFunction()" class="b1">Show Previous Complaints</button>
               <br><br><br>
@@ -69,12 +79,22 @@
         </div>
         </center>
         <script>
+    function getVal()
+    {
+    var a = document.getElementById('lb').value;
+    return a;
+    }
+    </script>
+        <script>
                 function myFunction() {
                   document.getElementById("demo").innerHTML = "Data";
 		document.getElementById("b2").disabled = false;
 		var element = document.getElementById("b2");
    		element.classList.add("b1");
                     }
+
+        
+    
                 
         </script>
                 

@@ -40,6 +40,7 @@
 	        <input type="submit" value="Login" class="button"/>
 	        <p class="text-p"> <a href="#">Forgot password?</a> </p>
 	      </div>
+		  
 	  </form>
 	<form action="/teacher" id="faculty">
 	      <h1>Faculty</h1>
@@ -47,7 +48,7 @@
 	        <label for="sdrn">Sdrn</label> 
 	        <input type="text" name="sdrn" required/><br>
 	        <label for="password">Password</label> 
-	        <input type="password" name="password" required/><br>
+	        <input type="password" name="pass1" required/><br>
 	        <input type="submit" value="Login" class="button" />
 		<p class="text-p"> <a href="#">Forgot password?</a> </p>
 	      </div>
@@ -58,13 +59,12 @@
 	        <label for="username">Username</label> 
 	        <input type="text" name="username" required/><br>
 	        <label for="password">Password</label> 
-	        <input type="password" name="password" required/><br>
+	        <input type="password" name="pass2" required/><br>
 	        <input type="submit" value="Login" class="button" />
 		<p class="text-p"> <a href="#">Forgot password?</a> </p>
 	      </div>
 	  </form>
 </div>
-
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script type="text/javascript" src="{{ asset('js/login_page.js') }}"></script>
 

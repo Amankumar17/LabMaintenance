@@ -39,17 +39,15 @@ Route::get('/delete_system', function () {
     return view('admin_del_system');
 });
 
-Route::get('/admin_home', function () {
-    return view('admin_home');
-});
-
 Route::get('/filecomplaint', function () {
     return view('filecomplaint');
 });
 
-Route::get('/student_com', function () {
-    return view('student_com');
-});
+// Route::get('/student_com', function () {
+//     return view('student_com');
+// });
+
+Route::get('/student_com','LoginController@system');
 
 Route::get('/student','LoginController@login');
 
@@ -62,7 +60,14 @@ Route::get('/teacher_com', function () {
 });
 
 Route::get('/teacher','LoginController@teacher');
+
+Route::get('/admin_home','LoginController@admin');
+
+// Route::get('/admin_home', function () {
+//     return view('admin_home');
+// });
+
 // Route::get('/teacher', function () {
-//     return view('teacher');
+//    return view('teacher');
 // });
 

@@ -57,10 +57,75 @@ class LoginController extends BaseController
     }
 
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+   
+    public function teacher(Request $request)
+    {
+        $sdrn=$request->input('sdrn');
+        $pass1=$request->input('pass1');
+        
+        $check=DB::table('faculty_logins')->where(['sdrn'=>$sdrn,'pass'=>$pass1])->get();
+        // echo $check;
+        // echo count($check);
+        if(count($check)>0)    
+        {
+            $complaint=DB::table('complaints')->where(['sdrn'=>$sdrn])->get();
+            //echo($complaint);
+            return view('teacher')->with('complaint',$complaint);
+        }
+        else {
+            # code...
+            echo("login fail");
+            return view('login');
+            
+        } 
+        
+    }
+    
+    public function admin(Request $request)
+    {
+        $username=$request->input('username');
+        $pass2=$request->input('pass2');
+        
+        $check=DB::table('admin_login')->where(['username'=>$username,'pass'=>$pass2])->get();
+        //echo $check;
+        //echo count($check);
+        if(count($check)>0)    
+        {
+            $complaint=DB::table('complaints')->get();
+            //echo($complaint);
+            return view('admin_home')->with('complaint',$complaint);
+        }   
+        else {
+            # code...
+            echo("login fail");
+            return view('login');
+            
+        } 
+    }
+    public function system(Request $request)
+    {
+        //$op=$request->input("op");
+        //echo $op;
+        $check=DB::table('systems')->get();
+        $uniqueLab = DB::table('systems')
+        ->select('labno')
+        ->groupBy('labno')
+        ->get();
+        //$uniqueNames = DB::select('labno')->distinct('labno')->toArray();
+        //echo $check;
+
+        echo $uniqueLab;
+        //echo count($check);
+        return view('student_com')->with('systems',$check)->with('lab',$uniqueLab);
+        
+    }
+
+
+
+
+
+
+    /*@return \Illuminate\Http\Response
      */
     public function index()
     {
