@@ -10,9 +10,9 @@
     
     
         if ((checkBox.checked == true) || (checkBox1.checked == true) || (checkBox2.checked == true) || (checkBox3.checked == true) || (checkBox4.checked == true) || (checkBox5.checked == true)){
-          alert('complaint submitted');
+          alert('Complaint Submitted');
         } else {
-          alert('please check atleast one checkbox');
+          alert('Please check atleast one checkbox');
         }
       }
     
@@ -27,7 +27,7 @@ function openPage(pageName,elmnt,color) {
   }
   selects = document.getElementsByClassName("select");
   for (i = 0; i < selects.length; i++) {
-    selects[i].style.backgroundColor = "";
+    selects[i].style.backgroundColor = "rgb(173, 255, 162)";
   }
   document.getElementById(pageName).style.display = "block";
   elmnt.style.backgroundColor = color;

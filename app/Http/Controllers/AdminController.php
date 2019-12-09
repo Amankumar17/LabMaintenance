@@ -5,15 +5,62 @@ use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class AdminController extends Controller {
 
-    public function systemadd(Request $request){
+    public function status_admin_confirm(Request $request){
+
+        $comp_no = $request->input('comp_no');
+
+        $current_date_time = Carbon::now()->toDateTimeString();
+
+        $admin = $request->session()->get('admin');
+
+        DB::table('complaints')->where('comp_no',$comp_no)->update(
+            ['status'=>2, 'updated_at'=>$current_date_time]);
+
+            $complaint=DB::table('complaints')->get();
+            
+            return view('admin_home')->with('complaint',$complaint)->with('admin',$admin);
+        
+    }
+    
+    public function status_admin_done(Request $request){
+
+        $comp_no = $request->input('comp_no');
+
+        $current_date_time = Carbon::now()->toDateTimeString();
+
+        $admin = $request->session()->get('admin');
+
+        DB::table('complaints')->where('comp_no',$comp_no)->update(
+            ['status'=>3, 'updated_at'=>$current_date_time]);
+
+            $complaint=DB::table('complaints')->get();
+            
+            return view('admin_home')->with('complaint',$complaint)->with('admin',$admin);
+        
+    }
+
+    public function systemAdd2(Request $request)
+    {
+        $check=DB::table('systems')->get();
+        $uniqueLab = DB::table('systems')
+        ->select('labno')
+        ->groupBy('labno')
+        ->get();
+
+        $check = $check->sort();
+
+        return view('admin_add_system')->with('systems',$check)->with('lab',$uniqueLab);
+        
+    }
+    
+    public function systemAdd(Request $request){
 
         $labno = $request->input('labno');
         $new = $request->input('newsys');
-        echo $labno;
-        echo $new;
 
         DB::table('systems')->insert(
             ['labno' => $labno, 'sys' => $new]
@@ -24,12 +71,25 @@ class AdminController extends Controller {
         
     }
 
+    public function systemRemove2(Request $request)
+    {
+        $check=DB::table('systems')->get();
+        $uniqueLab = DB::table('systems')
+        ->select('labno')
+        ->groupBy('labno')
+        ->get();
+
+        $check = $check->sort();
+
+        return view('admin_del_system')->with('systems',$check)->with('lab',$uniqueLab);
+        
+    }
+
     public function systemRemove(Request $request){
 
         $labno = $request->input('labno');
         $old = $request->input('oldsys');
-        echo $labno;
-        echo $old;
+        
 
         DB::table('systems')->where([
             ['labno', '=', $labno],
@@ -38,14 +98,12 @@ class AdminController extends Controller {
         echo "<br/>Record deleted successfully.<br/>";
     }
 
+
     public function facultyAdd(Request $request){
 
         $newsdrn = $request->input('newsdrn');
         $pass1 = $request->input('pass1');
         $pass2 = $request->input('pass2');
-        echo $newsdrn;
-        echo $pass1;
-        echo $pass2;
 
         if($pass1 == $pass2) {
             DB::table('faculty_logins')->insert(
@@ -59,38 +117,17 @@ class AdminController extends Controller {
 
     public function facultyRemove(Request $request){
 
-        $labno = $request->input('labno');
-        $old = $request->input('oldsys');
-        echo $labno;
-        echo $old;
+        $oldsdrn = $request->input('oldsdrn');
+        $pass = $request->input('pass');
+        
 
-        DB::table('systems')->where([
-            ['labno', '=', $labno],
-            ['sys', '=', $old]])->delete();
+        DB::table('faculty_logins')->where([
+            ['sdrn', '=', $oldsdrn],
+            ['pass', '=', $pass]])->delete();
 
         echo "<br/>Record deleted successfully.<br/>";
     }
     
-    public function delsys(Request $request)
-    {
-       //$op=$request->input("op");
-        //echo $op;
-        $check=DB::table('systems')->get();
-        $uniqueLab = DB::table('systems')
-        ->select('labno')
-        ->groupBy('labno')
-        ->get();
-        //$uniqueNames = DB::select('labno')->distinct('labno')->toArray();
-        $check = $check->sort();
-        // echo $check;
-        // echo "sDDASD";
-        // echo $uniqueLab;
-        //echo count($check);
-
-        
-        return view('admin_del_system')->with('systems',$check)->with('lab',$uniqueLab);
-        //return view('admin_del_system')->with('lab',$systems);
-    }
 
 
     public function adminAdd(Request $request){
@@ -98,9 +135,7 @@ class AdminController extends Controller {
         $newname = $request->input('newname');
         $pass1 = $request->input('pass1');
         $pass2 = $request->input('pass2');
-        echo $newname;
-        echo $pass1;
-        echo $pass2;
+        
 
         DB::table('admin_login')->insert(
             ['username' => $newname, 'pass' => $pass1]
@@ -111,13 +146,11 @@ class AdminController extends Controller {
         
     }
 
-
-    public function addremove(Request $request){
+    public function adminRemove(Request $request){
 
         $admin = $request->input('admin');
         $pass = $request->input('pass');
-        echo $admin;
-        echo $pass;
+        
 
         DB::table('admin_login')->where([
             ['username', '=', $admin],
@@ -127,15 +160,7 @@ class AdminController extends Controller {
     }
 
 
-
-
-
-
-
-
-
-
-
+    
     /**
      * Display a listing of the resource.
      *

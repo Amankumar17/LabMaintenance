@@ -16,17 +16,16 @@
 	</div>
   <br>
   <p style="margin-left:17%;font-size:21px"><b>Details:</b></p>
-  <form  action="/go">
+  
+  <form  action="/go2">
   <div class="box1">
-    <label for="roll" style="margin-left:17%;font-size:21px">Rollno:</label><input type="text" class="in" style="margin-left:5px" name="rollno" value='{{$rollno}}' readonly>
-    <br><label for="roll" style="margin-left:17%;font-size:21px">Sdrn:</label><input type="text" name='sdrn' class="in" style="margin-left:29px" value='{{$sdrn}}' readonly>
-    <br><label for="roll" style="margin-left:17%;font-size:21px">Labno:</label><input type="text" name="op" style="margin-left:17px" value='{{$labno}}' readonly>
-    <br><label for="roll" style="margin-left:17%;font-size:21px">Sys no:</label><input type="text" name="system" style="margin-left:5px" value='{{$systemno}}' readonly>
-  </div>
-
+  <label for="roll" style="margin-left:17%;font-size:21px">Sdrn:</label><input type="text" name='sdrn' class="in"  style="margin-left:28px" value='{{$sdrn}}' readonly>
+    <br><label for="roll" style="margin-left:17%;font-size:21px">Labno:</label><input type="text" name="op"  style="margin-left:15px" value='{{$labno}}' readonly>
+    <br><label for="roll" style="margin-left:17%;font-size:21px">Sys no:</label><input type="text" name="system"  style="margin-left:5px" value='{{$systemno}}' readonly>
+</div>
   <br>
   <p class="heading" style="margin-left:17%"><b>Problems:</b></p>
-  
+
     <div class="checkboxes">
       <input type="checkbox" id="mycheckbox" name="mouse" value="mouse" style="line-height: 2%">   Mouse<br>
       <input type="checkbox" id="mycheckbox1" name="keyboard" value="keyboard">   Keyboard<br>
@@ -42,9 +41,6 @@
     <textarea rows="9" cols="70" size="60%" style="margin-left:15%" name="description" placeholder="Description" required></textarea>
     
     <br><br><br>
-
-
-
 
     <a href="" class="back" > Back </a>
     <div class="select"><input type="submit" onclick="myFunction()" value="Submit" ></div>

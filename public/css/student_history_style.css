@@ -1,0 +1,364 @@
+
+body {
+    background: #a32732;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+h2 {
+    font-size: 30px;
+    position: absolute;
+    top: 0;
+    /* right: 138px; */
+    left: 61px;
+    color: white;
+}
+
+.contact-form {
+    width: 85%;
+    max-width: 650px;
+    background: #fff;
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    margin: 5% 0;
+    padding: 2% 3%;
+    border-radius: 10px;
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+}
+
+/* .contact-form h1{
+    margin-top: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+} */
+
+.txtb {
+    background: #eee;
+    border: 1px solid #333;
+    border-radius: 8px;
+    margin: 4% 0;
+    padding: 3% 5%;
+	display: grid;
+	grid-template-columns: repeat(5,1fr);
+}
+
+.txtb label {
+    /* display: block; */
+    text-align: left;
+    color: #333;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.txtb input, .txtb textarea, .dropdown{
+    width: 320%;
+    height: auto;
+    border: none;
+    /* outline: none; */
+    /* font-size: 18px; */
+    border-radius: 8px;
+    padding: 10px;
+    margin-left: 20px;
+}
+
+/* .dropdown {
+    width: 320%;
+    background: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0px 10px;
+    font-size: 16px;
+    color: black;
+    text-align: center;
+    appearance:none;
+} */
+ 
+.checkboxes {
+    margin-left: 0%;
+
+} 
+
+.checkboxes input[type="checkbox"] {
+    margin: 8px 0px;
+}
+
+.checkboxes span {
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.btn {
+    /* display: block; */
+    padding: 3% 0;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin: 8px 0;
+    width: 100%;
+}
+
+/*//////////////////////////////////////////////
+
+div label input {
+   margin-right: 100px;
+}
+
+#ck-button {
+    margin:4px;
+    background-color:#EFEFEF;
+    border-radius:4px;
+    border:1px solid #D0D0D0;
+    overflow:auto;
+    float:left;
+}
+
+#ck-button label {
+    float:left;
+    width:4.0em;
+}
+
+#ck-button label span {
+    text-align:center;
+    padding:3px 0px;
+    display:block;
+}
+
+#ck-button label input {
+    position:absolute;
+    top:-20px;
+}
+
+#ck-button input:checked + span {
+    background-color:#911;
+    color:#fff;
+}
+
+/////////////////////////////////////////////////////////*/
+
+.contact-form .txtb
+.container1 {
+     /* max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;  */
+}
+
+.container1 div {
+    margin: 5px;
+    display: grid;
+}
+
+.container1 div label {
+    cursor: pointer;
+}
+
+.container1 div label input[type="checkbox"] {
+    display: none;
+}
+
+.container1 div label span {
+    /* position: relative; */
+    display: grid;
+    text-align: center;
+    background: #424242;
+    padding: 3px 0px;
+    color: white;
+    border-radius: 30px;
+    transition: 0.5s;
+    user-select: none;
+    overflow: hidden;
+}
+
+.container1 div label input[type="checkbox"]:checked ~ span {
+    background: #fff;
+    color: black;
+}
+
+
+.btn btn-primary{
+    float: left;
+    width:20%;
+}
+
+.student_headerbuttons{
+    float: left;
+    width:32.5%;
+    margin: 2px;
+}
+
+
+@media only screen and (max-width: 1280px){
+    .student_headerbuttons{
+        width:31.5%;
+        margin: 2px;
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.studentinfo {
+	height: auto;											
+	width: 55%;
+	margin-left: 0px;
+  float: left;
+  padding-left: 20px;
+  font-size: 25px;
+  padding-left: 10%;
+}
+
+.studentinfo input[type=text] {
+    font-family: courier new;
+    border: none;
+    margin-right: 49%;
+    float: right;
+    font-size: 18px;
+    margin-top: 0.5%;
+}
+
+.newcomplaint {
+	border: 1px transparent;											
+  width: 28%;
+  margin-top: 1%;
+	margin-left: 0px;
+  float: left;
+  padding: 10.5px;
+}
+
+.complaints {
+	height: auto;											
+	width: 100%;
+	margin-left: 0px;
+	margin-top: 10px;
+}
+
+.select {
+  color: black;
+  float: left;
+  border: 1px solid green;
+  outline: none;
+  /* cursor: pointer; */
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 50%;
+  margin-top: 0%;
+}
+
+.select:hover {
+  background-color: #4CAF50;
+}
+
+.a1 {
+  padding: 25px;
+  text-decoration: none;
+  font-size: 20px;
+  background-color: #4CAF50;
+  color: black;
+  height: 90px;
+  width: 280px;
+  font-family: sans-serif;
+}
+
+.a1:hover {
+  padding: 25px;
+  text-decoration: none;
+  font-size: 20px;
+  background-color:#4CAF50;
+  color: black;
+  height: 100px;
+  width: 280px;
+  box-shadow: 0 0 10px black;
+}
+
+.newcomplaint a:hover{
+  font-size:42px;
+  background:#4CAF50;
+  box-shadow: 6px 4px 10px 6px rgb(163, 161, 161);
+}
+.complaintinfo {
+  color: black;
+  display: none;
+  /* padding: 40px 20px 50px 20px; */
+  height: auto;
+  min-height: 240px;
+  margin-top: 0%;
+}
+
+table{
+  width: 100%;
+  font-family: century gothic;
+  border-collapse: collapse;
+  
+}
+
+th{
+  text-align:center;
+  border: 1px solid #dddddd;
+} 
+td{
+  border: 1px solid #dddddd;
+  text-align:center;
+
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+/*#Home {background-color: white;
+	border:1px solid black;
+}
+
+#News {background-color: white;
+	border:1px solid black;
+}*/
+
+@media screen and (max-width: 1145px) {
+
+  .header a {
+	font-size: 20px; 
+  }
+
+}
+
+@media screen and (max-width: 940px) {
+
+  .header a {
+	font-size: 15px; 
+  }
+
+}
+

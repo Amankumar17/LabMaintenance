@@ -2,7 +2,11 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Delete System</title>
+
+<link rel="stylesheet" href="css/headerstyle.css">
+<link rel="stylesheet" href="css/footerstyle.css">
+
+<title>Add System</title>
 
 <style>
 body {
@@ -65,32 +69,50 @@ input[type=text]{
 </head>
 <body>
 
+<div class="header" id="myHeader">
+    <a class="active" href="">&#x26F7; Home</a>
+		<a href="/testlogin">Logout</a>
+  </div>
+
 <center>
 <br><br>
 <h3>Add System Record</h3>
 <br>
 
 <div class="container">
-<form action="/student_demo">
+<form action="/system_demo1">
 
 <label for="labno">Please select the Lab</label>
-<select id="lab" name="labno" required>
-      <option value="">Lab:</option>
-      <option value="513">513</option>
-      <option value="516A">516A</option>
-      <option value="516B">516B</option>
-      <option value="517">517</option>
-      <option value="518">518</option>
-      <option value="519">519</option>
-</select>
+
+<select id="lb" name="labno" required>
+            <option value="" disabled selected>Select</option>
+            @for($i=0; $i<$lab->count(); $i++)
+                <option >{{$lab[$i]->labno}}</option>
+            @endfor
+        </select>
+
 <br><br>
 
 <label for="systemno">Please select the System</label>
 <input type="text" id="lab" name="newsys">
+
 <input type="submit" value="Submit">
 </form>
 </div>
 </center>
+
+<!-- FOOTER START -->
+<div class="footer" style="margin-top:9%; font-family:courier new;">
+<br>Site by<br>
+Amankumar Shrivastava,
+Saurabh Varade,
+Siddhi Jagtap,
+Rasika Deshmukh
+<br><br><br>
+Copyright © 2019 Ramrao Adik Institute of Technology
+</div>
+<!-- END OF FOOTER -->
+
 
 </body>
 </html> 

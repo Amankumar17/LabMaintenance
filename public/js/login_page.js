@@ -6,7 +6,7 @@ $(document).ready(function(){
 	  $(this).parent().siblings().removeClass('active');
 	  
 	  var href = $(this).attr('href');
-	  $('.forms > form').hide();
+	  $('.login100-option > form').hide();
 	  $(href).fadeIn(500);
 	});
 });

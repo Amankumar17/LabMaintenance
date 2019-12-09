@@ -1,44 +1,40 @@
-.header {
-	position: fixed;
-	width: 99%;
-	background-color: black;
-	margin: 0px;
+body {
+  font-family: courier new;
 }
 
-.header a {
-	float: left;
-	color: white;
-	text-align: center;
-	padding: 12px;
-	margin: 0 5px 0 5px;
-	text-decoration: none;
-	font-size: 25px; 
-	border-radius: 4px;
+.header {
+	width: 99%;
+  margin: 0 0 1% 0;
 }
 
 .studentinfo {
-	border: 1px solid black;
-  border: transparent;
-	height: 10%;											
-	width: 49%;
+	height: auto;											
+	width: 55%;
 	margin-left: 0px;
-  float:left;
-  padding-left:20px;
+  float: left;
+  padding-left: 20px;
+  font-size: 25px;
+  padding-left: 10%;
 }
 
-.studentinfo input[type=text]{
-    margin-right:64%;
-    float:right;
+.studentinfo input[type=text] {
+    font-family: courier new;
+    border: none;
+    margin-right: 49%;
+    float: right;
+    font-size: 18px;
+    margin-top: 0.5%;
 }
 
 .newcomplaint {
 	border: 1px transparent;											
-	width: 30%;
+  width: 28%;
+  margin-top: 1%;
 	margin-left: 0px;
-  float:left;
-  padding:60px;
-  
+  float: left;
+  padding: 10.5px;
 }
+
 
 .complaints {
 	border: 1px solid black;
@@ -66,9 +62,28 @@
   background-color: #4CAF50;
 }
 
-.a1{
-  padding:15px;text-decoration: none;font-size:40px;background-color:#4CAF50;color: black;
+.a1 {
+  padding: 25px;
+  text-decoration: none;
+  font-size: 20px;
+  background-color: #4CAF50;
+  color: black;
+  height: 90px;
+  width: 280px;
+  font-family: sans-serif;
 }
+
+.a1:hover {
+  padding: 25px;
+  text-decoration: none;
+  font-size: 20px;
+  background-color:#4CAF50;
+  color: black;
+  height: 100px;
+  width: 280px;
+  box-shadow: 0 0 10px black;
+}
+
 
 .newcomplaint a:hover{
   font-size:42px;
@@ -80,57 +95,30 @@
   color: black;
   display: none;
   padding: 40px 20px 50px 20px;
-  height: 180px;
+  height: auto;
+  min-height: 240px;
   margin-top: 0%;
 }
 
 
-table {
+table{
+  width: 100%;
+  font-family: century gothic;
   border-collapse: collapse;
-  margin-top: 2%;
+  
 }
 
-td {
-  width:24%;
+th{
+  text-align:center;
+  border: 1px solid #dddddd;
+} 
+td{
+  border: 1px solid #dddddd;
+  text-align:center;
 
-  text-align: left;
 }
-
-th {
-  width:24%;
-  border: 1px solid gray;
-  text-align: left;
-  background-color: rgb(212, 250, 216);
-}
-
-
-tr:nth-child(odd) {
-  background-color: rgb(255, 220, 220);
-}
-
-
-#Home {background-color: white;
-	border:1px solid black;
-}
-
-#News {background-color: white;
-	border:1px solid black;
-}
-
-#page {background-color: white;
-	border:1px solid black;
-}
-
-#line {background-color: white;
-	border:1px solid black;
-}
-
-.footer{
-	width: 99%;
-	background-color: black;
-  bottom: 0;
-  left: 1;
-  color:white;
+tr:nth-child(even) {
+  background-color: #dddddd;
 }
 
 @media screen and (max-width: 1145px) {
@@ -148,4 +136,3 @@ tr:nth-child(odd) {
   }
 
 }
-

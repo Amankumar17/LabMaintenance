@@ -1,42 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/headerstyle.css">
-<link rel="stylesheet" href="css/footerstyle.css">
-<link rel="stylesheet" href="css/student.css">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+   <title>Student Complaint</title>
+   <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+   <link rel="stylesheet" href="css/student_history_style.css">
+      
 </head>
-
-
 <body>
 
-<div class="header" id="myHeader">
-    <a class="active" href="">&#x26F7; Home</a>
-		<a href="">New Complaint</a>
-		<a href="/login">Logout</a>
-	</div>
+<div class="contact-form">
+   <div>
+      
+      <form action="/studenthistory_to_feedback">
+        <button type="submit" class="student_headerbuttons" name="rollno" value='{{$stud_details[0]->Roll_no}}'> Home</button>
+      </form>
+      
+      <form action="/student_history">
+        <button type="submit" class="student_headerbuttons" >History</button>
+      </form>
+      
+      <form action="/feedback">
+        <button type="submit" class="student_headerbuttons">Logout</button>
+      </form>
+    
+    </div>
+    <br>
+<div>
 
-
-  <form action="/student_com" >
-	<div class="studentinfo">
-    <p><b>Name:</b> <input type="text" style="margin-right:26%;" name="namev" size="35" value='{{$stud_details[0]->First_name}} {{$stud_details[0]->Middle_name}} {{$stud_details[0]->Last_name}}' readonly></p>
-    <p><b>Roll no: </b><input type="text" name="rollv" value='{{$stud_details[0]->Roll_no}}' readonly></p>
-    <p><b>Division: </b><input type="text" name="divisionv" value='{{$stud_details[0]->Division}}' readonly></p>
-    <p><b>Batch: </b><input type="text" name="batchv" value='{{$stud_details[0]->Batch}}' readonly></p>
-    <p><b>Year: </b><input type="text" name="yearv" value='{{$stud_details[0]->Year}}' readonly></p>
-  </div>
-  
-  
-  <div class="newcomplaint">
-      <input type="submit" class="a1" value="New Complaint">
-  </div>
-  </form>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <button class="select" onclick="openPage('News', this, '#4CAF50')" id="defaultOpen"><b>Complaints In Progress</b></button>
 <button class="select" onclick="openPage('Home', this, '#4CAF50')"><b>Solved Complaints</b></button>
 
+   
 <br>
 <div id="Home" class="complaintinfo">
   <table id="myTable" cellpadding="10">
@@ -113,28 +112,10 @@
       </table>
    
 </div>
-<br><br>
 
-<!-- FOOTER START -->
-<div class="footer">
-<br>Site by<br>
-Amankumar Shrivastava,
-Saurabh Varade,
-Siddhi Jagtap,
-Rasika Deshmukh
-<br><br><br>
-Copyright © 2019 Ramrao Adik Institute of Technology
+
+
 </div>
-<!-- END OF FOOTER -->
-
 <script src="js/filecomplaint.js"></script>
-    
-
-
-
-
-
 </body>
-</html> 
-
-
+</html>  

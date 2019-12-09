@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="css/headerstyle.css">
 <link rel="stylesheet" href="css/footerstyle.css">
 
-<title>Admin</title>
+<title>HOD</title>
 
 <style>
 
@@ -133,22 +133,8 @@ input {
 		<a href="/testlogin">Logout</a>
 	</div>
 
-<h3>Welcome'<span>{{$admin}}</span>'floor Admin!</h3>
+<h3>Welcome'<span>{{$hodname}}</span>'!</h3>
 
-<div class="btn-group">
-  <a href="/add_system"><button>Add System</button></a>
-  <a href="/add_admin"><button>Add Admin</button></a>
-  <a href="/add_faculty"><button>Add Faculty</button></a>
-</div>
-
-<div class="btn-group">
-  <a href="/delete_system"><button>Remove System</button></a>
-  <a href="/delete_admin"><button>Remove Admin</button></a>
-  <a href="/delete_faculty"><button>Remove Faculty</button></a>
-</div>
-
-
-<br><br>
 
   <button class="tablink" onclick="openPage('New', this, '#c88380')" id="defaultOpen">New</button>
   <button class="tablink" onclick="openPage('Ongoing', this, '#c88380')">In Progress</button>

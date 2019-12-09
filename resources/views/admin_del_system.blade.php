@@ -2,6 +2,10 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="css/headerstyle.css">
+<link rel="stylesheet" href="css/footerstyle.css">
+
 <title>Delete System</title>
 
 <style>
@@ -53,41 +57,80 @@ input[type=submit]:hover {
 </head>
 <body>
 
+<div class="header" id="myHeader">
+    <a class="active" href="">&#x26F7; Home</a>
+		<a href="/testlogin">Logout</a>
+  </div>
+
 <center>
 <br><br>
 <h3>Delete System Record</h3>
 <br>
 
 <div class="container">
-<form action="/system_demo1">
+<form action="/system_demo2">
 
 <label for="labno">Please select the Lab</label>
 <select id="lab" name="labno" onchange="labsys(this.value)">
-            <option value="" disabled selected>Select</option>
-            @for($i=0;$i<$lab->count();$i++)
-                <option >{{$lab[$i]->labno}}</option>
-            @endfor
-        </select>
+  <option value="" disabled selected>Select</option>
+    @for($i=0; $i<$lab->count(); $i++)
+      <option >{{$lab[$i]->labno}}</option>
+    @endfor
+</select>
 <br><br>
 
+
 <label for="systemno">Please select the System</label>
-<input type="text" id="lab" name="oldsys">
-<!-- <select id="system" name="oldsys" required>
-      <option value="">System:</option>
-      <option value="A-1">A-1</option>
-      <option value="A-2">A-2</option>
-      <option value="A-3">A-3</option>
-      <option value="A-4">A-4</option>
-      <option value="A-5">A-5</option>
-      <option value="A-6">A-6</option>
-      <option value="A-7">A-7</option>
-      <option value="A-8">A-8</option>
-</select> -->
+<select id="syst" name="oldsys">
+                
+  <option value="" disabled selected>Select</option>
+                
+</select>
 
 <input type="submit" value="Submit">
 </form>
 </div>
 </center>
+
+<script>
+  function labsys(value) {
+    if (value.length==0) {
+      document.getElementById("syst").innerHTML = '<option value="" disabled selected>Select</option>';
+      }
+    else {
+      var obj = <?php echo json_encode($systems); ?>;
+      var arr=[];
+
+      for(a in obj) {
+        arr.push(obj[a])
+      }
+
+      var cont='<option value="" disabled selected>Select</option>';
+
+      for(i=0; i<arr.length; i++) {
+        if(arr[i].labno == value) {
+          cont = cont + "<option>" + arr[i].sys + "</option>";
+        }
+      }
+      document.getElementById('syst').innerHTML = cont;
+    }
+    return 0;
+  }
+
+  </script>
+
+<!-- FOOTER START -->
+<div class="footer" style="margin-top:9%; font-family:courier new;">
+<br>Site by<br>
+Amankumar Shrivastava,
+Saurabh Varade,
+Siddhi Jagtap,
+Rasika Deshmukh
+<br><br><br>
+Copyright © 2019 Ramrao Adik Institute of Technology
+</div>
+<!-- END OF FOOTER -->
+
 
 </body>
 </html> 

@@ -4,8 +4,16 @@
 <html>
         <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/headerstyle.css">
+        <link rel="stylesheet" href="css/footerstyle.css">
+
             <title>Delete Admin</title>
             <style>
+              .header {
+	            margin: 0 0 -4% 0;
+              }
+
               input[type=text], select {
               width: 100%;
               padding: 12px 20px;
@@ -59,26 +67,40 @@
 
 <body>
 
+<div class="header" id="myHeader">
+    <a class="active" href="">&#x26F7; Home</a>
+		<a href="/testlogin">Logout</a>
+  </div>
+
 
 <center>
 <div>
     <h3>Delete Admin</h3>
-    <form action="/admin_demo3">
+    <form action="/admin_demo2">
     <label for="adminname">Admin Username to be Deleted</label>
-    <input type="text" name="admin" required>
-    <!--<select id="Username" name="admin" required>
-            <option value="">admin</option>
-            <option value="australia">abc</option>
-            <option value="canada">xyz</option>
-            <option value="usa">pqr</option>
-    </select>-->
+    <input type="text" name="admin" placeholder="Admin Username" required>
+ 
     <br><br>  
     <label for="pass">Password</label>
-    <input type="password" id="adpass" name="pass" placeholder="Your Password" required>
+    <input type="password" id="adpass" name="pass" placeholder="Password" required>
     <br><br>
     <input type="submit" value="Submit">
   </form>
 </div>
 </center>
+
+<!-- FOOTER START -->
+<div class="footer" style="margin-top:9%; font-family:courier new;">
+<br>Site by<br>
+Amankumar Shrivastava,
+Saurabh Varade,
+Siddhi Jagtap,
+Rasika Deshmukh
+<br><br><br>
+Copyright © 2019 Ramrao Adik Institute of Technology
+</div>
+<!-- END OF FOOTER -->
+
+
 </body>
 </html>

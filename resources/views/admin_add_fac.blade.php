@@ -4,8 +4,15 @@
 <html>
         <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/headerstyle.css">
+        <link rel="stylesheet" href="css/footerstyle.css">
             <title>Add Faculty</title>
             <style>
+              .header {
+	            margin: 0 0 -4% 0;
+              }
+
               input[type=text], select {
               width: 100%;
               padding: 12px 20px;
@@ -59,6 +66,10 @@
 
 <body>
 
+<div class="header" id="myHeader">
+    <a class="active" href="">&#x26F7; Home</a>
+		<a href="/testlogin">Logout</a>
+  </div>
 
 <center>
 <div>
@@ -77,5 +88,19 @@
   </form>
 </div>
 </center>
+
+<!-- FOOTER START -->
+<div class="footer" style="margin-top:5%; font-family:courier new;">
+<br>Site by<br>
+Amankumar Shrivastava,
+Saurabh Varade,
+Siddhi Jagtap,
+Rasika Deshmukh
+<br><br><br>
+Copyright © 2019 Ramrao Adik Institute of Technology
+</div>
+<!-- END OF FOOTER -->
+
+
 </body>
 </html>

@@ -1,0 +1,210 @@
+
+body {
+    background: #a32732;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+h2 {
+    font-size: 30px;
+    position: absolute;
+    top: 0;
+    /* right: 138px; */
+    left: 61px;
+    color: white;
+}
+
+.contact-form {
+    width: 85%;
+    max-width: 650px;
+    background: #fff;
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    margin: 5% 0;
+    padding: 2% 3%;
+    border-radius: 10px;
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+}
+
+/* .contact-form h1{
+    margin-top: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+} */
+
+.txtb {
+    background: #eee;
+    border: 1px solid #333;
+    border-radius: 8px;
+    margin: 4% 0;
+    padding: 3% 5%;
+	display: grid;
+	grid-template-columns: repeat(5,1fr);
+}
+
+.txtb label {
+    /* display: block; */
+    text-align: left;
+    color: #333;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.txtb input, .txtb textarea, .dropdown{
+    width: 320%;
+    height: auto;
+    border: none;
+    /* outline: none; */
+    /* font-size: 18px; */
+    border-radius: 8px;
+    padding: 10px;
+    margin-left: 20px;
+}
+
+/* .dropdown {
+    width: 320%;
+    background: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0px 10px;
+    font-size: 16px;
+    color: black;
+    text-align: center;
+    appearance:none;
+} */
+ 
+.checkboxes {
+    margin-left: 0%;
+
+} 
+
+.checkboxes input[type="checkbox"] {
+    margin: 8px 0px;
+}
+
+.checkboxes span {
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.btn {
+    /* display: block; */
+    padding: 3% 0;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin: 8px 0;
+    width: 100%;
+}
+
+/*//////////////////////////////////////////////
+
+div label input {
+   margin-right: 100px;
+}
+
+#ck-button {
+    margin:4px;
+    background-color:#EFEFEF;
+    border-radius:4px;
+    border:1px solid #D0D0D0;
+    overflow:auto;
+    float:left;
+}
+
+#ck-button label {
+    float:left;
+    width:4.0em;
+}
+
+#ck-button label span {
+    text-align:center;
+    padding:3px 0px;
+    display:block;
+}
+
+#ck-button label input {
+    position:absolute;
+    top:-20px;
+}
+
+#ck-button input:checked + span {
+    background-color:#911;
+    color:#fff;
+}
+
+/////////////////////////////////////////////////////////*/
+
+.contact-form .txtb
+.container1 {
+     /* max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;  */
+}
+
+.container1 div {
+    margin: 5px;
+    display: grid;
+}
+
+.container1 div label {
+    cursor: pointer;
+}
+
+.container1 div label input[type="checkbox"] {
+    display: none;
+}
+
+.container1 div label span {
+    /* position: relative; */
+    display: grid;
+    text-align: center;
+    background: #424242;
+    padding: 3px 0px;
+    color: white;
+    border-radius: 30px;
+    transition: 0.5s;
+    user-select: none;
+    overflow: hidden;
+}
+
+.container1 div label input[type="checkbox"]:checked ~ span {
+    background: #fff;
+    color: black;
+}
+
+
+.btn btn-primary{
+    float: left;
+    width:20%;
+}
+
+.student_headerbuttons{
+    float: left;
+    width:32.5%;
+    margin: 2px;
+}
+
+
+@media only screen and (max-width: 1280px){
+    .student_headerbuttons{
+        width:31.5%;
+        margin: 2px;
+
+    }
+}
+
+

@@ -7,7 +7,8 @@
         <title>Login</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+		<link rel="stylesheet" href="css/footerstyle.css">
 
         <!-- Styles -->
 	<link href="{{ asset('css/login_page.css') }}" rel="stylesheet" type="text/css" >
@@ -16,12 +17,12 @@
         </style>
     </head>
     <body>
-        <div class="header">
+        <!--<div class="header">
 <img src="img/dypatil-logo.png" alt="dy-patil-logo"> 
 <br><br>
-<pre><h1 style="color:brown; font-family: century gothic;">			Ramrao Adik Institute of Technology</h1></pre>
+<pre><h2 style="color:brown; font-family: century gothic;">			Ramrao Adik Institute of Technology<br>			        Lab Maintenance System</h2></pre>
 </div>
-
+-->
 <div class='clear1'></div>
 <br>
 <div class="forms">
@@ -53,7 +54,7 @@
 		<p class="text-p"> <a href="#">Forgot password?</a> </p>
 	      </div>
 	  </form>
-	<form action="/admin_home" id="admin">
+	<form action="/admin_home" id="admin" >
 	      <h1>Admin</h1>
 	      <div class="input-field">
 	        <label for="username">Username</label> 
@@ -65,6 +66,21 @@
 	      </div>
 	  </form>
 </div>
+<br>
+
+<!-- FOOTER START -->
+<div class="footer" style="font-family:courier new; background-color: lightblue">
+<br>Site by<br>
+Amankumar Shrivastava,
+Saurabh Varade,
+Siddhi Jagtap,
+Rasika Deshmukh
+<br><br><br>
+Copyright © 2019 Ramrao Adik Institute of Technology
+</div>
+<!-- END OF FOOTER -->
+
+
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script type="text/javascript" src="{{ asset('js/login_page.js') }}"></script>
 
