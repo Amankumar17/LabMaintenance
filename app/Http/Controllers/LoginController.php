@@ -198,6 +198,8 @@ class LoginController extends BaseController
             $request->session()->put('hodname', $hodname);
 
             $f = $check[0]->floor;
+            $request->session()->put('floor', $f);
+
             // $floor=DB::table('admin_login')->where(['username'=>$username,'pass'=>$pass2])->get();
 
             $complaint=DB::table('complaints')->where(['floor'=>$f])->get();

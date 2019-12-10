@@ -133,8 +133,17 @@ input {
 		<a href="/testlogin">Logout</a>
 	</div>
 
-<h3>Welcome'<span>{{$hodname}}</span>'!</h3>
+<h3>Welcome'<span>{{$hodname}}</span>'!</h3><br>
 
+<center>
+<div class="btn-group">
+  <a href="/chart"><button>Generate Charts</button></a>
+  <a href="#"><button>Generate Reports</button></a>
+  <!-- <a href="/add_faculty"><button>Add Faculty</button></a> -->
+</div>
+</center>
+
+<br><br><br>
 
   <button class="tablink" onclick="openPage('New', this, '#c88380')" id="defaultOpen">New</button>
   <button class="tablink" onclick="openPage('Ongoing', this, '#c88380')">In Progress</button>
@@ -298,7 +307,6 @@ function openPage(pageName,elmnt,color) {
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
 </script>
-
 
 <!-- FOOTER START -->
 <div class="footer" style="margin-top:5%; font-family:courier new; border-top: 2px solid #af504c;">
