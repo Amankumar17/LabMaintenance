@@ -137,7 +137,7 @@ input {
 
 <center>
 <div class="btn-group">
-  <a href="/chart"><button>Generate Charts</button></a>
+  <a href="/chart_options"><button>Generate Charts</button></a>
   <a href="#"><button>Generate Reports</button></a>
   <!-- <a href="/add_faculty"><button>Add Faculty</button></a> -->
 </div>

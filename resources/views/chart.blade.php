@@ -8,6 +8,7 @@
 
     </head>
     <body>
+
         <!-- Main Application -->
         
         <div class="container" style="margin-top:40px;">
@@ -21,8 +22,16 @@
                     </div>
                 </div>
             </div>
-</div>
+        </div>
         <!-- End Of Main Application -->
+
+        <br><br>
+        <center>
+        <form action="/chart_options">
+        <button class="btn btn-default" style="width:16%;">Back</button>
+        </form>
+        </center>
+
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
         {!! $chart->script() !!}

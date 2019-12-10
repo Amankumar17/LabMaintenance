@@ -14,6 +14,10 @@ use Illuminate\Http\Request;
 
 Route::get('/chart', 'UserChartController@index');
 
+Route::get('/chart_options', function () {
+    return view('chart_options');
+});
+
 Route::get('/testlogin', function () {
     return view('student_login');
 });
