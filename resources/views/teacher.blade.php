@@ -14,17 +14,17 @@
 
 <div class="contact-form">
    <div>
-      
-      
-    
-    </div>
+      <button type="button" class="student_headerbuttons" onclick="window.location.href = '/teacher_feedback';">&#x26F7; AddComplaints</button>
+      <button type="button" class="student_headerbuttons" onclick="window.location.href = '/teacher';">DashBoard</button>
+      <button type="button" class="student_headerbuttons" onclick="window.location.href = '/testlogin';">Logout</button>
+   </div> 
     <br>
 <div>
 
-<button class="select" onclick="openPage('solved', this, '#4CAF50')"><b>Solved Complaints</b></button>
-<button class="select" onclick="openPage('ongoing', this, '#4CAF50')" ><b>Complaints In Progress</b></button>
-<button class="select" onclick="openPage('stud_confirmation', this, '#4CAF50')" id="defaultOpen"><b>New Complaints to Confirm</b></button>
-<button class="select" onclick="openPage('stud_confirmed', this, '#4CAF50')" ><b>Students Complaints</b></button>
+<button class="selectforteacher" onclick="openPage('solved', this, '#4CAF50')"><b>Solved Complaints</b></button>
+<button class="selectforteacher" onclick="openPage('ongoing', this, '#4CAF50')" ><b>Complaints In Progress</b></button>
+<button class="selectforteacher" onclick="openPage('stud_confirmation', this, '#4CAF50')" id="defaultOpen"><b>New Complaints to Confirm</b></button>
+<button class="selectforteacher" onclick="openPage('stud_confirmed', this, '#4CAF50')" ><b>Students Complaints</b></button>
 
 
 <div id="solved" class="complaintinfo">
@@ -131,7 +131,7 @@
         
         @for ($i=0;$i<$complaint->count();$i++)
       @if($complaint[$i]->status==0 && $complaint[$i]->rollno!="NULL")
-      <form action="/teacher_confirm">
+      <form action="/teacher_confirm" method="POST">
       <tr>
           <td width="8%"><input type="text" style="background-color:#dddddd;font-size:17px;text-align:center;" name="comp_no" value="{{$complaint[$i]->comp_no}}" readonly></td>
           <td width="8%">{{$complaint[$i]->labno}}</td>

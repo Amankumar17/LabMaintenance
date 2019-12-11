@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +41,7 @@ background: #a32732;
   <div class="contact-form">
   
     <h1>Complaint Submitted Successfully</h1>
-	<form action="/studenthistory_to_feedback">
-    <button class="btn btn-primary">Home</button>
+	<form action="/feedback" method="POST">
+    <button class="btn btn-primary">Back</button>
 	</form>
 </div>

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,8 +40,8 @@ background: #a32732;
 
   <div class="contact-form">
   
-    <h1>Data Submitted Successfully</h1>
-	<!-- <form action="/teacher_feedback"> -->
-    <button class="btn btn-primary" onclick="window.location.href = '/teacher_feedback';">Back</button>
+    <h1>Operation Performed Succesfully</h1>
+	<!-- <form action="/admin_home"> -->
+    <button class="btn btn-primary" onclick="window.location.href = '/admin_home';">Back</button>
 	<!-- </form> -->
 </div>

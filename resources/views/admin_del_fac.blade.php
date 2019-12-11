@@ -68,14 +68,14 @@
 <body>
 
 <div class="header" id="myHeader">
-    <a class="active" href="">&#x26F7; Home</a>
+    <a href="/admin_home">&#x26F7; Home</a>
 		<a href="/testlogin">Logout</a>
   </div>
 
 <center>
 <div>
     <h3>Delete Faculty</h3>
-    <form action="/faculty_demo2">
+    <form action="/faculty_demo2" method="POST">
     <label for="adminname">Faculty Sdrn to be Deleted</label>
     <input type="text" name="oldsdrn" placeholder="Sdrn" required>
    

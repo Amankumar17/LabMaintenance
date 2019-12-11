@@ -68,15 +68,14 @@
 <body>
 
 <div class="header" id="myHeader">
-    <a class="active" href="">&#x26F7; Home</a>
+    <a href="/admin_home">&#x26F7; Home</a>
 		<a href="/testlogin">Logout</a>
   </div>
-
 
 <center>
 <div>
     <h3>Delete Admin</h3>
-    <form action="/admin_demo2">
+    <form action="/admin_demo2" method="POST">
     <label for="adminname">Admin Username to be Deleted</label>
     <input type="text" name="admin" placeholder="Admin Username" required>
  

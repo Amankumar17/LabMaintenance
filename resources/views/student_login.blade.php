@@ -29,7 +29,7 @@
                     <li class="tab"><a href="#hod">HOD</a></li>
                 </ul>
             
-                <form action="/feedback" class="login100-form" id="student">
+                <form action="/feedback" method="POST" class="login100-form" id="student">
                     <span class="login100-form-title"></span>
                     <div class="wrap-input100">
                         <input type="text" name="rollno" class="input100" placeholder="Roll Number" required>
@@ -42,7 +42,7 @@
                     </div>
                 </form>
 
-                <form action="/teacher" class="login100-form" id="faculty">
+                <form action="/teacher" method="POST" class="login100-form" id="faculty">
                     <span class="login100-form-title"></span>
                     <div class="wrap-input100">
                         <input type="text" name="sdrn" class="input100" placeholder="SDRN" required>
@@ -55,7 +55,7 @@
                     </div>
                 </form>
 
-                <form action="/admin_home" class="login100-form" id="admin">
+                <form action="/admin_home" method="POST" class="login100-form" id="admin">
                     <span class="login100-form-title"></span>
                     <div class="wrap-input100">
                         <input type="text" name="username" class="input100" placeholder="Admin...." required>
@@ -68,7 +68,7 @@
                     </div>
                 </form>
 
-                <form action="/hod_home" class="login100-form" id="hod">
+                <form action="/hod_home" method="POST" class="login100-form" id="hod">
                     <span class="login100-form-title"></span>
                     <div class="wrap-input100">
                         <input type="text" name="hodname" class="input100" placeholder="Username...." required>

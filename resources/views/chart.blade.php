@@ -9,10 +9,29 @@
     </head>
     <body>
 
+        <center>
+        @if($graph==1)
+            <h3>Year Wise Chart for Total no. of Complaints </h3>
+        @endif
+        @if($graph==2)
+            <h3>Month Wise Chart for Total no. of Complaints <br>
+            In the Year {{$year}}</h3>
+        @endif
+        @if($graph==3)
+            <h3>Chart for Total no. of Complaints <br>
+            In The Year {{$year}} and Month {{$month}}</h3>
+        @endif
+        @if($graph==4)
+            <h3>Lab Wise Chart for Total no. of Complaints <br>
+            In The Year {{$year}} and Month {{$month}}</h3>
+        @endif
+        <h3>Chart Type: {{$type}} Chart</h3>
+        </center>
+
         <!-- Main Application -->
-        
         <div class="container" style="margin-top:40px;">
-            <h1>Users Graphs</h1>
+            <!-- <h1></h1> -->
+
             <div class="row">
                 <div class="col-6">
                     <div class="card rounded">
@@ -27,10 +46,11 @@
 
         <br><br>
         <center>
-        <form action="/chart_options">
-        <button class="btn btn-default" style="width:16%;">Back</button>
-        </form>
+        <!-- <form action="/chart_options"> -->
+        <button class="btn btn-default" onclick="window.location.href = '/chart_options';" style="width:16%;">Back</button>
+        <!-- </form> -->
         </center>
+        <br><br>
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>

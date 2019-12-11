@@ -15,18 +15,29 @@
 <div class="contact-form">
    <div>
       
-      <form action="/studenthistory_to_feedback">
+      <!-- <form action="/studenthistory_to_feedback">
         <button type="submit" class="student_headerbuttons" name="rollno" value='{{$stud_details[0]->Roll_no}}'> Home</button>
-      </form>
+      </form> -->
       
+      <!-- <form action="/feedback">
+      <button type="submit" class="student_headerbuttons">Home</button>
+      </form>
+
       <form action="/student_history">
-        <button type="submit" class="student_headerbuttons" >History</button>
+      <button type="submit" class="student_headerbuttons">History</button>
       </form>
-      
-      <form action="/feedback">
+   
+      <form action="/testlogin">
         <button type="submit" class="student_headerbuttons">Logout</button>
-      </form>
+      </form> -->
     
+      <button type="button" class="student_headerbuttons" onclick="window.location.href = '/feedback';">&#x26F7; Home</button>
+
+      <button type="button" class="student_headerbuttons" onclick="window.location.href = '/student_history';">History</button>
+
+      <button type="button" class="student_headerbuttons" onclick="window.location.href = '/testlogin';">Logout</button>
+
+
     </div>
     <br>
 <div>

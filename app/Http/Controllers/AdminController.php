@@ -9,6 +9,29 @@ use Carbon\Carbon;
 
 class AdminController extends Controller {
 
+
+    public function admin_search(Request $request){
+        $q = $request->input('q');
+
+        $floor = $request->session()->get('floor');
+
+        $complaint = DB::table('complaints')
+            ->where('floor', '=', $floor)
+            ->where ( 'comp_no', 'LIKE', '%' . $q . '%' )
+            ->orwhere ( 'labno', 'LIKE', '%' . $q . '%' )
+            ->orWhere ( 'sysno', 'LIKE', '%' . $q . '%' )
+            ->orwhere ( 'rollno', 'LIKE', '%' . $q . '%' )
+            ->orWhere ( 'sdrn', 'LIKE', '%' . $q . '%' )
+            ->orwhere ( 'problem', 'LIKE', '%' . $q . '%' )
+            ->orWhere ( 'description', 'LIKE', '%' . $q . '%' )
+            ->get();
+    
+        if (count ( $complaint ) > 0)
+            return view ( 'admin_search' )->withDetails ( $complaint )->withQuery ( $q );
+        else
+            return view ( 'admin_search' )->withMessage ( 'No Details found. Try to search again !' );
+    }
+
     public function status_admin_confirm(Request $request){
 
         $comp_no = $request->input('comp_no');
@@ -45,15 +68,19 @@ class AdminController extends Controller {
 
     public function systemAdd2(Request $request)
     {
-        $check=DB::table('systems')->get();
-        $uniqueLab = DB::table('systems')
+        $floor = $request->session()->get('floor');
+
+        // $check=DB::table('systems')->get();
+        $uniqueLab = DB::table('floor_lab')
         ->select('labno')
-        ->groupBy('labno')
+        ->where('floor',$floor)
         ->get();
 
-        $check = $check->sort();
+        // $check = $check->sort();
 
-        return view('admin_add_system')->with('systems',$check)->with('lab',$uniqueLab);
+        return view('admin_add_system')->with('lab',$uniqueLab);
+
+        // ->with('systems',$check)
         
     }
     
@@ -66,20 +93,29 @@ class AdminController extends Controller {
             ['labno' => $labno, 'sys' => $new]
         );
 
-        // return view('/admin_home');
-        echo "<br/>Record inserted successfully.<br/>";
+        // $floor = $request->session()->get('floor');
+        // $username = $request->session()->get('admin');
+        // $complaint=DB::table('complaints')->where(['floor'=>$floor])->get();
+            
+        // return view('admin_home')->with('complaint',$complaint)->with('admin',$username);
+
+        return view('/admin_operation');
         
     }
 
     public function systemRemove2(Request $request)
     {
+        $floor = $request->session()->get('floor');
+
         $check=DB::table('systems')->get();
-        $uniqueLab = DB::table('systems')
+
+        $uniqueLab = DB::table('floor_lab')
         ->select('labno')
-        ->groupBy('labno')
+        ->where('floor',$floor)
         ->get();
 
         $check = $check->sort();
+
 
         return view('admin_del_system')->with('systems',$check)->with('lab',$uniqueLab);
         
@@ -95,7 +131,14 @@ class AdminController extends Controller {
             ['labno', '=', $labno],
             ['sys', '=', $old]])->delete();
 
-        echo "<br/>Record deleted successfully.<br/>";
+
+        // $floor = $request->session()->get('floor');
+        // $username = $request->session()->get('admin');
+        // $complaint=DB::table('complaints')->where(['floor'=>$floor])->get();
+            
+        // return view('admin_home')->with('complaint',$complaint)->with('admin',$username);
+
+        return view('/admin_operation');
     }
 
 
@@ -110,8 +153,7 @@ class AdminController extends Controller {
                 ['sdrn' => $newsdrn, 'pass' => $pass1]
             );
     
-            // return view('/admin_home');
-            echo "<br/>Record inserted successfully.<br/>";
+            return view('/admin_operation');
         } 
     }
 
@@ -125,7 +167,7 @@ class AdminController extends Controller {
             ['sdrn', '=', $oldsdrn],
             ['pass', '=', $pass]])->delete();
 
-        echo "<br/>Record deleted successfully.<br/>";
+            return view('/admin_operation');
     }
     
 
@@ -136,13 +178,13 @@ class AdminController extends Controller {
         $pass1 = $request->input('pass1');
         $pass2 = $request->input('pass2');
         
+        $floor = $request->session()->get('floor');
 
         DB::table('admin_login')->insert(
-            ['username' => $newname, 'pass' => $pass1]
+            ['username' => $newname, 'pass' => $pass1, 'floor' => $floor]
         );
 
-        // return view('/admin_home');
-        echo "<br/>Record inserted successfully.<br/>";
+        return view('/admin_operation');
         
     }
 
@@ -151,12 +193,14 @@ class AdminController extends Controller {
         $admin = $request->input('admin');
         $pass = $request->input('pass');
         
+        $floor = $request->session()->get('floor');
 
         DB::table('admin_login')->where([
             ['username', '=', $admin],
-            ['pass', '=', $pass]])->delete();
+            ['pass', '=', $pass],
+            ['floor', '=', $floor]])->delete();
 
-        echo "<br/>Record deleted successfully.<br/>";
+            return view('/admin_operation');
     }
 
 

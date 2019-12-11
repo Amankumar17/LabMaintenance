@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 
 <link rel="stylesheet" href="css/headerstyle.css">
 <link rel="stylesheet" href="css/footerstyle.css">
@@ -129,8 +130,9 @@ input {
 <body>
 
 <div class="header" id="myHeader">
-    <a class="active" href="">&#x26F7; Home</a>
+    <a class="active" href="/admin_home">&#x26F7; Home</a>
 		<a href="/testlogin">Logout</a>
+    <a href="/admin_search">Search</a>
 	</div>
 
 <h3>Welcome'<span>{{$admin}}</span>'floor Admin!</h3>
@@ -149,6 +151,8 @@ input {
 
 
 <br><br>
+
+
 
   <button class="tablink" onclick="openPage('New', this, '#c88380')" id="defaultOpen">New</button>
   <button class="tablink" onclick="openPage('Ongoing', this, '#c88380')">In Progress</button>
@@ -180,7 +184,7 @@ input {
     
     @for($i=0;$i<$complaint->count();$i++)
       @if($complaint[$i]->status==1)
-      <form action="/admin_confirm">
+      <form action="/admin_confirm" method="POST">
       <tr>
           <td width="8%"><input type="text" style="background-color:#dddddd;font-size:17px;text-align:center;" name="comp_no" value="{{$complaint[$i]->comp_no}}" readonly></td>
           <td>{{$complaint[$i]->labno}}</td>
@@ -228,7 +232,7 @@ input {
     
     @for ($i=0;$i<$complaint->count();$i++)
       @if($complaint[$i]->status==2)
-      <form action="/admin_done">
+      <form action="/admin_done" method="POST">
       <tr>
           <td><input type="text" style="background-color:#dddddd;font-size:17px;text-align:center;" name="comp_no" value="{{$complaint[$i]->comp_no}}"></td>
           <td>{{$complaint[$i]->labno}}</td>

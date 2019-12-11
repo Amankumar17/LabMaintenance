@@ -43,16 +43,16 @@ Welcome qwr</h2>  -->
 
 <div class="contact-form">
    <div>
-      <button type="button" class="student_headerbuttons">&#x26F7; Home</button>
-      <button type="button" class="student_headerbuttons"><a href="/student_history ">History</a></button>
-      <button type="button" class="student_headerbuttons">Logout</button>
+      <button type="button" class="student_headerbuttons" onclick="window.location.href = '/teacher_feedback';">&#x26F7; AddComplaints</button>
+      <button type="button" class="student_headerbuttons" onclick="window.location.href = '/teacher';">DashBoard</button>
+      <button type="button" class="student_headerbuttons" onclick="window.location.href = '/testlogin';">Logout</button>
    </div>
    <br>
    
 
 
 
-   <form action="/datasubmitted_fac">
+   <form action="/datasubmitted_fac" method="POST">
       <div class="txtb">
          <label>Sdrn:</label>
          <input type="text" name='sdrn' class="in" value="{{$sdrn}}" readonly>

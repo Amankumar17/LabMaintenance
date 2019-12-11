@@ -129,7 +129,7 @@ input {
 <body>
 
 <div class="header" id="myHeader">
-    <a class="active" href="">&#x26F7; Home</a>
+    <a class="active" href="/hod_home">&#x26F7; Home</a>
 		<a href="/testlogin">Logout</a>
 	</div>
 
@@ -138,8 +138,7 @@ input {
 <center>
 <div class="btn-group">
   <a href="/chart_options"><button>Generate Charts</button></a>
-  <a href="#"><button>Generate Reports</button></a>
-  <!-- <a href="/add_faculty"><button>Add Faculty</button></a> -->
+  <a href="/report"><button>Generate Reports</button></a>
 </div>
 </center>
 
@@ -175,7 +174,6 @@ input {
     
     @for($i=0;$i<$complaint->count();$i++)
       @if($complaint[$i]->status==1)
-      <form action="/admin_confirm">
       <tr>
           <td width="8%"><input type="text" style="background-color:#dddddd;font-size:17px;text-align:center;" name="comp_no" value="{{$complaint[$i]->comp_no}}" readonly></td>
           <td>{{$complaint[$i]->labno}}</td>
@@ -187,9 +185,7 @@ input {
           @endif
           <td>{{$complaint[$i]->sdrn}}</td>
           <td>{{$complaint[$i]->description}}</td>
-          <td><a><button >Confirm</button></a></td>
       </tr>
-      </form>
       @endif
           
     @endfor
@@ -223,7 +219,6 @@ input {
     
     @for ($i=0;$i<$complaint->count();$i++)
       @if($complaint[$i]->status==2)
-      <form action="/admin_done">
       <tr>
           <td><input type="text" style="background-color:#dddddd;font-size:17px;text-align:center;" name="comp_no" value="{{$complaint[$i]->comp_no}}"></td>
           <td>{{$complaint[$i]->labno}}</td>
@@ -235,9 +230,7 @@ input {
           @endif          
           <td>{{$complaint[$i]->sdrn}}</td>
           <td>{{$complaint[$i]->description}}</td>
-           <td><button >Done</button></td>
       </tr>
-      </form>
       @endif
           
     @endfor

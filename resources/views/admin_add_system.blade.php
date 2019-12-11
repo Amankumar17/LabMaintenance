@@ -70,7 +70,7 @@ input[type=text]{
 <body>
 
 <div class="header" id="myHeader">
-    <a class="active" href="">&#x26F7; Home</a>
+    <a href="/admin_home">&#x26F7; Home</a>
 		<a href="/testlogin">Logout</a>
   </div>
 
@@ -80,7 +80,7 @@ input[type=text]{
 <br>
 
 <div class="container">
-<form action="/system_demo1">
+<form action="/system_demo1" method="POST">
 
 <label for="labno">Please select the Lab</label>
 
@@ -93,7 +93,7 @@ input[type=text]{
 
 <br><br>
 
-<label for="systemno">Please select the System</label>
+<label for="systemno">Please add the System</label>
 <input type="text" id="lab" name="newsys">
 
 <input type="submit" value="Submit">

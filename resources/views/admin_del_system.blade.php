@@ -58,7 +58,7 @@ input[type=submit]:hover {
 <body>
 
 <div class="header" id="myHeader">
-    <a class="active" href="">&#x26F7; Home</a>
+    <a href="/admin_home">&#x26F7; Home</a>
 		<a href="/testlogin">Logout</a>
   </div>
 
@@ -68,7 +68,7 @@ input[type=submit]:hover {
 <br>
 
 <div class="container">
-<form action="/system_demo2">
+<form action="/system_demo2" method="POST">
 
 <label for="labno">Please select the Lab</label>
 <select id="lab" name="labno" onchange="labsys(this.value)">

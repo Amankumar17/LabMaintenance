@@ -35,3 +35,26 @@ function openPage(pageName,elmnt,color) {
 
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
+
+
+
+
+
+
+
+function complaittableforteacher(pageName,elmnt,color) {
+  var i, complaintinfo, selects;
+  complaintinfo = document.getElementsByClassName("complaintinfo");
+  for (i = 0; i < complaintinfo.length; i++) {
+    complaintinfo[i].style.display = "none";
+  }
+  selects = document.getElementsByClassName("selectforteacher");
+  for (i = 0; i < selects.length; i++) {
+    selects[i].style.backgroundColor = "rgb(173, 255, 162)";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();

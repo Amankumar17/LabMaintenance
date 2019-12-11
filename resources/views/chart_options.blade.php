@@ -60,7 +60,7 @@
     <body>
 
         <center>
-            <form action="/chart" style="margin-top:50px;">
+            <form action="/chart" method="POST" style="margin-top:50px;">
 
             <div class='chart'>
                 <h3>Select the Chart</h3>
@@ -86,7 +86,7 @@
             </div>
 
             <h3>Select x-axis</h3>
-            <select name="graph" required>
+            <select name="graph" onchange="function1(this.value)" required>
                 <option value="" disabled selected>Select</option>
                 <option value="1">Year Wise</option>
                 <option value="2">Month Wise</option>
@@ -94,16 +94,52 @@
                 <option value="4">Lab Wise</option>
             </select>
 
+            <script>
+         function function1(value)
+         {
+            if (value.length==0) {
+                // document.getElementById("lab").innerHTML = '<option value="" disabled selected>Select</option>';
+            }
+            else {
+                if(value==1){
+                    document.getElementById("b1").style.display = "none";
+                    document.getElementById("y").required = false;
+
+                    document.getElementById("b2").style.display = "none";
+                    document.getElementById("m").required = false;
+                }
+                 if(value==2){
+                    document.getElementById("b1").style.display = "block";
+                    document.getElementById("y").required = true;
+
+                    document.getElementById("b2").style.display = "none";
+                    document.getElementById("m").required = false;
+                 }
+                 else if(value==3 || value==4){
+
+                    document.getElementById("b1").style.display = "block";
+                    document.getElementById("y").required = true;
+
+                    document.getElementById("b2").style.display = "block";
+                    document.getElementById("m").required = true;
+                 }
+            }
+            return 0;
+        }
+        </script>
+
+            <div id="b1" style="display:none;">
             <h3>Select Year</h3>
-            <select name="year" required>
+            <select name="year" id="y">
                 <option value="" disabled selected>Select</option>
                 <option value="2018">2018</option>
                 <option value="2019">2019</option>
                 <option value="2020">2020</option>
             </select>
-
+            </div>
+            <div id="b2" style="display:none;">
             <h3>Select Month</h3>
-            <select name="month" required>
+            <select name="month" id="m"  >
                 <option value="" disabled selected>Select</option>
                 <option value="1">Jan</option>
                 <option value="2">Feb</option>
@@ -118,11 +154,17 @@
                 <option value="11">Nov</option>
                 <option value="12">Dec</option>
             </select>
-
-            <br><br>
+            </div>
+            <br><br><br>
             <input class="btn" type="submit" value="Generate">
             </form>
-            </center>
+            
+
+            <br><br>
+            <!-- <form action="/hod_home" method="POST"> -->
+                <button class="btn btn-primary" onclick="window.location.href = '/hod_home';" style="width:6%;">Back</button>
+	        <!-- </form> -->
+    </center>
         <br><br><br>
     </body>
 </html>

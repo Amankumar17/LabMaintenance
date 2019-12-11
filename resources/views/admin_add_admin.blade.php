@@ -65,7 +65,7 @@
 <body>
 
 <div class="header" id="myHeader">
-    <a class="active" href="">&#x26F7; Home</a>
+    <a href="/admin_home">&#x26F7; Home</a>
 		<a href="/testlogin">Logout</a>
   </div>
   
@@ -73,7 +73,7 @@
 <center>
 <div>
     <h3>Add Admin</h3>
-    <form action="/admin_demo1">
+    <form action="/admin_demo1" method="POST">
     <label for="adminname">Username</label>
     <input type="text" id="adname" name="newname" placeholder="Username" required>
     <br><br>  

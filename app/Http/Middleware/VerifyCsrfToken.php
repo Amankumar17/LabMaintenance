@@ -19,6 +19,25 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        '/feedback',
+        '/teacher',
+        '/admin_home',
+        '/hod_home',
+
+        '/datasubmitted',
+
+        '/teacher_confirm',
+        '/datasubmitted_fac',
+
+        '/system_demo1',
+        '/system_demo2',
+        '/admin_demo1',
+        '/admin_demo2',
+        '/faculty_demo1',
+        '/faculty_demo2',
+        '/admin_confirm',
+        '/admin_done',
+
+        '/chart'
     ];
 }

@@ -7,6 +7,9 @@ use Charts;
 use App\User;
 use DB;
 use App\Charts\UserChart;
+use App;
+
+use PDF;
 
 class UserChartController extends Controller
 {
@@ -15,6 +18,44 @@ class UserChartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function displayReport(PDF $pdfCreator, Request $request)
+    {
+        // $pdf = App::make('dompdf.wrapper');
+
+        $floor = $request->session()->get('floor');
+
+        $complaint=DB::table('complaints')
+                ->where(['floor'=>$floor])
+                ->get();
+        // echo $complaint;
+        // echo "<br>";
+
+        // $data = [];
+        // for($i=0; $i<$complaint->count(); $i++){
+        //     array_push($data, $complaint[$i]);
+        //           }
+        // print_r($data);
+        // $pdf->loadHTML($data);
+        // return $pdf->stream();
+
+
+        // $pdf = PDF::loadView('report_option', compact('complaint'));
+  
+        $pdf = $pdfCreator->loadView('report_option', compact('complaint'));
+        return $pdf->download('itsolutionstuff.pdf');
+
+
+
+
+        // $pdf->loadHTML($data);
+        // return $pdf->stream();
+
+
+    }
+
+
     public function index(Request $request)
     {
     	$borderColors = [
@@ -45,6 +86,7 @@ class UserChartController extends Controller
 
         $floor = $request->session()->get('floor');
 
+        $arr_month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         $graph = $request->input('graph');
         // echo $graph;
         $year = $request->input('year');
@@ -108,7 +150,7 @@ class UserChartController extends Controller
                 ->backgroundcolor($fillColors);
 
 
-            return view('chart', [ 'chart' => $usersChart ] );
+            // return view('chart', [ 'chart' => $usersChart ] );
 
         }
         else if($graph==2)
@@ -130,7 +172,7 @@ class UserChartController extends Controller
             //         $count[9] += 1;
 
             // }
-            print_r($count);
+            // print_r($count);
 
             $usersChart = new UserChart;
             $usersChart->minimalist(false)
@@ -138,13 +180,13 @@ class UserChartController extends Controller
                         ->displayLegend($legend=false)
                         ->title('Total no. of complaints', 20, '#666', $bold = true, $font_family = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif");
             
-            $usersChart->labels(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
+            $usersChart->labels($arr_month);
             $usersChart->dataset('No of Complaints', $type, $count)
                 ->color($borderColors)
                 ->backgroundcolor($fillColors);
 
 
-            return view('chart', [ 'chart' => $usersChart ] );
+            // return view('chart', [ 'chart' => $usersChart ] );
 
             // return view('login');
         }
@@ -173,11 +215,11 @@ class UserChartController extends Controller
             
             $usersChart->labels(['Underprocess', 'Completed']);
             $usersChart->dataset('No of Complaints', $type, [$pending, $done])
-                ->color(['lightgreen', 'lightblue'])
-                ->backgroundcolor(['lightgreen', 'lightblue']);
+                        ->color($borderColors)
+                        ->backgroundcolor($fillColors);
 
 
-            return view('chart', [ 'chart' => $usersChart ] );
+            // return view('chart', [ 'chart' => $usersChart ] );
         }
         else if($graph==4)
         {
@@ -217,8 +259,10 @@ class UserChartController extends Controller
                 ->backgroundcolor($fillColors);
 
 
-            return view('chart', [ 'chart' => $usersChart ] );
+            // return view('chart', [ 'chart' => $usersChart ] );
         }
+        // echo $year;
+        return view('chart')->with('arr_month', $arr_month)->with('chart', $usersChart)->with('graph', $graph)->with('type', $type)->with('year', $year)->with('month', $month);
         
     }
 
