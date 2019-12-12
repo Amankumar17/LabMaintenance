@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+select, input[type=date] {
+    background: transparent;
+    border: 1px solid lightblue;
+    font-size: 12px;
+    padding: 5px;
+    margin: 0.5%;
+    width: 200px;
+}
+
+p {
+    margin: 20px;
+    font-family: century gothic;
+    font-size: 14px;
+
+}
+.forms {
+    margin: 2% 10% 2% 10%;
+    padding: 2% 0;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (min-width: 650px) {
+    select, input[type=date] {
+        font-size: 16px;
+    }
+
+    .forms {
+    margin: 2% 25% 2% 25%;
+    }
+
+    p {
+        font-size: 20px;
+    }
+}
+
+.box {
+    margin: 2px 0;
+}
+
+.btn {
+    width: 150px;
+    min-width: 100px;
+}

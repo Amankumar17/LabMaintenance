@@ -20,37 +20,76 @@ class UserChartController extends Controller
      */
 
 
-    public function displayReport(PDF $pdfCreator, Request $request)
+    public function displayReport(Request $request)
     {
-        // $pdf = App::make('dompdf.wrapper');
+        
+        $status=$request->input('status');
+        $start = $request->input('start');
+        $end = $request->input('end');
+        $order = $request->input('order');
 
         $floor = $request->session()->get('floor');
 
-        $complaint=DB::table('complaints')
+        if($status==1) {
+            $complaint=DB::table('complaints')
                 ->where(['floor'=>$floor])
+                ->whereIn('status', ['2', '3'])
+                ->whereBetween('created_at', [$start, $end])
+                ->orderBy($order, 'asc')
                 ->get();
-        // echo $complaint;
-        // echo "<br>";
+        }
+        else {
+            $complaint=DB::table('complaints')
+                ->where(['floor'=>$floor, 'status'=>$status])
+                ->whereBetween('created_at', [$start, $end])
+                ->orderBy($order, 'asc')
+                ->get();
+        }
 
-        // $data = [];
-        // for($i=0; $i<$complaint->count(); $i++){
-        //     array_push($data, $complaint[$i]);
-        //           }
-        // print_r($data);
-        // $pdf->loadHTML($data);
-        // return $pdf->stream();
+        // $pdf = PDF::loadView('report_option', $data);
+        // return $pdf->download('itsolutionstuff.pdf');
 
+            
+        $s1="<p style='color:#5F5B5B;float:left'>Registered on: " .date('d-m-Y', strtotime($start)). " To " .date('d-m-Y', strtotime($end)) ."</p>";
+        // $s2="<p style='color:#716F6F;float:right'>Sort by: " .$order."</p>";
+        $data ="<head><title>Report</title></head>";
+        $data .= "<style>
+                    table{font-family: 'Times New Roman', Times, serif;
+                    }
+                    th{color:black;text-align:center;padding-top: 12px;
+                        padding-bottom: 12px;
+                    }
+                    tr:nth-child(even){background-color: #f2f2f2;}
+                    td{padding: 6px;font-size:16px;}
+                    
+                    </style>";
+         $data .= "<center style='color:black;margin-top:0px;'><h2>Registered Complaint Report</h2></center>".$s1."<br><hr><br>";
+        
+        $data .= "<table style='border-collapse: collapse;width:100%;'><tr><th >Comp No.</th><th >Lab No.</th><th >System</th><th >Roll No.</th><th >Sdrn</th><th >Problem</th><th >Date</th></tr>";
 
-        // $pdf = PDF::loadView('report_option', compact('complaint'));
-  
-        $pdf = $pdfCreator->loadView('report_option', compact('complaint'));
-        return $pdf->download('itsolutionstuff.pdf');
+        foreach($complaint as $a){
+            $data .= "<tr style='text-align:center;'>";
+            $data .= "<td >".$a->comp_no."</td>"; 
+            $data .= "<td >".$a->labno."</td>";
+            $data .= "<td >".$a->sysno."</td>";
+            if($a->rollno == 'NULL')
+                $data .= "<td > - </td>";
+            else
+                $data .= "<td >".$a->rollno."</td>";
+            $data .= "<td >".$a->sdrn."</td>";
+            $data .= "<td >".$a->problem."</td>";
+            $data .= "<td >".date('d M Y', strtotime($a->created_at))."</td>";
+            $data .= "</tr>";
+        }
+        $data .= "</table>";
 
+        // echo $data;
 
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($data);
+        return $pdf->stream();
 
-
-        // $pdf->loadHTML($data);
-        // return $pdf->stream();
+        // return view('login');
 
 
     }
@@ -68,7 +107,9 @@ class UserChartController extends Controller
             "rgba(153, 102, 255, 1.0)",
             "rgba(255, 159, 64, 1.0)",
             "rgba(233,30,99, 1.0)",
-            "rgba(205,220,57, 1.0)"
+            "rgba(205,220,57, 1.0)",
+            "rgba(255, 99, 132, 1.0)",
+            "rgba(22,160,133, 1.0)"
         ];
         $fillColors = [
             "rgba(255, 99, 132, 0.2)",
@@ -80,8 +121,9 @@ class UserChartController extends Controller
             "rgba(153, 102, 255, 0.2)",
             "rgba(255, 159, 64, 0.2)",
             "rgba(233,30,99, 0.2)",
-            "rgba(205,220,57, 0.2)"
-
+            "rgba(205,220,57, 0.2)",
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(22,160,133, 0.2)"
         ];
 
         $floor = $request->session()->get('floor');
@@ -268,6 +310,8 @@ class UserChartController extends Controller
 
     // public function index2(Request $request)
     // {
+        // 
+
     // 	$borderColors = [
     //         "rgba(255, 99, 132, 1.0)",
     //         "rgba(22,160,133, 1.0)",

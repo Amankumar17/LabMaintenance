@@ -293,6 +293,7 @@ class LoginController extends BaseController
             ->get();
 
             $table2 = $table2->sort();
+            // echo $table2;
             // $uniqueFloor = $uniqueFloor->sort();
 
             $complaint=DB::table('complaints')->get();

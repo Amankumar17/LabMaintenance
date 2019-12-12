@@ -105,11 +105,13 @@ table{
 
 th{
   width:13%;
+  height:50px;
   text-align:center;
   border: 1px solid #dddddd;
 } 
 td{
   width:13%;
+  height:40px;
   border: 1px solid #dddddd;
   text-align:center;
 
@@ -138,7 +140,7 @@ input {
 <center>
 <div class="btn-group">
   <a href="/chart_options"><button>Generate Charts</button></a>
-  <a href="/report"><button>Generate Reports</button></a>
+  <a href="/report_options"><button>Generate Reports</button></a>
 </div>
 </center>
 
@@ -169,13 +171,13 @@ input {
       Description
     </th>
     <th>
-      Status
+      Date
     </th>   
     
     @for($i=0;$i<$complaint->count();$i++)
       @if($complaint[$i]->status==1)
       <tr>
-          <td width="8%"><input type="text" style="background-color:#dddddd;font-size:17px;text-align:center;" name="comp_no" value="{{$complaint[$i]->comp_no}}" readonly></td>
+          <td>{{$complaint[$i]->comp_no}}</td>
           <td>{{$complaint[$i]->labno}}</td>
           <td>{{$complaint[$i]->sysno}}</td>
           @if($complaint[$i]->rollno=='NULL')
@@ -185,6 +187,7 @@ input {
           @endif
           <td>{{$complaint[$i]->sdrn}}</td>
           <td>{{$complaint[$i]->description}}</td>
+          <td> {{date('d M, Y', strtotime($complaint[$i]->updated_at)) }}</td>
       </tr>
       @endif
           
@@ -214,13 +217,13 @@ input {
       Description
     </th>
     <th>
-      Status
+      Date
     </th>   
     
     @for ($i=0;$i<$complaint->count();$i++)
       @if($complaint[$i]->status==2)
       <tr>
-          <td><input type="text" style="background-color:#dddddd;font-size:17px;text-align:center;" name="comp_no" value="{{$complaint[$i]->comp_no}}"></td>
+          <td>{{$complaint[$i]->comp_no}}</td>
           <td>{{$complaint[$i]->labno}}</td>
           <td>{{$complaint[$i]->sysno}}</td>
           @if($complaint[$i]->rollno=='NULL')
@@ -230,6 +233,7 @@ input {
           @endif          
           <td>{{$complaint[$i]->sdrn}}</td>
           <td>{{$complaint[$i]->description}}</td>
+          <td> {{date('d M, Y', strtotime($complaint[$i]->updated_at)) }}</td>
       </tr>
       @endif
           
@@ -258,6 +262,9 @@ input {
     <th>
       Description
     </th>
+    <th>
+      Date
+    </th>   
     
     @for ($i=0;$i<$complaint->count();$i++)
       @if($complaint[$i]->status==3)
@@ -272,6 +279,7 @@ input {
           @endif          
           <td>{{$complaint[$i]->sdrn}}</td>
           <td>{{$complaint[$i]->description}}</td>
+          <td> {{date('d M, Y', strtotime($complaint[$i]->updated_at)) }}</td>
           
       </tr>
       @endif

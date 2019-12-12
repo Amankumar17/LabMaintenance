@@ -56,16 +56,20 @@ Welcome qwr</h2>  -->
       <!-- <form action="/student_history" method="POST">
       <button type="submit" class="student_headerbuttons">History</button>
       </form> -->
+      <!-- <form action="/testlogin">
+        <button type="submit" class="student_headerbuttons">Logout</button>
+      </form> -->
+
+      <!-- ////////////////////////////////// -->
    
-      <button type="button" class="student_headerbuttons" onclick="window.location.href = '/feedback';">&#x26F7; Home</button>
+      <button type="button" class="student_headerbuttons" onclick="window.location.href = '/feedback';"> Home</button>
 
       <button type="button" class="student_headerbuttons" onclick="window.location.href = '/student_history';">History</button>
 
       <button type="button" class="student_headerbuttons" onclick="window.location.href = '/testlogin';">Logout</button>
       
-      <!-- <form action="/testlogin">
-        <button type="submit" class="student_headerbuttons">Logout</button>
-      </form> -->
+
+      
    
    </div>
    <br>
@@ -78,7 +82,7 @@ Welcome qwr</h2>  -->
          <label>Sdrn:</label>
          <input type="text" name='sdrn' class="in">
       </div>
-      <div class="txtb">
+      <div class="txtb">  
          <label>Select Floor</label>
          <select class="dropdown" id="lb" name="floor" onchange="floorlab(this.value)" required>
          <option value="" disabled selected>Select</option>
@@ -209,18 +213,53 @@ Welcome qwr</h2>  -->
                 //console.log(arr.sort());
                 //arr.sort(function(a, b){return a - b});
                 //console.log(arr.(1.toString()).labno);
-                for(i=0; i<arr.length; i++)
+
+               
+
+
+                var optimise = [];
+                for( var i=0; i<arr.length; i++)
                 {
+                   //console.log(arr[i].sysno.indexOf(','),arr[i].sysno.length,arr[i].sysno.split(','))
+                   
                     if(arr[i].labno == labn)
-                     for(j=0; j<vals.length; j++)
-                     if(arr[i].sysno == vals[j])
-                    {
-                        // console.log(arr[i].comp_no);
-                        cont = cont + "<tr><td>" + arr[i].comp_no + "</td>"+"<td>"+arr[i].labno+"</td>"+"<td>"+arr[i].sysno+"</td>"+"<td>"+arr[i].description+"</td></tr>";
-                    }
+                     if (arr[i].sysno.indexOf(',') != -1)
+                        for(var j=0; j<vals.length; j++)
+                        {
+                           syns=arr[i].sysno.split(',');
+                           //console.log(syns)
+                           for(var k=0; k<syns.length;k++)
+                           if(syns[k] == vals[j])
+                           {
+                              var flag = 0;
+                              for(var q=0;q<optimise.length;q++)
+                              {
+                                 if (optimise[q]==arr[i].comp_no)
+                                    flag=1
+                              }
+                              // console.log(arr[i].comp_no);
+                              if (flag == 0)
+                              {
+                                 cont = cont + "<tr><td>" + arr[i].comp_no + "</td>"+"<td>"+arr[i].labno+"</td>"+"<td>"+arr[i].sysno+"</td>"+"<td>"+arr[i].description+"</td></tr>";
+                                 optimise.push(arr[i].comp_no);
+                              }
+                              flag=0;
+                           }  
+                        }
+                     else
+                     {
+                        //console.log("In else");
+                        for(var j=0; j<vals.length; j++)
+                        if(arr[i].sysno == vals[j])
+                        {
+                           // console.log(arr[i].comp_no);
+                           cont = cont + "<tr><td>" + arr[i].comp_no + "</td>"+"<td>"+arr[i].labno+"</td>"+"<td>"+arr[i].sysno+"</td>"+"<td>"+arr[i].description+"</td></tr>";
+                           optimise.push(arr[i].comp_no);
+                        }
+                     }
                 }
                 cont = cont + "</table><br><br>";
-                console.log(cont);
+                //console.log(cont);
                //  if(cont=='<table><th>Complaint No.</th><th>Lab no.</th><th>System no.</th><th>Complaint</th></table><br><br>')
                //  {
                //     document.getElementById('pctb_nocomplaints').innerHTML ='No complaints';

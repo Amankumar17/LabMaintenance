@@ -12,6 +12,11 @@
 .container {
     margin: 5%;
 }
+
+.btn {
+	width:15%;
+	min-width: 100px;
+}
 </style>
 
 <body>
@@ -30,7 +35,7 @@
 		<div class="container">
 			@if(isset($details))
 			<p> The Search results for your query <b> {{ $query }} </b> are :</p>
-			<h2>Sample User details</h2>
+			<h2>Complaint details</h2>
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -64,7 +69,7 @@
 
     <center>
 	<!-- <form action="/admin_home"> -->
-    <button class="btn btn-primary" onclick="window.location.href = '/admin_home';" style="width:15%;">Back</button>
+    <button class="btn btn-primary" onclick="window.location.href = '/admin_home';">Back</button>
 	<!-- </form> -->
     </center>
 

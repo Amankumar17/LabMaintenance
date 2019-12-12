@@ -14,28 +14,86 @@ body {
 	box-sizing: border-box;
 }
 
-h2 {
-    font-size: 30px;
-    position: absolute;
-    top: 0;
-    /* right: 138px; */
-    left: 61px;
-    color: white;
+.student_select {
+  background-color: #af504c;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 18px;
+  font-family: century gothic;
+  width: 50%;
 }
 
+.student_select:hover {
+  background: #fff;
+  color: #666;
+}
+
+.complaintinfo {
+  color: #333;
+  display: none;
+  height: 100%;
+}
+
+.complaintinfo button {
+  font-family: courier new;
+  padding: 3px 6px;
+  cursor: pointer;
+}
+
+#Home, #News {background-color: #e5e4e2;}
+
+
+table{
+  width:100%;
+  font-family: century gothic;
+  border-collapse: collapse;
+}
+
+th{
+  width:13%;
+  height:50px;
+  text-align:center;
+  border: 1px solid #dddddd;
+} 
+td{
+  width:13%;
+  height:40px;
+  border: 1px solid #dddddd;
+  text-align:center;
+
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+
+
+/* h2 {
+  font-size: 30px;
+  position: absolute;
+  top: 0;
+  right: 138px; 
+  left: 61px;
+  color: white;
+} */
+
 .contact-form {
-    width: 85%;
-    max-width: 650px;
-    background: #fff;
-    /* position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
-    margin: 5% 0;
-    padding: 2% 3%;
-    border-radius: 10px;
-    text-align: center;
-    font-family: "Montserrat", sans-serif;
+  width: 85%;
+  max-width: 1050px;
+  background: #fff;
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  margin: 5% 0;
+  padding: 2% 3%;
+  border-radius: 10px;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* .contact-form h1{
@@ -43,19 +101,19 @@ h2 {
     font-weight: 600;
     text-transform: uppercase;
 } */
-
+/* 
 .txtb {
-    background: #eee;
-    border: 1px solid #333;
-    border-radius: 8px;
-    margin: 4% 0;
-    padding: 3% 5%;
-	display: grid;
-	grid-template-columns: repeat(5,1fr);
+  background: #eee;
+  border: 1px solid #333;
+  border-radius: 8px;
+  margin: 4% 0;
+  padding: 3% 5%;
+display: grid;
+grid-template-columns: repeat(5,1fr);
 }
 
 .txtb label {
-    /* display: block; */
+
     text-align: left;
     color: #333;
     text-transform: uppercase;
@@ -66,12 +124,10 @@ h2 {
     width: 320%;
     height: auto;
     border: none;
-    /* outline: none; */
-    /* font-size: 18px; */
     border-radius: 8px;
     padding: 10px;
     margin-left: 20px;
-}
+} */
 
 /* .dropdown {
     width: 320%;
@@ -146,45 +202,44 @@ div label input {
 }
 
 /////////////////////////////////////////////////////////*/
-
+/*
 .contact-form .txtb
 .container1 {
-     /* max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;  */
+ max-width: 1200px;
+ margin: 0 auto;
+ display: flex;
+ flex-wrap: wrap;  
 }
 
-.container1 div {
-    margin: 5px;
-    display: grid;
+ .container1 div {
+ margin: 5px;
+ display: grid;
 }
 
 .container1 div label {
-    cursor: pointer;
+ cursor: pointer;
 }
 
 .container1 div label input[type="checkbox"] {
-    display: none;
+ display: none;
 }
 
 .container1 div label span {
-    /* position: relative; */
-    display: grid;
-    text-align: center;
-    background: #424242;
-    padding: 3px 0px;
-    color: white;
-    border-radius: 30px;
-    transition: 0.5s;
-    user-select: none;
-    overflow: hidden;
+ display: grid;
+ text-align: center;
+ background: #424242;
+ padding: 3px 0px;
+ color: white;
+ border-radius: 30px;
+ transition: 0.5s;
+ user-select: none;
+ overflow: hidden;
 }
 
 .container1 div label input[type="checkbox"]:checked ~ span {
-    background: #fff;
-    color: black;
-}
+ background: #fff;
+ color: black;
+} */
 
 
 .btn btn-primary{
@@ -192,43 +247,42 @@ div label input {
     width:20%;
 }
 
-.student_headerbuttons{
-    float: left;
-    width:32.5%;
-    margin: 2px;
+.student_headerbuttons{ 
+  width:32.5%;
+  margin: 2px;
+  margin-bottom: 5px;;
+  height: 35px;
+  background-color: #373839;
+  border: 0;
+  border-radius: 4px;
+  /* padding: 0 20px 0 20px; */
+  color: white;
+  font-size: 18px;
+}
+
+.student_headerbuttons:hover {
+  background-color: #6b6d6f;
+  color: white;
 }
 
 
 @media only screen and (max-width: 1280px){
     .student_headerbuttons{
-        width:31.5%;
+        width:31%;
         margin: 2px;
 
     }
+}   
+
+.student_headerbuttons1{
+  float: left;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.student_headerbuttons2{
+  float: center;
+}
+.student_headerbuttons3{
+  float: right;
+}
 
 
 .studentinfo {
@@ -269,24 +323,49 @@ div label input {
 .select {
   color: black;
   float: left;
-  border: 1px solid green;
+  border: 2px solid #a32732;
   outline: none;
   /* cursor: pointer; */
-  padding: 14px 16px;
+  padding: 4px 16px;
   font-size: 17px;
-  width: 50%;
+  width: 45%;
+  min-width: 225px;
   margin-top: 0%;
+  border-radius: 5px;
+  margin: 10px;
+  margin-top: -15px;
 }
 
 .select:hover {
-  background-color: #4CAF50;
+  background-color: #eee;
 }
+
+.select1{
+  float: left;
+}
+
+.select2{
+  float: right;
+}
+
+@media screen and (max-width: 618px) {
+
+  .select{
+    width: 95%;
+    float:center;
+  }
+  .select2{
+    margin-top: -1px;
+  }
+
+}
+
 
 .a1 {
   padding: 25px;
   text-decoration: none;
   font-size: 20px;
-  background-color: #4CAF50;
+  background-color: #000;
   color: black;
   height: 90px;
   width: 280px;
@@ -297,7 +376,7 @@ div label input {
   padding: 25px;
   text-decoration: none;
   font-size: 20px;
-  background-color:#4CAF50;
+  background-color:#eee;
   color: black;
   height: 100px;
   width: 280px;
@@ -306,7 +385,7 @@ div label input {
 
 .newcomplaint a:hover{
   font-size:42px;
-  background:#4CAF50;
+  background:#eee;
   box-shadow: 6px 4px 10px 6px rgb(163, 161, 161);
 }
 .complaintinfo {
@@ -361,4 +440,5 @@ tr:nth-child(even) {
   }
 
 }
+
 

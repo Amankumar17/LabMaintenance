@@ -30,7 +30,11 @@ Route::any ( '/search', 'AdminController@admin_search');
 
 
 
-Route::get('/report', 'UserChartController@displayReport');
+Route::post('/report', 'UserChartController@displayReport');
+
+Route::get('/report_options', function () {
+    return view('report_options');
+});
 
 Route::post('/chart', 'UserChartController@index');
 

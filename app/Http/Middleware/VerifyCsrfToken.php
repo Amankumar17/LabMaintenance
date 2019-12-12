@@ -38,6 +38,7 @@ class VerifyCsrfToken extends Middleware
         '/admin_confirm',
         '/admin_done',
 
-        '/chart'
+        '/chart',
+        '/report'
     ];
 }

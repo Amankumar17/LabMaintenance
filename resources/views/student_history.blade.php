@@ -6,6 +6,7 @@
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
    <title>Student Complaint</title>
+
    <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
    <link rel="stylesheet" href="css/student_history_style.css">
       
@@ -31,45 +32,52 @@
         <button type="submit" class="student_headerbuttons">Logout</button>
       </form> -->
     
-      <button type="button" class="student_headerbuttons" onclick="window.location.href = '/feedback';">&#x26F7; Home</button>
+      <button type="button" class="student_headerbuttons student_headerbuttons1" onclick="window.location.href = '/feedback';">Home</button>
 
-      <button type="button" class="student_headerbuttons" onclick="window.location.href = '/student_history';">History</button>
+      <button type="button" class="student_headerbuttons student_headerbuttons2" onclick="window.location.href = '/student_history';">History</button>
 
-      <button type="button" class="student_headerbuttons" onclick="window.location.href = '/testlogin';">Logout</button>
+      <button type="button" class="student_headerbuttons student_headerbuttons3" onclick="window.location.href = '/testlogin';">Logout</button>
 
 
     </div>
     <br>
 <div>
 
+<button class="student_select" onclick="openPage('News', this, '#c88380')" id="defaultOpen"><b>Complaints In Progress</b></button>
+<button class="student_select" onclick="openPage('Home', this, '#c88380')"><b>Solved Complaints</b></button>
 
-<button class="select" onclick="openPage('News', this, '#4CAF50')" id="defaultOpen"><b>Complaints In Progress</b></button>
-<button class="select" onclick="openPage('Home', this, '#4CAF50')"><b>Solved Complaints</b></button>
 
-   
 <br>
 <div id="Home" class="complaintinfo">
   <table id="myTable" cellpadding="10">
     <th>
-      Complaint No.
+      Srno
     </th>
     <th>
-      Lab No.
+      Floor
     </th>
     <th>
-      System No.
+      Labno
     </th>
     <th>
-      Complaint Description
+      System
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Date
     </th>
        
     @for ($i=0;$i<$complaint->count();$i++)
       @if($complaint[$i]->status==3)
       <tr>
           <td width="8%">{{$complaint[$i]->comp_no}}</td>
+          <td width="8%">{{$complaint[$i]->floor}}</td>
           <td width="8%">{{$complaint[$i]->labno}}</td>
           <td width="8%">{{$complaint[$i]->sysno}}</td>
           <td >{{$complaint[$i]->description}}</td>
+          <td> {{date('d M, Y', strtotime($complaint[$i]->created_at)) }}</td>
       </tr>
       @endif
           
@@ -82,28 +90,37 @@
     <table id="myTable" cellpadding="10">
     
     <th >
-      Complaint No.
+      Srno
     </th>
     <th>
-      Lab No.
+      Floor
     </th>
     <th>
-      System No.
+      Labno
     </th>
     <th>
-      Complaint Description
+      System
+    </th>
+    <th>
+      Description
+    </th> 
+    <th>
+      Date
     </th>
     <th>
       Status
-    </th>    
+    </th>
         
         @for ($i=0;$i<$complaint->count();$i++)
         @if($complaint[$i]->status!=3)
         <tr>
           <td width="8%">{{$complaint[$i]->comp_no}}</td>
+          <td width="8%">{{$complaint[$i]->floor}}</td>
           <td width="8%">{{$complaint[$i]->labno}}</td>
           <td width="10%">{{$complaint[$i]->sysno}}</td>
           <td>{{$complaint[$i]->description}}</td>
+          <td> {{date('d M, Y', strtotime($complaint[$i]->created_at)) }}</td>
+
           <td width="8%">
           @if ($complaint[$i]->status==0)
             Not yet Approved

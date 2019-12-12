@@ -20,9 +20,14 @@
 }*/
 
 .header a.active {
-	    background-color: rgb(41, 139, 44);
+	    background-color: #a32732;
 	    color: white;
     }
+
+.header{
+  border-radius: 8px;
+  width: 100%;
+}
 
 .btn-group {
 	width: 100%;
@@ -106,11 +111,13 @@ table{
 
 th{
   width:13%;
+  height:50px;
   text-align:center;
   border: 1px solid #dddddd;
 } 
 td{
   width:13%;
+  height:40px;
   border: 1px solid #dddddd;
   text-align:center;
 
@@ -174,10 +181,16 @@ input {
     </th>
     <th>
       SDRN
-    </th>        
+    </th>
+    <th>
+      Problem
+    </th>       
     <th>
       Description
     </th>
+    <th>
+      Date
+    </th> 
     <th>
       Status
     </th>   
@@ -195,7 +208,9 @@ input {
           <td>{{$complaint[$i]->rollno}}</td>
           @endif
           <td>{{$complaint[$i]->sdrn}}</td>
+          <td>{{$complaint[$i]->problem}}</td>
           <td>{{$complaint[$i]->description}}</td>
+          <td> {{date('d M, Y', strtotime($complaint[$i]->updated_at)) }}</td>
           <td><a><button >Confirm</button></a></td>
       </tr>
       </form>
@@ -222,10 +237,16 @@ input {
     </th>
     <th>
       SDRN
-    </th>        
+    </th>
+    <th>
+      Problem
+    </th>    
     <th>
       Description
     </th>
+    <th>
+      Date
+    </th> 
     <th>
       Status
     </th>   
@@ -243,7 +264,9 @@ input {
           <td>{{$complaint[$i]->rollno}}</td>
           @endif          
           <td>{{$complaint[$i]->sdrn}}</td>
+          <td>{{$complaint[$i]->problem}}</td>
           <td>{{$complaint[$i]->description}}</td>
+          <td> {{date('d M, Y', strtotime($complaint[$i]->updated_at)) }}</td>
            <td><button >Done</button></td>
       </tr>
       </form>
@@ -270,10 +293,16 @@ input {
     </th>
     <th>
       SDRN
-    </th>        
+    </th>
+    <th>
+      Problem
+    </th>    
     <th>
       Description
     </th>
+    <th>
+      Date
+    </th> 
     
     @for ($i=0;$i<$complaint->count();$i++)
       @if($complaint[$i]->status==3)
@@ -287,8 +316,10 @@ input {
           <td>{{$complaint[$i]->rollno}}</td>
           @endif          
           <td>{{$complaint[$i]->sdrn}}</td>
+          <td>{{$complaint[$i]->problem}}</td>
           <td>{{$complaint[$i]->description}}</td>
-          
+          <td> {{date('d M, Y', strtotime($complaint[$i]->updated_at)) }}</td>
+
       </tr>
       @endif
           
