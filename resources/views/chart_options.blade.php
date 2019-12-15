@@ -50,6 +50,7 @@
 		}
 
     </style>
+
     <body>
         <center>
 
@@ -84,6 +85,23 @@
 
                 <br>
 
+                <div id="p_floor" class='box' style="display:none;">
+                    <h4>Select Floor</h4>
+                    <select name="p_floor" id="f" onchange="function2(this.value)">
+                        <option value="" disabled selected>Select</option>
+                        <option value="0">Ground</option>
+                        <option value="1">First</option>
+                        <option value="2">Second</option>
+                        <option value="3">Third</option>
+                        <option value="4">Fourth</option>
+                        <option value="5">Fifth</option>
+                        <option value="6">Sixth</option>
+                        <option value="7">All</option>
+                    </select>
+                </div>
+
+                <br>
+
                 <div class='box'>
                     <h4>Select the x-axis</h4>
                     <select name="graph" onchange="function1(this.value)" required>
@@ -91,7 +109,7 @@
                         <option value="1">Year Wise</option>
                         <option value="2">Month Wise</option>
                         <option value="3">Any One Month</option>
-                        <option value="4">Lab Wise</option>
+                        <option value="4" id='labwise'>Lab Wise</option>
                     </select>
                 </div>
 
@@ -133,12 +151,27 @@
                 <input class="btn btn-success" type="submit" value="Generate">
             </form>
         </div>
-                
-        <button class="btn btn-primary" onclick="window.location.href = '/hod_home';">Back</button>
+    
+        <button class="btn btn-primary" id="h_btn" onclick="window.location.href = '/hod_home';">Back</button>
+
+        <button class="btn btn-primary" id="p_btn" onclick="window.location.href = '/principal_home';" style="display:none;">Back</button>
         </center>
         <br><br><br>
 
         <script>
+            var obj = <?php echo json_encode($floor); ?>;
+            // console.log(obj);
+            if(obj==7){
+                document.getElementById("p_floor").style.display = "block";
+                document.getElementById("f").required = true;
+
+                document.getElementById("labwise").style.display = "none";
+
+                document.getElementById("p_btn").style.display = "block";
+                document.getElementById("h_btn").style.display = "none";
+
+            }
+
             function function1(value)
             {
                 if (value.length==0) {
@@ -167,9 +200,28 @@
                         document.getElementById("b2").style.display = "block";
                         document.getElementById("m").required = true;
                     }
+                    
+                }
+
+                return 0;
+            }
+
+            function function2(value)
+            {
+                if (value.length==0) {
+                //
+                }
+                else {
+                    if(value==7) {
+                        document.getElementById("labwise").style.display = "none";
+                    }
+                    else{
+                        document.getElementById("labwise").style.display = "block";
+                    }
                 }
                 return 0;
             }
+                
         </script>
 
     </body>

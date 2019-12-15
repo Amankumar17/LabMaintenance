@@ -267,7 +267,7 @@ input {
           <td>{{$complaint[$i]->problem}}</td>
           <td>{{$complaint[$i]->description}}</td>
           <td> {{date('d M, Y', strtotime($complaint[$i]->updated_at)) }}</td>
-           <td><button >Done</button></td>
+           <td><button name='done'>Done</button></td>
       </tr>
       </form>
       @endif

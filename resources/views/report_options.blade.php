@@ -29,6 +29,24 @@
 					</select>
 				</div>
 
+				<div id="p_floor" class='box' style="display:none;">
+
+				<br>
+				
+                    <h4>Select Floor</h4>
+                    <select name="p_floor" id="f">
+                        <option value="" disabled selected>Select</option>
+                        <option value="0">Ground</option>
+                        <option value="1">First</option>
+                        <option value="2">Second</option>
+                        <option value="3">Third</option>
+                        <option value="4">Fourth</option>
+                        <option value="5">Fifth</option>
+                        <option value="6">Sixth</option>
+                        <option value="7">All</option>
+                    </select>
+                </div>
+
 				<br>
 
 				<div class='box'>
@@ -61,8 +79,24 @@
 			</form>
 		</div>
 
-		<button class="btn btn-primary" onclick="window.location.href = '/hod_home';">Back</button>
+        <button class="btn btn-primary" id="h_btn" onclick="window.location.href = '/hod_home';">Back</button>
+
+        <button class="btn btn-primary" id="p_btn" onclick="window.location.href = '/principal_home';" style="display:none;">Back</button>
 		</center>
 		<br><br><br>
+
+		<script>
+            var obj = <?php echo json_encode($floor); ?>;
+
+            if(obj==7){
+                document.getElementById("p_floor").style.display = "block";
+                document.getElementById("f").required = true;
+
+                document.getElementById("p_btn").style.display = "block";
+                document.getElementById("h_btn").style.display = "none";
+
+			}
+		</script>
+
 	</body>
 </html>

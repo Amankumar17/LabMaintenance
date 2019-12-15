@@ -209,7 +209,7 @@
           Status
         </th>    
     
-        @for ($i=0;$i<$complaint->count();$i++)
+      @for ($i=0;$i<$complaint->count();$i++)
       @if($complaint[$i]->status>0 && $complaint[$i]->rollno!="NULL")
       <tr>
           <td width="8%">{{$complaint[$i]->comp_no}}</td>
@@ -222,12 +222,12 @@
           <td> {{date('d M, Y', strtotime($complaint[$i]->created_at)) }}</td>
 
           <td width="8%">
-          @if ($complaint[$i]->status==0)
-            Not yet Approved
-          @elseif ($complaint[$i]->status==1)
+          @if ($complaint[$i]->status==1)
             Yet to be configured by admin
-          @else
+          @elseif($complaint[$i]->status==2)
             Underprocess
+          @else
+            Completed
           @endif
           </td>
       </tr>

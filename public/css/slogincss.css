@@ -43,10 +43,12 @@ body, html {
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 100px;
+  padding-bottom: -60px;
 }
 
 .login100-pic {
-  width: 316px;
+  width: 300px;
+  height: 400px;
 }
 
 .login100-pic img {
@@ -137,7 +139,7 @@ body, html {
     border-radius: 10px;
 }
 
-#faculty, #admin, #hod {
+#faculty, #admin, #hod, #principal {
 	display: none;
 }
 
@@ -159,11 +161,11 @@ body, html {
 	padding: 15px;
 	background: #e5e6e7;
 	color: #888;
-	font-size: 20px;
+	font-size: 18px;
 	float: left;
-	width: 25%;
+	width: 20%;
 	text-align: center;
-	border-top: 3px solid transparent;
+	/* border-top: 3px solid transparent; */
 	-moz-transition: all 0.4s ease-in-out;
 	-o-transition: all 0.4s ease-in-out;
 	-webkit-transition: all 0.4s ease-in-out;
@@ -182,11 +184,14 @@ body, html {
 }
 
 .login100-option{
-  width: 50%;
+  width: 65%;
   padding-left: 10px;
+  padding-top:30px;
 }
 
 .login100-pic{
-  width: 40%;
+  width: 30%;
   padding-right: 10px;
+  padding-top:30px;
+
 }

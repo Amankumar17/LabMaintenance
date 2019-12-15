@@ -9,31 +9,60 @@ use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
 
-
-
 class LoginController extends BaseController
 {
 
-    // public function login(Request $request)
-    // {
-    //     $rollno=$request->input('rollno');
-    //     $pass=$request->input('pass');
-        
-    //     $check=DB::table('student_logins')->where(['rollno'=>$rollno,'pass'=>$pass])->get();
-    //     $stud_details=DB::table('stu_record')->where(['Roll_no'=>$rollno])->get();        
+    public function feedback(Request $request)
+    {
+        // $rollno=$request->input('rollno');
+        // $pass=$request->input('pass');
 
-    //     if(count($check)>0)
-    //     {
-    //         $complaint=DB::table('complaints')->where(['rollno'=>$rollno])->get();
-            
-    //         return view('student')->with('complaint',$complaint)->with('stud_details',$stud_details);
-            
-    //     }   
-    //     else {
-    //         return view('student_login');
-            
-    //     }
-    // }
+        if($request->input('rollno') != ""){
+            // echo "Init login";
+            $rollno=$request->input('rollno');
+            $pass=$request->input('pass');
+        }
+        else{
+            // echo "Session login";
+            $rollno = $request->session()->get('rollno');
+            $pass = $request->session()->get('pass');
+        }
+
+        
+        $check=DB::table('student_logins')->where(['rollno'=>$rollno,'pass'=>$pass])->get();        
+
+        if(count($check)>0)
+        {
+            $request->session()->put('rollno', $rollno);
+            $request->session()->put('pass', $pass);
+
+            $stud_details=DB::table('stu_record')->where(['Roll_no'=>$rollno])->get();
+
+            $table1=DB::table('floor_lab')->get();
+            $table2=DB::table('systems')->get();
+
+            $uniqueFloor = DB::table('floor_lab')
+            ->select('floor')
+            ->groupBy('floor')
+            ->get();
+
+            $uniqueLab = DB::table('systems')
+            ->select('labno')
+            ->groupBy('labno')
+            ->get();
+
+            $table2 = $table2->sort();
+            // echo $table2;
+            // $uniqueFloor = $uniqueFloor->sort();
+
+            $complaint=DB::table('complaints')->get();
+
+            return view('feedback')->with('floor_lab',$table1)->with('systems',$table2)->with('floors',$uniqueFloor)->with('lab',$uniqueLab)->with('stud_details',$stud_details)->with('complaint',$complaint);
+        }   
+        else {
+            return view('student_login');   
+        }
+    }
 
     public function student_history(Request $request)
     {
@@ -46,69 +75,6 @@ class LoginController extends BaseController
         return view('student_history')->with('complaint',$complaint)->with('stud_details',$stud_details);
             
     }
-
-    // public function studenthistory_to_feedback(Request $request)
-    // {
-    //     $rollno = $request->session()->get('rollno');
-
-    //     $stud_details=DB::table('stu_record')->where(['Roll_no'=>$rollno])->get();        
-        
-    //     $table1=DB::table('floor_lab')->get();
-    //     $table2=DB::table('systems')->get();
-
-    //     $uniqueFloor = DB::table('floor_lab')
-    //     ->select('floor')
-    //     ->groupBy('floor')
-    //     ->get();
-
-    //     $uniqueLab = DB::table('systems')
-    //     ->select('labno')
-    //     ->groupBy('labno')
-    //     ->get();
-
-    //     $table2 = $table2->sort();
-    //     // $uniqueFloor = $uniqueFloor->sort();
-
-    //     $complaint=DB::table('complaints')->get();
-
-    //     return view('feedback')->with('floor_lab',$table1)->with('systems',$table2)->with('floors',$uniqueFloor)->with('lab',$uniqueLab)->with('stud_details',$stud_details)->with('complaint',$complaint);
-    
-
-    //     // return view('feedback')->with('complaint',$complaint)->with('stud_details',$stud_details);
-            
-    // }
-
-    public function teacher_feedback(Request $request)
-    {
-        $sdrn = $request->session()->get('sdrn');
-
-        // $stud_details=DB::table('stu_record')->where(['Roll_no'=>$rollno])->get();        
-        
-        $table1=DB::table('floor_lab')->get();
-        $table2=DB::table('systems')->get();
-
-        $uniqueFloor = DB::table('floor_lab')
-        ->select('floor')
-        ->groupBy('floor')
-        ->get();
-
-        $uniqueLab = DB::table('systems')
-        ->select('labno')
-        ->groupBy('labno')
-        ->get();
-
-        $table2 = $table2->sort();
-        // $uniqueFloor = $uniqueFloor->sort();
-
-        $complaint=DB::table('complaints')->get();
-
-        return view('teacher_feedback')->with('sdrn',$sdrn)->with('floor_lab',$table1)->with('systems',$table2)->with('floors',$uniqueFloor)->with('lab',$uniqueLab)->with('complaint',$complaint);
-    
-
-        // return view('feedback')->with('complaint',$complaint)->with('stud_details',$stud_details);
-            
-    }
-    
 
     public function teacher(Request $request)
     {
@@ -145,12 +111,33 @@ class LoginController extends BaseController
         } 
     }
 
+    public function teacher_feedback(Request $request)
+    {
+        $sdrn = $request->session()->get('sdrn');    
+        
+        $table1=DB::table('floor_lab')->get();
+        $table2=DB::table('systems')->get();
+
+        $uniqueFloor = DB::table('floor_lab')
+        ->select('floor')
+        ->groupBy('floor')
+        ->get();
+
+        $uniqueLab = DB::table('systems')
+        ->select('labno')
+        ->groupBy('labno')
+        ->get();
+
+        $table2 = $table2->sort();
+
+        $complaint=DB::table('complaints')->get();
+
+        return view('teacher_feedback')->with('sdrn',$sdrn)->with('floor_lab',$table1)->with('systems',$table2)->with('floors',$uniqueFloor)->with('lab',$uniqueLab)->with('complaint',$complaint);
+    }
+
     public function status_teacher_confirm(Request $request){
 
         $comp_no = $request->input('comp_no');
-
-        // echo $request->session()->get('user');
-        // echo $comp_no;
 
         $current_date_time = Carbon::now()->toDateTimeString();
 
@@ -165,8 +152,27 @@ class LoginController extends BaseController
 
             DB::table('complaints')->where([
                 ['comp_no', '=', $comp_no]])->delete();
+
+            // $c = DB::table('complaints')->where('comp_no',$comp_no)->get();
+
+            // $rollno = $c[0]->rollno;
+
+            // $f = DB::table('stu_record')->where('Roll_no',$rollno)->get();
+            // $email = $f[0]->emailid;
+            
+            // $to= $email;;
+            // $subject="testing";
+            // $msg="Sorry, your complaint has been rejected";
+            // $headers="From : laliteshkhan1@gmail.com";
+            // if(mail($to,$subject,$msg,$headers))
+            // {
+            //     echo "Email send Successfully";
+            // }
+            // else
+            // {
+            //     echo "Email not sent";
+            // }
         }
-        
 
         $fac_details=DB::table('faculty')->where(['sdrn'=>$sdrn])->get();
         $complaint=DB::table('complaints')->where(['sdrn'=>$sdrn])->get();
@@ -232,7 +238,7 @@ class LoginController extends BaseController
         
         $check=DB::table('hod_login')->where(['username'=>$hodname,'pass'=>$pass3])->get();
 
-        if(count($check)>0)    
+        if(count($check)>0 && $check[0]->floor!=7)    
         {
             $request->session()->put('hodname', $hodname);
             $request->session()->put('pass3', $pass3);
@@ -240,113 +246,44 @@ class LoginController extends BaseController
             $f = $check[0]->floor;
             $request->session()->put('floor', $f);
 
-            // $floor=DB::table('admin_login')->where(['username'=>$username,'pass'=>$pass2])->get();
-
             $complaint=DB::table('complaints')->where(['floor'=>$f])->get();
             
             return view('hod_home')->with('complaint',$complaint)->with('hodname',$hodname);
         }   
         else {
             return view('student_login');
-            
         } 
     }
 
-    public function feedback(Request $request)
+    public function principal(Request $request)
     {
-        
-        // $rollno=$request->input('rollno');
-        // $pass=$request->input('pass');
-
-        if($request->input('rollno') != ""){
-            // echo "Init login";
-            $rollno=$request->input('rollno');
-            $pass=$request->input('pass');
+        if($request->input('p_name') != ""){
+            $p_name=$request->input('p_name');
+            $pass4=$request->input('pass4');
         }
         else{
-            // echo "Session login";
-            $rollno = $request->session()->get('rollno');
-            $pass = $request->session()->get('pass');
+            $p_name = $request->session()->get('p_name');
+            $pass4 = $request->session()->get('pass4');
         }
-
         
-        $check=DB::table('student_logins')->where(['rollno'=>$rollno,'pass'=>$pass])->get();        
+        $check=DB::table('hod_login')->where(['username'=>$p_name,'pass'=>$pass4])->get();
 
-        if(count($check)>0)
+        if(count($check)>0 && $check[0]->floor==7)    
         {
-            $request->session()->put('rollno', $rollno);
-            $request->session()->put('pass', $pass);
+            $request->session()->put('p_name', $p_name);
+            $request->session()->put('pass4', $pass4);
 
-            $stud_details=DB::table('stu_record')->where(['Roll_no'=>$rollno])->get();
-
-            $table1=DB::table('floor_lab')->get();
-            $table2=DB::table('systems')->get();
-
-            $uniqueFloor = DB::table('floor_lab')
-            ->select('floor')
-            ->groupBy('floor')
-            ->get();
-
-            $uniqueLab = DB::table('systems')
-            ->select('labno')
-            ->groupBy('labno')
-            ->get();
-
-            $table2 = $table2->sort();
-            // echo $table2;
-            // $uniqueFloor = $uniqueFloor->sort();
+            $f = $check[0]->floor;
+            $request->session()->put('floor', $f);
 
             $complaint=DB::table('complaints')->get();
-
-            return view('feedback')->with('floor_lab',$table1)->with('systems',$table2)->with('floors',$uniqueFloor)->with('lab',$uniqueLab)->with('stud_details',$stud_details)->with('complaint',$complaint);
+            
+            return view('principal_home')->with('complaint',$complaint);
         }   
         else {
-            return view('student_login');   
-        }
+            return view('student_login');
+        } 
     }
-    
-    // public function system(Request $request)
-    // {
-        
-    //     $rollno=$request->input('rollv');
-    //     $check=DB::table('systems')->get();
-    //     $uniqueLab = DB::table('systems')
-    //     ->select('labno')
-    //     ->groupBy('labno')
-    //     ->get();
-    //     echo $check;
-    //     $stud_details=DB::table('stu_record')->where(['Roll_no'=>$rollno])->get();
-    //     //$uniqueNames = DB::select('labno')->distinct('labno')->toArray();
-    //     $check = $check->sort();
-    //     // echo $check;
-    //     // echo "sDDASD";
-    //     // echo $uniqueLab;
-    //     //echo count($check);
-    //     // return view('student_com')->with('systems',$check)->with('lab',$uniqueLab)->with('stud_details',$stud_details);
-        
-    //     $complaint=DB::table('complaints')->get();
-    //     //echo($complaint);
-    //     return view('student_com')->with('systems',$check)->with('lab',$uniqueLab)->with('stud_details',$stud_details)->with('complaint',$complaint);
-
-    // }
-
-    // public function system_for_fac(Request $request)
-    // {
-    //     $sdrn=$request->input('sdrnv');
-    //     $check=DB::table('systems')->get();
-
-    //     $uniqueLab = DB::table('systems')
-    //     ->select('labno')
-    //     ->groupBy('labno')
-    //     ->get();
-        
-    //     $fac_details=DB::table('faculty')->where(['Sdrn'=>$sdrn])->get();
-    //     $check = $check->sort();
-        
-    //     $complaint=DB::table('complaints')->get();
-    //     return view('teacher_com')->with('systems',$check)->with('lab',$uniqueLab)->with('fac_details',$fac_details)->with('complaint',$complaint);
-        
-    // }
 
     public function datasubmitted(Request $request){
         
@@ -427,115 +364,6 @@ class LoginController extends BaseController
 
         return view('data_submited_fac');
     }
-
-    // public function check_input(Request $request){
-    //     $x=[];
-    //     $p=$request->input('description');
-    //     echo $p;
-    //     $rollno=$request->input('rollno');
-    //     $name=$request->input('stud_name');
-    //     $labno=$request->input('op');
-    //     $systemno=$request->input('system');
-    //     $sdrn=$request->input('sdrn');
-
-    //     // echo $rollno;
-    //     // echo $name;
-    //     // echo $labno;
-    //     // echo $systemno;
-    //     // echo $sdrn;
-
-
-
-    //     // if ('mouse'==$request->input('mouse')){
-    //     //     array_push($x,'mouse');
-    //     // }
-    //     // if('keyboard'==$request->input('keyboard')){
-    //     //     array_push($x,'keyboard');
-    //     // }
-    //     // if('monitor'==$request->input('monitor')){
-    //     //     array_push($x,'monitor');
-    //     // }
-    //     // if('cpu'==$request->input('cpu')){
-    //     //     array_push($x,'cpu');
-    //     // }
-    //     // if('printer'==$request->input('printer')){
-    //     //     array_push($x,'printer');
-    //     // }
-    //     // if('other'==$request->input('other')){
-    //     //     array_push($x,'other');
-    //     // }
-        
-    //     // //$c1=$request->input('a');
-    //     // echo json_encode($x);
-    //     // //echo 'abc';
-    //     // $str=(string)$x;
-    //     // echo $x;
-    //     // for($i=0;$i<count($x);$i++)
-    //     // {
-    //     //     $str = $str + $x[$i];
-    //     // }
-        
-    //     // echo $str;
-    //     // DB::table('complaints')->insert(
-    //        // ['labno'=>$labno,'sysno'=>$systemno,'rollno'=>$rollno,'sdrn'=>$sdrn ,'description' =>$p,'status'=>0]
-    //     //);
-    //     //INSERT INTO `complaints` (`comp_no`, `labno`, `sysno`, `rollno`, `sdrn`, `description`, `status`, `created_at`, `updated_at`) VALUES (NULL, '520', 'b1', '17CE3003', '476', 'lan wire', '0', NOW(), NOW());
-    //     // DB::table('admin_login')->insert(
-    //     //     ['username' => $newname, 'pass' => $pass1]
-    //     // );
-    //     return view('filecomplaint')->with('rollno',$rollno)->with('sdrn',$sdrn)->with('labno',$labno)->with('systemno',$systemno);
-
-    // }
-    // public function check_input1(Request $request){
-    //     $p=$request->input('description');
-    //     $rollno=$request->input('rollno');
-    //     $labno=$request->input('op');
-    //     $systemno=$request->input('system');
-    //     $sdrn=$request->input('sdrn');
-
-    //     $current_date_time = Carbon::now()->toDateTimeString();
-
-    //     echo $rollno;
-    //     echo $labno;
-    //     echo $systemno;
-    //     echo $sdrn;
-    //     DB::table('complaints')->insert(
-    //         ['labno'=>$labno,'sysno'=>$systemno,'rollno'=>$rollno,'sdrn'=>$sdrn ,'description' =>$p,'status'=>0, 'created_at'=>$current_date_time, 'updated_at'=>$current_date_time]
-    //     );
-
-    // }
-
-    // public function check_input2(Request $request){
-    //     $x=[];
-    //     $p=$request->input('description');
-    //     echo $p;
-
-    //     $labno=$request->input('op');
-    //     $systemno=$request->input('system');
-    //     $sdrn=$request->input('sdrn');
-
-    //     return view('filecomplaint2')->with('sdrn',$sdrn)->with('labno',$labno)->with('systemno',$systemno);
-
-    // }
-
-    // public function check_input3(Request $request){
-    //     $p=$request->input('description');
-    //     $labno=$request->input('op');
-    //     $systemno=$request->input('system');
-    //     $sdrn=$request->input('sdrn');
-
-    //     $current_date_time = Carbon::now()->toDateTimeString();
-
-    //     echo $labno;
-    //     echo $systemno;
-    //     echo $sdrn;
-    //     DB::table('complaints')->insert(
-    //         ['labno'=>$labno,'sysno'=>$systemno,'rollno'=>'NULL','sdrn'=>$sdrn ,'description' =>$p,'status'=>1, 'created_at'=>$current_date_time, 'updated_at'=>$current_date_time]
-    //     );
-
-    // }
-
-
 
 
     /*@return \Illuminate\Http\Response

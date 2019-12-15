@@ -18,7 +18,7 @@
         <div class="wrap-login100">
 
             <div class="login100-pic">
-                <img src="img/raitlogo.png" alt="" class="logo">
+                <img src="img/dylogo.png" alt="" class="logo">
             </div>
 
             <div class="login100-option">
@@ -27,6 +27,7 @@
 		            <li class="tab"><a href="#faculty">Faculty</a></li>
 		            <li class="tab"><a href="#admin">Admin</a></li>
                     <li class="tab"><a href="#hod">HOD</a></li>
+                    <li class="tab"><a href="#principal">Principal</a></li>
                 </ul>
             
                 <form action="/feedback" method="POST" class="login100-form" id="student">
@@ -75,6 +76,19 @@
                     </div>    
                     <div>
                         <input type="password" name="pass3"  class="input100" placeholder="*******" required>
+                    </div>
+                    <div class="container-login100-form-btn">
+                    <input type="submit" value="Login" class="login100-form-btn">
+                    </div>
+                </form>
+
+                <form action="/principal_home" method="POST" class="login100-form" id="principal">
+                    <span class="login100-form-title"></span>
+                    <div class="wrap-input100">
+                        <input type="text" name="p_name" class="input100" placeholder="Username...." required>
+                    </div>    
+                    <div>
+                        <input type="password" name="pass4"  class="input100" placeholder="*******" required>
                     </div>
                     <div class="container-login100-form-btn">
                     <input type="submit" value="Login" class="login100-form-btn">

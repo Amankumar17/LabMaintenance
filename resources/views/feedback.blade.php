@@ -16,66 +16,18 @@
 <!-- <h2 style=" font-size: 30px;position: absolute;top: 0;left: 61px;color: white;">
 Welcome qwr</h2>  -->
 
-<!-- <div>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-     Brand and toggle get grouped for better mobile display 
-    <div class="navbar-header">
-       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button> 
-      <a class="navbar-brand" href="">&#x26F7; Home</a>
-    </div>
-
-   
-
-         <ul class="nav navbar-nav navbar-right">
-         <a class="navbar-brand" href="#">Logout</a>
-          </ul>
-        </li>
-      </ul>
-    </div> /.navbar-collapse
-  </div> /.container-fluid
-</nav>
-</div> -->
-
 <div class="contact-form">
    <div>
-
-      <!-- <form action="/studenthistory_to_feedback">
-         <button type="submit" class="student_headerbuttons" name="rollno" value='{{$stud_details[0]->Roll_no}}'> Home</button>
-      </form> -->
-   
-      <!-- <form action="/feedback" method="POST">
-      <button type="submit" class="student_headerbuttons">Home</button>
-      </form> -->
-
-      <!-- <form action="/student_history" method="POST">
-      <button type="submit" class="student_headerbuttons">History</button>
-      </form> -->
-      <!-- <form action="/testlogin">
-        <button type="submit" class="student_headerbuttons">Logout</button>
-      </form> -->
-
-      <!-- ////////////////////////////////// -->
    
       <button type="button" class="student_headerbuttons" onclick="window.location.href = '/feedback';"> Home</button>
 
       <button type="button" class="student_headerbuttons" onclick="window.location.href = '/student_history';">History</button>
 
       <button type="button" class="student_headerbuttons" onclick="window.location.href = '/testlogin';">Logout</button>
-      
 
-      
-   
    </div>
    <br>
    
-
-
 
    <form action="/datasubmitted" method="POST">
       <div class="txtb">
@@ -277,8 +229,8 @@ Welcome qwr</h2>  -->
          <input type="checkbox" id="mycheckbox" name="problem[]" value="mouse"><span>Mouse</span>
          <input type="checkbox" id="mycheckbox1" name="problem[]" value="keyboard"><span> Keyboard</span>
          <input type="checkbox" id="mycheckbox2" name="problem[]" value="monitor" ><span> Monitor</span>
-         <input type="checkbox" id="mycheckbox3" name="problem[]" value="cpu"><span> CPU</span>
-         <input type="checkbox" id="mycheckbox4" name="problem[]" value="printer"><span> Printer</span>
+         <input type="checkbox" id="mycheckbox3" name="problem[]" value="printer"><span> Printer</span>
+         <input type="checkbox" id="mycheckbox4" name="problem[]" value="cro"><span> CRO</span>
          <input type="checkbox" id="mycheckbox5" name="problem[]" value="other"><span> Other</span>
          <br>	
       </div>

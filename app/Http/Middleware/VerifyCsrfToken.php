@@ -23,7 +23,7 @@ class VerifyCsrfToken extends Middleware
         '/teacher',
         '/admin_home',
         '/hod_home',
-
+        '/principal_home',
         '/datasubmitted',
 
         '/teacher_confirm',

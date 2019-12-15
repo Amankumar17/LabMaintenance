@@ -7,9 +7,16 @@
         <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
 
     </head>
+    <style>
+    .title {
+        font-family: cursive;
+        margin: 30px;
+    }
+    </style>
     <body>
 
         <center>
+        <div class='title'>
         @if($graph==1)
             <h3>Year Wise Chart for Total no. of Complaints </h3>
         @endif
@@ -18,14 +25,23 @@
             In the Year {{$year}}</h3>
         @endif
         @if($graph==3)
-            <h3>Chart for Total no. of Complaints <br>
-            In The Year {{$year}} and Month {{$month}}</h3>
+            @for($i=0; $i<'12'; $i++)
+            @if($month == $i+1)
+            <h3>Month Chart for Total no. of Complaints <br>
+            In The Year {{$year}} and Month {{$month_word[$i]}}</h3>
+            @endif
+            @endfor
         @endif
         @if($graph==4)
+            @for($i=0; $i<'12'; $i++)
+            @if($month == $i+1)
             <h3>Lab Wise Chart for Total no. of Complaints <br>
-            In The Year {{$year}} and Month {{$month}}</h3>
+            In The Year {{$year}} and Month {{$month_word[$i]}}</h3>
+            @endif
+            @endfor
         @endif
-        <h3>Chart Type: {{$type}} Chart</h3>
+        <h3>Chart type: {{$type}} chart</h3>
+        </div>
         </center>
 
         <!-- Main Application -->
@@ -46,9 +62,7 @@
 
         <br><br>
         <center>
-        <!-- <form action="/chart_options"> -->
         <button class="btn btn-default" onclick="window.location.href = '/chart_options';" style="width:16%;">Back</button>
-        <!-- </form> -->
         </center>
         <br><br>
 

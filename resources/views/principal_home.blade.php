@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="css/headerstyle.css">
 <link rel="stylesheet" href="css/footerstyle.css">
 
-<title>HOD Home</title>
+<title>Principal Home</title>
 
 <style>
 
@@ -135,11 +135,11 @@ input {
 <body>
 
 <div class="header" id="myHeader">
-    <a class="active" href="/hod_home">&#x26F7; Home</a>
+    <a class="active" href="/principal_home">&#x26F7; Home</a>
 		<a href="/testlogin">Logout</a>
 	</div>
 
-<h3>Welcome'<span>{{$hodname}}</span>'!</h3><br>
+<h3>Welcome Principal!</h3><br>
 
 <center>
 <div class="btn-group">
@@ -158,6 +158,9 @@ input {
 <table id="myTable" >
     <th>
       Complaint No.
+    </th>
+    <th>
+      Floor
     </th>
     <th>
       Lab No.
@@ -182,6 +185,7 @@ input {
       @if($complaint[$i]->status==1)
       <tr>
           <td>{{$complaint[$i]->comp_no}}</td>
+          <td>{{$complaint[$i]->floor}}</td>
           <td>{{$complaint[$i]->labno}}</td>
           <td>{{$complaint[$i]->sysno}}</td>
           @if($complaint[$i]->rollno=='NULL')
@@ -206,6 +210,9 @@ input {
       Complaint No.
     </th>
     <th>
+      Floor
+    </th>
+    <th>
       Lab No.
     </th>
     <th>
@@ -228,6 +235,7 @@ input {
       @if($complaint[$i]->status==2)
       <tr>
           <td>{{$complaint[$i]->comp_no}}</td>
+          <td>{{$complaint[$i]->floor}}</td>
           <td>{{$complaint[$i]->labno}}</td>
           <td>{{$complaint[$i]->sysno}}</td>
           @if($complaint[$i]->rollno=='NULL')
@@ -252,6 +260,9 @@ input {
       Complaint No.
     </th>
     <th>
+      Floor
+    </th>
+    <th>
       Lab No.
     </th>
     <th>
@@ -274,6 +285,7 @@ input {
       @if($complaint[$i]->status==3)
       <tr>
           <td>{{$complaint[$i]->comp_no}}</td>
+          <td>{{$complaint[$i]->floor}}</td>
           <td>{{$complaint[$i]->labno}}</td>
           <td>{{$complaint[$i]->sysno}}</td>
           @if($complaint[$i]->rollno=='NULL')
