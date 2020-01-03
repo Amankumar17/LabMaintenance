@@ -147,13 +147,15 @@ input {
 <div class="btn-group">
   <a href="/add_system"><button>Add System</button></a>
   <a href="/add_admin"><button>Add Admin</button></a>
-  <a href="/add_faculty"><button>Add Faculty</button></a>
+  <!-- <a href="/add_faculty"><button>Add Faculty</button></a> -->
+  <a href="/transfer_pc1"><button>Transfer PC</button></a>
 </div>
 
 <div class="btn-group">
   <a href="/delete_system"><button>Remove System</button></a>
   <a href="/delete_admin"><button>Remove Admin</button></a>
-  <a href="/delete_faculty"><button>Remove Faculty</button></a>
+  <!-- <a href="/delete_faculty"><button>Remove Faculty</button></a> -->
+  <a href="#"><button>Extra Card</button></a>
 </div>
 
 

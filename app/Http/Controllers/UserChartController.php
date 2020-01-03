@@ -152,6 +152,7 @@ class UserChartController extends Controller
         ];
 
         $count = [];
+        $count_up = [];
         $month_word = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         $graph = $request->input('graph');
         $year = $request->input('year');
@@ -199,9 +200,11 @@ class UserChartController extends Controller
             $usersChart = new UserChart;
             $usersChart->minimalist(false)
                         ->barWidth(0.5)
-                        ->displayLegend($legend=false)
                         ->title('Total no. of complaints', 20, '#666', $bold = true, $font_family = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif");
             
+            if($type=='line' || $type=='bar')
+                $usersChart->displayLegend($legend=false);
+
             $usersChart->labels($unique);
             $usersChart->dataset('No of Complaints', $type, $count)
                 ->color($borderColors)
@@ -210,11 +213,19 @@ class UserChartController extends Controller
         else if($graph==2)
         {
             $count = [0,0,0,0,0,0,0,0,0,0,0,0];
+            $count_up = [0,0,0,0,0,0,0,0,0,0,0,0];
             
             if($floor!=7){
                 for($i=1; $i<=12; $i++){
                     $count[$i-1] = DB::table('complaints')
+                                    ->where(['floor'=>$floor, 'status'=>3])
+                                    ->whereYear('created_at', $year)
+                                    ->whereMonth('created_at', $i)
+                                    ->count();
+
+                    $count_up[$i-1] = DB::table('complaints')
                                     ->where(['floor'=>$floor])
+                                    ->whereIn('status', [1, 2])
                                     ->whereYear('created_at', $year)
                                     ->whereMonth('created_at', $i)
                                     ->count();
@@ -223,6 +234,13 @@ class UserChartController extends Controller
             else{
                 for($i=1; $i<=12; $i++){
                     $count[$i-1] = DB::table('complaints')
+                                    ->where(['status'=>3])
+                                    ->whereYear('created_at', $year)
+                                    ->whereMonth('created_at', $i)
+                                    ->count();
+
+                    $count_up[$i-1] = DB::table('complaints')
+                                    ->whereIn('status', [1, 2])
                                     ->whereYear('created_at', $year)
                                     ->whereMonth('created_at', $i)
                                     ->count();
@@ -231,12 +249,19 @@ class UserChartController extends Controller
             
             $usersChart = new UserChart;
             $usersChart->minimalist(false)
-                        ->barWidth(0.5)
-                        ->displayLegend($legend=false)
+                        ->barWidth(0.8)
                         ->title('Total no. of complaints', 20, '#666', $bold = true, $font_family = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif");
             
+            if($type=='pie' || $type=='doughnut')
+                $usersChart->displayLegend($legend=false);
+
             $usersChart->labels(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
-            $usersChart->dataset('No of Complaints', $type, $count)
+            
+            $usersChart->dataset('Underprocess', $type, $count_up)
+                ->color($borderColors)
+                ->backgroundcolor($fillColors);
+
+            $usersChart->dataset('Resolved', $type, $count)
                 ->color($borderColors)
                 ->backgroundcolor($fillColors);
         }
@@ -277,6 +302,7 @@ class UserChartController extends Controller
         }
         else if($graph==4)
         {
+
             $labs=DB::table('floor_lab')
             ->where(['floor'=>$floor])->get();
 
@@ -289,22 +315,33 @@ class UserChartController extends Controller
 
             for($i=0; $i<count($unique); $i++){
                 $count[$i] = DB::table('complaints')
+                        ->where(['floor'=>$floor, 'labno'=>$unique[$i], 'status'=>3])
+                        ->whereYear('created_at', $year)
+                        ->whereMonth('created_at', $month)
+                        ->count();
+
+                $count_up[$i] = DB::table('complaints')
                         ->where(['floor'=>$floor, 'labno'=>$unique[$i]])
+                        ->whereIn('status', [1, 2])
                         ->whereYear('created_at', $year)
                         ->whereMonth('created_at', $month)
                         ->count();
             }
-
+                       
             $usersChart = new UserChart;
             $usersChart->minimalist(false)
-                        ->barWidth(0.5)
-                        ->displayLegend($legend=false)
+                        ->barWidth(0.9)
+                        ->displayLegend($legend=true)
                         ->title('Total no. of complaints per Lab', 20, '#666', $bold = true, $font_family = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif");
-            
             $usersChart->labels($unique);
-            $usersChart->dataset('No of Complaints', $type, $count)
-                ->color($borderColors)
-                ->backgroundcolor($fillColors);
+
+            $usersChart->dataset('Underprocess Complaints', $type, $count_up)
+                    ->color("rgba(255, 99, 132, 1.0)")
+                    ->backgroundcolor("rgba(255, 99, 132, 0.2)");
+                
+            $usersChart->dataset('Resolved Complaints', $type, $count)
+                    ->color("rgba(22,160,133, 1.0)")
+                    ->backgroundcolor("rgba(22,160,133, 0.2)");
         }
 
         return view('chart')->with('chart', $usersChart)->with('graph', $graph)->with('type', $type)

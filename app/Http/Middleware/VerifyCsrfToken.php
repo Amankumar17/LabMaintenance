@@ -39,6 +39,8 @@ class VerifyCsrfToken extends Middleware
         '/admin_done',
 
         '/chart',
-        '/report'
+        '/report',
+
+        '/transfer_pc'
     ];
 }

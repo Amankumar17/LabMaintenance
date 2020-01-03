@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
+use Mail;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
@@ -57,35 +58,50 @@ class AdminController extends Controller {
 
         $admin = $request->session()->get('admin');
 
+        $c = DB::table('complaints')->where('comp_no',$comp_no)->get();
+
+        if($c[0]->rollno!='NULL'){
+            $rollno = $c[0]->rollno;
+            $f = DB::table('stu_record')->where('Roll_no',$rollno)->get();
+            $email = $f[0]->emailid;
+        }
+        else{
+            $sdrn = $c[0]->sdrn;
+            $f = DB::table('faculty')->where('Sdrn',$sdrn)->get();
+            $email = $f[0]->Email;
+        }
+        
+        // $to= $email;;
+        // $subject="testing";
+        // $msg="Your issue has been solved sucessfully";
+        // $headers="From : laliteshkhan1@gmail.com";
+        // if(mail($to,$subject,$msg,$headers))
+        // {
+        //     echo "Email send Successfully";
+        // }
+        // else
+        // {
+        //     echo "Email not sent";
+        // }
+
+         function basic_email($email) {
+            $data = array('name'=>"Lab Maintenance");
+            
+            Mail::send(['text'=>'mail'], $data, function($message) use ($email){
+               
+               $message->to($email, 'Lab Maintenance')->subject
+                  ('Lab Maintenance Testing Mail');
+               $message->from('shrivastavaman171@gmail.com','Lab Maintenance');
+            });
+            echo "Basic Email Sent. Check your inbox.";
+         }
+
+         basic_email($email);
+         
         DB::table('complaints')->where('comp_no',$comp_no)->update(
             ['status'=>3, 'updated_at'=>$current_date_time]);
 
-            // $c = DB::table('complaints')->where('comp_no',$comp_no)->get();
-
-            // if($c[0]->rollno!='NULL'){
-            //     $rollno = $c[0]->rollno;
-            //     $f = DB::table('stu_record')->where('Roll_no',$rollno)->get();
-            //     $email = $f[0]->emailid;
-            // }
-            // else{
-            //     $sdrn = $c[0]->sdrn;
-            //     $f = DB::table('faculty')->where('Sdrn',$sdrn)->get();
-            //     $email = $f[0]->Email;
-            // }
-
-            // $to= $email;;
-            // $subject="testing";
-            // $msg="Your issue has been solved sucessfully";
-            // $headers="From : laliteshkhan1@gmail.com";
-            // if(mail($to,$subject,$msg,$headers))
-            // {
-            //     echo "Email send Successfully";
-            // }
-            // else
-            // {
-            //     echo "Email not sent";
-            // }
-
+            
             $complaint=DB::table('complaints')->get();
             
             return view('admin_home')->with('complaint',$complaint)->with('admin',$admin);
@@ -103,6 +119,22 @@ class AdminController extends Controller {
 
         return view('admin_add_system')->with('lab',$uniqueLab);
     }
+
+    public function transferPC1(Request $request)
+    {
+        $floor = $request->session()->get('floor');
+
+        $check=DB::table('systems')->get();
+
+        $uniqueLab = DB::table('floor_lab')
+        ->select('labno')
+        ->where('floor',$floor)
+        ->get();
+
+        $check = $check->sort();
+
+        return view('admin_transfer_pc')->with('systems',$check)->with('lab',$uniqueLab);
+    }
     
     public function systemAdd(Request $request){
 
@@ -115,6 +147,24 @@ class AdminController extends Controller {
 
         return view('/admin_operation');
     }
+
+    public function transferPC(Request $request){
+
+        $labno = $request->input('labno');
+        $pc = $request->input('oldsys');
+        $labno1 = $request->input('labno1');
+        
+        DB::table('systems')->where([
+            ['labno', '=', $labno],
+            ['sys', '=', $pc]])->delete();
+               
+        DB::table('systems')->insert(
+            ['labno' => $labno1, 'sys' => $pc]
+        );
+    
+            return view('/admin_operation');
+    }
+
 
     public function systemRemove2(Request $request)
     {

@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('sendbasicemail','MailController@basic_email');
+Route::get('sendhtmlemail','MailController@html_email');
+Route::get('sendattachmentemail','MailController@attachment_email');
+
 
 Route::get ( '/admin_search', function () {
     return view ( 'admin_search' );
@@ -65,9 +69,9 @@ Route::get('/add_admin', function () {
     return view('admin_add_admin');
 });
 
-Route::get('/add_faculty', function () {
-    return view('admin_add_fac');
-});
+// Route::get('/add_faculty', function () {
+//     return view('admin_add_fac');
+// });
 
 Route::get('/delete_admin', function () {
     return view('admin_del_admin');
@@ -83,6 +87,10 @@ Route::get('/add_system','AdminController@systemAdd2');
 Route::get('/delete_system','AdminController@systemRemove2');
 
 Route::post('/system_demo1','AdminController@systemAdd');
+
+Route::get('/transfer_pc1','AdminController@transferPC1');
+
+Route::post('/transfer_pc','AdminController@transferPC');
 
 Route::post('/system_demo2','AdminController@systemRemove');
 

@@ -80,11 +80,11 @@ input[type=text]{
 <br>
 
 <div class="container">
-<form action="/system_demo1" method="POST">
+<form action="/transfer_pc" method="POST">
 
 <label for="labno">Please select the Lab</label>
 
-<select id="lb" name="labno" required>
+<select id="lb" name="labno" required onchange="labsys(this.value)">
             <option value="" disabled selected>Select</option>
             @for($i=0; $i<$lab->count(); $i++)
                 <option >{{$lab[$i]->labno}}</option>
@@ -94,12 +94,54 @@ input[type=text]{
 <br><br>
 
 <label for="systemno">Please add the System</label>
-<input type="text" id="lab" name="newsys">
+<select id="syst" name="oldsys">
+                
+  <option value="" disabled selected>Select</option>
+                
+</select>
+
+<br><br>
+
+<label for="systemno">Please add the new lab number</label>
+<select id="lb1" name="labno1" required>
+            <option value="" disabled selected>Select</option>
+            @for($i=0; $i<$lab->count(); $i++)
+                <option >{{$lab[$i]->labno}}</option>
+            @endfor
+        </select>
 
 <input type="submit" value="Submit">
 </form>
 </div>
 </center>
+
+<script>
+  function labsys(value) {
+    if (value.length==0) {
+      document.getElementById("syst").innerHTML = '<option value="" disabled selected>Select</option>';
+      }
+    else {
+      var obj = <?php echo json_encode($systems); ?>;
+      var arr=[];
+
+      for(a in obj) {
+        arr.push(obj[a])
+      }
+
+      var cont='<option value="" disabled selected>Select</option>';
+
+      for(i=0; i<arr.length; i++) {
+        if(arr[i].labno == value) {
+          cont = cont + "<option>" + arr[i].sys + "</option>";
+        }
+      }
+      document.getElementById('syst').innerHTML = cont;
+    }
+    return 0;
+  }
+
+  </script>
+
 
 <!-- FOOTER START -->
 <div class="footer" style="margin-top:9%; font-family:courier new;">
