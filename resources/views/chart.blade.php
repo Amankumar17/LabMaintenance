@@ -40,6 +40,14 @@
             @endif
             @endfor
         @endif
+        @if($graph==5)
+            @for($i=0; $i<'12'; $i++)
+            @if($month == $i+1)
+            <h3>Issue Wise Chart for Total no. of Complaints <br>
+            In The Year {{$year}} and Month {{$month_word[$i]}}</h3>
+            @endif
+            @endfor
+        @endif
         <h3>Chart type: {{$type}} chart</h3>
         </div>
         </center>

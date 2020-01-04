@@ -16,11 +16,29 @@ Route::get('sendhtmlemail','MailController@html_email');
 Route::get('sendattachmentemail','MailController@attachment_email');
 
 
-Route::get ( '/admin_search', function () {
-    return view ( 'admin_search' );
-} );
+// Route::get ( '/admin_search', function () {
+//     return view ( 'admin_search' );
+// } );
 
-Route::any ( '/search', 'AdminController@admin_search');
+Route::get ('/admin_search', 'AdminController@admin_lab_search');
+
+Route::get ('/hod_search', 'AdminController@hod_lab_search');
+
+Route::any('/search', 'AdminController@admin_search');
+
+Route::any('/searchLab', 'AdminController@admin_lab_search1');
+
+Route::get ('/hod_search', 'AdminController@hod_lab_search');
+
+Route::any('/hodsearch', 'AdminController@hod_search');
+
+Route::any('/hodsearchLab', 'AdminController@hod_lab_search1');
+
+Route::get ('/principal_search', 'AdminController@principal_lab_search');
+
+Route::any('/principalsearch', 'AdminController@principal_search');
+
+Route::any('/principalsearchLab', 'AdminController@principal_lab_search1');
 
 Route::post('/chart', 'UserChartController@index');
 

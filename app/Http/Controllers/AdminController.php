@@ -14,8 +14,21 @@ class AdminController extends Controller {
     public function admin_search(Request $request){
         $q = $request->input('q');
 
+        // $labno = $request->input('labno');
+
+        // echo $labno;
+
         $floor = $request->session()->get('floor');
 
+        $uniqueLab = DB::table('floor_lab')
+        ->select('labno')
+        ->where('floor',$floor)
+        ->get();
+
+        // $complaintTable = DB::table('complaints')
+        //     ->where ( 'labno', 'LIKE', '%' . $labno . '%' )
+        //     ->get();
+    
         $complaint = DB::table('complaints')
             ->where('floor', '=', $floor)
             ->where ( 'comp_no', 'LIKE', '%' . $q . '%' )
@@ -28,10 +41,217 @@ class AdminController extends Controller {
             ->get();
     
         if (count ( $complaint ) > 0)
-            return view ( 'admin_search' )->withDetails ( $complaint )->withQuery ( $q );
+            return view ( 'admin_search' )->with('lab',$uniqueLab)->withDetails ( $complaint )->withQuery ( $q );
+        // elseif (count ($complaintTable) > 0)
+        //     return view ( 'admin_search' )->with('lab',$uniqueLab)->withDetails ( $complaintTable )->withQuery ( $labno );
         else
-            return view ( 'admin_search' )->withMessage ( 'No Details found. Try to search again !' );
+            return view ( 'admin_search' )->with('lab',$uniqueLab)->withMessage ( 'No Details found. Try to search again !' );
     }
+
+    public function admin_lab_search1(Request $request){
+
+        $labno = $request->input('labno');
+
+        $floor = $request->session()->get('floor');
+
+        $uniqueLab = DB::table('floor_lab')
+        ->select('labno')
+        ->where('floor',$floor)
+        ->get();
+
+        $complaintTable = DB::table('complaints')
+            ->where ( 'labno', 'LIKE', '%' . $labno . '%' )
+            ->get();
+
+        if (count ($complaintTable) > 0)
+            return view ( 'admin_search' )->with('lab',$uniqueLab)->withDetails ( $complaintTable )->withQuery ( $labno );
+        else
+            return view ( 'admin_search' )->with('lab',$uniqueLab)->withMessage ( 'No Details found. Try to search again !' );
+        }
+
+    public function admin_lab_search(Request $request){
+
+
+        $floor = $request->session()->get('floor');
+
+        // $check=DB::table('systems')->get();
+
+        $uniqueLab = DB::table('floor_lab')
+        ->select('labno')
+        ->where('floor',$floor)
+        ->get();
+
+        // $check = $check->sort();
+
+
+        return view('admin_search')->with('lab',$uniqueLab);
+
+
+    }
+
+
+
+
+
+
+
+
+    public function hod_search(Request $request){
+        $q = $request->input('q');
+
+        // $labno = $request->input('labno');
+
+        // echo $labno;
+
+        $floor = $request->session()->get('floor');
+
+        $uniqueLab = DB::table('floor_lab')
+        ->select('labno')
+        ->where('floor',$floor)
+        ->get();
+
+        // $complaintTable = DB::table('complaints')
+        //     ->where ( 'labno', 'LIKE', '%' . $labno . '%' )
+        //     ->get();
+    
+        $complaint = DB::table('complaints')
+            ->where('floor', '=', $floor)
+            ->where ( 'comp_no', 'LIKE', '%' . $q . '%' )
+            ->orwhere ( 'labno', 'LIKE', '%' . $q . '%' )
+            ->orWhere ( 'sysno', 'LIKE', '%' . $q . '%' )
+            ->orwhere ( 'rollno', 'LIKE', '%' . $q . '%' )
+            ->orWhere ( 'sdrn', 'LIKE', '%' . $q . '%' )
+            ->orwhere ( 'problem', 'LIKE', '%' . $q . '%' )
+            ->orWhere ( 'description', 'LIKE', '%' . $q . '%' )
+            ->get();
+    
+        if (count ( $complaint ) > 0)
+            return view ( 'hod_search' )->with('lab',$uniqueLab)->withDetails ( $complaint )->withQuery ( $q );
+        // elseif (count ($complaintTable) > 0)
+        //     return view ( 'admin_search' )->with('lab',$uniqueLab)->withDetails ( $complaintTable )->withQuery ( $labno );
+        else
+            return view ( 'hod_search' )->with('lab',$uniqueLab)->withMessage ( 'No Details found. Try to search again !' );
+    }
+
+    public function hod_lab_search1(Request $request){
+
+        $labno = $request->input('labno');
+
+        $floor = $request->session()->get('floor');
+
+        $uniqueLab = DB::table('floor_lab')
+        ->select('labno')
+        ->where('floor',$floor)
+        ->get();
+
+        $complaintTable = DB::table('complaints')
+            ->where ( 'labno', 'LIKE', '%' . $labno . '%' )
+            ->get();
+
+        if (count ($complaintTable) > 0)
+            return view ( 'hod_search' )->with('lab',$uniqueLab)->withDetails ( $complaintTable )->withQuery ( $labno );
+        else
+            return view ( 'hod_search' )->with('lab',$uniqueLab)->withMessage ( 'No Details found. Try to search again !' );
+        }
+
+    public function hod_lab_search(Request $request){
+
+
+        $floor = $request->session()->get('floor');
+
+        // $check=DB::table('systems')->get();
+
+        $uniqueLab = DB::table('floor_lab')
+        ->select('labno')
+        ->where('floor',$floor)
+        ->get();
+
+        // $check = $check->sort();
+
+
+        return view('hod_search')->with('lab',$uniqueLab);
+
+
+    }
+
+
+
+
+
+
+
+
+    public function principal_search(Request $request){
+        $q = $request->input('q');
+
+        // $labno = $request->input('labno');
+
+        // echo $labno;
+
+        $floor = $request->session()->get('floor');
+
+        $uniqueLab = DB::table('floor_lab')
+        ->select('labno')
+        ->where('floor',$floor)
+        ->get();
+
+        // $complaintTable = DB::table('complaints')
+        //     ->where ( 'labno', 'LIKE', '%' . $labno . '%' )
+        //     ->get();
+    
+        $complaint = DB::table('complaints')
+            ->where('floor', '=', $floor)
+            ->where ( 'comp_no', 'LIKE', '%' . $q . '%' )
+            ->orwhere ( 'labno', 'LIKE', '%' . $q . '%' )
+            ->orWhere ( 'sysno', 'LIKE', '%' . $q . '%' )
+            ->orwhere ( 'rollno', 'LIKE', '%' . $q . '%' )
+            ->orWhere ( 'sdrn', 'LIKE', '%' . $q . '%' )
+            ->orwhere ( 'problem', 'LIKE', '%' . $q . '%' )
+            ->orWhere ( 'description', 'LIKE', '%' . $q . '%' )
+            ->get();
+    
+        if (count ( $complaint ) > 0)
+            return view ( 'principal_search' )->with('lab',$uniqueLab)->withDetails ( $complaint )->withQuery ( $q );
+        // elseif (count ($complaintTable) > 0)
+        //     return view ( 'admin_search' )->with('lab',$uniqueLab)->withDetails ( $complaintTable )->withQuery ( $labno );
+        else
+            return view ( 'principal_search' )->with('lab',$uniqueLab)->withMessage ( 'No Details found. Try to search again !' );
+    }
+
+    public function principal_lab_search1(Request $request){
+
+        $labno = $request->input('labno');
+
+        $floor = $request->session()->get('floor');
+
+        $uniqueLab = DB::table('floor_lab')
+        ->select('labno')
+        ->where('floor',$floor)
+        ->get();
+
+        $complaintTable = DB::table('complaints')
+            ->where ( 'labno', 'LIKE', '%' . $labno . '%' )
+            ->get();
+
+        if (count ($complaintTable) > 0)
+            return view ( 'principal_search' )->with('lab',$uniqueLab)->withDetails ( $complaintTable )->withQuery ( $labno );
+        else
+            return view ( 'principal_search' )->with('lab',$uniqueLab)->withMessage ( 'No Details found. Try to search again !' );
+        }
+
+    public function principal_lab_search(Request $request){
+
+        $uniqueFloor = DB::table('floor_lab')
+        ->select('floor')
+        ->groupBy('floor')
+        ->get();
+
+        $floor_lab = DB::table('floor_lab')
+        ->get();
+
+        return view('principal_search')->with('floor',$uniqueFloor)->with('lab',$floor_lab);
+    }
+
 
     public function status_admin_confirm(Request $request){
 

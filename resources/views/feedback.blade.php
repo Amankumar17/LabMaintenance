@@ -161,7 +161,8 @@ Welcome qwr</h2>  -->
                 //console.log(arr);
                 // arr.sort(function(a,b){return a[1] - b[1]});
                 // arr.reverse();
-                var cont='<table><th>Complaint No.</th><th>Lab no.</th><th>System no.</th><th>Complaint</th>';
+                var cont='<table><th>Srn No.</th><th>System no.</th><th>Complaint</th><th>Date</th>';
+                var temp;
                 //console.log(arr.sort());
                 //arr.sort(function(a, b){return a - b});
                 //console.log(arr.(1.toString()).labno);
@@ -173,7 +174,6 @@ Welcome qwr</h2>  -->
                 for( var i=0; i<arr.length; i++)
                 {
                    //console.log(arr[i].sysno.indexOf(','),arr[i].sysno.length,arr[i].sysno.split(','))
-                   
                     if(arr[i].labno == labn)
                      if (arr[i].sysno.indexOf(',') != -1)
                         for(var j=0; j<vals.length; j++)
@@ -192,7 +192,7 @@ Welcome qwr</h2>  -->
                               // console.log(arr[i].comp_no);
                               if (flag == 0)
                               {
-                                 cont = cont + "<tr><td>" + arr[i].comp_no + "</td>"+"<td>"+arr[i].labno+"</td>"+"<td>"+arr[i].sysno+"</td>"+"<td>"+arr[i].description+"</td></tr>";
+                                 cont = cont + "<tr><td>" + arr[i].comp_no + "</td>"+"<td>"+arr[i].sysno+"</td>"+"<td>"+arr[i].description+"</td>"+"<td>"+arr[i].created_at+"</td></tr>";
                                  optimise.push(arr[i].comp_no);
                               }
                               flag=0;
@@ -204,8 +204,7 @@ Welcome qwr</h2>  -->
                         for(var j=0; j<vals.length; j++)
                         if(arr[i].sysno == vals[j])
                         {
-                           // console.log(arr[i].comp_no);
-                           cont = cont + "<tr><td>" + arr[i].comp_no + "</td>"+"<td>"+arr[i].labno+"</td>"+"<td>"+arr[i].sysno+"</td>"+"<td>"+arr[i].description+"</td></tr>";
+                              cont = cont + "<tr><td>" + arr[i].comp_no + "</td>"+"<td>"+arr[i].sysno+"</td>"+"<td>"+arr[i].description+"</td>"+"<td>"+ arr[i].created_at +"</td></tr>";
                            optimise.push(arr[i].comp_no);
                         }
                      }

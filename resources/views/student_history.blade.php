@@ -107,6 +107,7 @@
     <th>
       Date
     </th>
+    
     <th>
       Status
     </th>
@@ -119,8 +120,8 @@
           <td width="8%">{{$complaint[$i]->labno}}</td>
           <td width="10%">{{$complaint[$i]->sysno}}</td>
           <td>{{$complaint[$i]->description}}</td>
-          <td> {{date('d M, Y', strtotime($complaint[$i]->created_at)) }}</td>
-
+          <td> {{date('h:i:s a m/d/Y', strtotime($complaint[$i]->created_at)) }}</td>
+          
           <td width="8%">
           @if ($complaint[$i]->status==0)
             Not yet Approved

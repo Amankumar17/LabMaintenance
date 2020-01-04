@@ -211,7 +211,7 @@ class LoginController extends BaseController
             // $floor=DB::table('admin_login')->where(['username'=>$username,'pass'=>$pass2])->get();
 
             $complaint=DB::table('complaints')->where(['floor'=>$f])->get();
-            
+
             return view('admin_home')->with('complaint',$complaint)->with('admin',$username);
         }   
         else {

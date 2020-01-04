@@ -131,6 +131,12 @@ input {
 	font-family: ink free;
 }
 
+.selectLabNo {
+  margin-bottom : 10px;
+  margin-top : 60px;
+
+}
+
 </style>
 </head>
 
@@ -158,10 +164,7 @@ input {
   <a href="#"><button>Extra Card</button></a>
 </div>
 
-
 <br><br>
-
-
 
   <button class="tablink" onclick="openPage('New', this, '#c88380')" id="defaultOpen">New</button>
   <button class="tablink" onclick="openPage('Ongoing', this, '#c88380')">In Progress</button>
@@ -330,7 +333,6 @@ input {
   </table>
 </div>
 
-
 <script>
 function openPage(pageName,elmnt,color) {
   var i, tabcontent, tablinks;
@@ -349,6 +351,9 @@ function openPage(pageName,elmnt,color) {
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
 </script>
+
+
+
 
 
 <!-- FOOTER START -->

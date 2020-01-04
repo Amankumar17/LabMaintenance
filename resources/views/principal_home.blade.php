@@ -137,7 +137,8 @@ input {
 <div class="header" id="myHeader">
     <a class="active" href="/principal_home">&#x26F7; Home</a>
 		<a href="/testlogin">Logout</a>
-	</div>
+    <a href="/principal_search">Search</a>
+</div>
 
 <h3>Welcome Principal!</h3><br>
 

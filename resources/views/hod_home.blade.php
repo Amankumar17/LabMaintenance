@@ -137,6 +137,7 @@ input {
 <div class="header" id="myHeader">
     <a class="active" href="/hod_home">&#x26F7; Home</a>
 		<a href="/testlogin">Logout</a>
+    <a href="/hod_search">Search</a>
 	</div>
 
 <h3>Welcome'<span>{{$hodname}}</span>'!</h3><br>

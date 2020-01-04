@@ -89,7 +89,7 @@ input[type=text]{
             @for($i=0; $i<$lab->count(); $i++)
                 <option >{{$lab[$i]->labno}}</option>
             @endfor
-        </select>
+</select>
 
 <br><br>
 

@@ -110,6 +110,7 @@
                         <option value="2">Month Wise</option>
                         <option value="3">Any One Month</option>
                         <option value="4" id='labwise'>Lab Wise</option>
+                        <option value="5" id='issuewise'>Issue Wise</option>
                     </select>
                 </div>
 
@@ -119,9 +120,6 @@
                     <h4>Select Year</h4>
                     <select name="year" id="y">
                         <option value="" disabled selected>Select</option>
-                        <option value="2018">2018</option>
-                        <option value="2019">2019</option>
-                        <option value="2020">2020</option>
                     </select>
                 </div>
 
@@ -148,6 +146,17 @@
 
                 <br>
 
+                <div id="b3" class='box' style="display:none;">
+                    <h4>Select Lab</h4>
+                    <select name="lab" id="lab">
+                        <option value="" disabled selected>Select</option>
+                    </select>
+                </div>
+
+                <br>
+
+                <br>
+
                 <input class="btn btn-success" type="submit" value="Generate">
             </form>
         </div>
@@ -166,11 +175,20 @@
                 document.getElementById("f").required = true;
 
                 document.getElementById("labwise").style.display = "none";
+                document.getElementById("issuewise").style.display = "none";
 
-                document.getElementById("p_btn").style.display = "block";
                 document.getElementById("h_btn").style.display = "none";
-
+                document.getElementById("p_btn").style.display = "block";
             }
+
+            var years = <?php echo json_encode($unique_years); ?>;
+            var cont='<option value="" disabled selected>Select</option>';
+
+            for(i=0; i<years.length; i++)
+                cont = cont + '<option value=' + years[i] + '>' + years[i] + '</option>';
+
+            document.getElementById('y').innerHTML = cont;
+
 
             function function1(value)
             {
@@ -184,6 +202,9 @@
 
                         document.getElementById("b2").style.display = "none";
                         document.getElementById("m").required = false;
+
+                        document.getElementById("b3").style.display = "none";
+                        document.getElementById("lab").required = true;
                     }
                     if(value==2) {
                         document.getElementById("b1").style.display = "block";
@@ -191,18 +212,52 @@
 
                         document.getElementById("b2").style.display = "none";
                         document.getElementById("m").required = false;
+
+                        document.getElementById("b3").style.display = "none";
+                        document.getElementById("lab").required = true;
                     }
-                    else if(value==3 || value==4) {
+                    if(value==3 || value==4) {
 
                         document.getElementById("b1").style.display = "block";
                         document.getElementById("y").required = true;
 
                         document.getElementById("b2").style.display = "block";
                         document.getElementById("m").required = true;
-                    }
-                    
-                }
 
+                        document.getElementById("b3").style.display = "none";
+                        document.getElementById("lab").required = true;
+                    }
+                    if(value==5) {
+
+                        document.getElementById("b1").style.display = "block";
+                        document.getElementById("y").required = true;
+
+                        document.getElementById("b2").style.display = "block";
+                        document.getElementById("m").required = true;
+
+                        document.getElementById("b3").style.display = "block";
+                        document.getElementById("lab").required = true;
+
+                        if(obj==7)
+                            var f = document.getElementById("f").value;
+                        else
+                            var f = obj;
+
+                        var obj2 = <?php echo json_encode($floor_lab); ?>;
+                        var arr=[];
+                        console.log(f);
+                        for(a in obj2)
+                            arr.push(obj2[a])
+
+                        var cont='<option value="" disabled selected>Select</option>';
+                        
+                        for(i=0; i<arr.length; i++)
+                            if(arr[i].floor == f)
+                                cont = cont + "<option>" + arr[i].labno + "</option>";
+
+                        document.getElementById('lab').innerHTML = cont;      
+                    }
+                }
                 return 0;
             }
 
@@ -214,9 +269,11 @@
                 else {
                     if(value==7) {
                         document.getElementById("labwise").style.display = "none";
+                        document.getElementById("issuewise").style.display = "none";
                     }
                     else{
                         document.getElementById("labwise").style.display = "block";
+                        document.getElementById("issuewise").style.display = "block";
                     }
                 }
                 return 0;

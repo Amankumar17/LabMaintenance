@@ -20,7 +20,7 @@
 
 <body>
 	<div class="container">
-		<form action="/search" method="POST" role="search">
+		<form action="/hodsearch" method="POST" role="search">
 			{{ csrf_field() }}
 			<div class="input-group">
 				<input type="text" class="form-control" name="q"
@@ -32,7 +32,7 @@
 			</div>
 		</form>
 		<br><br>
-		<form action="/searchLab" method="POST" role="search">
+		<form action="/hodsearchLab" method="POST" role="search">
 
 			<div class="selectLabNo">
     			<label>Search by lab number:</label>
@@ -62,12 +62,11 @@
 						<th>Sdrn</th>
                         <th>Problem</th>
 						<th>Desciption</th>
-						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody>
 					@foreach($details as $complaint)
-					<form action="/admin_confirm" method="POST">
+					
 					<tr>
 						<td><input type="text" style="width:100px;text-align:center;border:none;" name="comp_no" value="{{$complaint->comp_no}}" readonly></td>
 						<td>{{$complaint->labno}}</td>
@@ -76,15 +75,8 @@
 						<td>{{$complaint->sdrn}}</td>
                         <td>{{$complaint->problem}}</td>
 						<td>{{$complaint->description}}</td>
-						@if($complaint->status==1)
-						<td><button >Confirm</button></td>
-						@elseif($complaint->status==2)
-						<td><button >Done</button></td>
-						@else
-						<td>Resolved</td>
-						@endif
 					</tr>
-					</form>
+					
 					@endforeach
 				</tbody>
 			</table>
