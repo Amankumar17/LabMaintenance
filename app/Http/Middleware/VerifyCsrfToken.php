@@ -43,6 +43,7 @@ class VerifyCsrfToken extends Middleware
 
         '/transfer_pc',
         '/searchLab',
-        '/hodsearchLab'
+        '/hodsearchLab',
+        '/principalsearchLab'
     ];
 }

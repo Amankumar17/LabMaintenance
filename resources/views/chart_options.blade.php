@@ -63,13 +63,13 @@
                 <div class='chart box'>
                     <h4>Select the chart type</h4>
                     <label>
-                    <input type="radio" name="type" value="line" checked>
-                    <img src="https://cms-assets.tutsplus.com/uploads/users/48/posts/28129/final_image/Chart.png">
-                    </label>
-
-                    <label>
-                    <input type="radio" name="type" value="bar">
+                    <input type="radio" name="type" value="bar"  checked>
                     <img src="https://i.stack.imgur.com/g3hai.png">
+
+                    </label>
+                    <label>
+                    <input type="radio" name="type" value="line">
+                    <img src="https://cms-assets.tutsplus.com/uploads/users/48/posts/28129/final_image/Chart.png">
                     </label>
 
                     <label>
@@ -204,7 +204,7 @@
                         document.getElementById("m").required = false;
 
                         document.getElementById("b3").style.display = "none";
-                        document.getElementById("lab").required = true;
+                        document.getElementById("lab").required = false;
                     }
                     if(value==2) {
                         document.getElementById("b1").style.display = "block";
@@ -214,7 +214,7 @@
                         document.getElementById("m").required = false;
 
                         document.getElementById("b3").style.display = "none";
-                        document.getElementById("lab").required = true;
+                        document.getElementById("lab").required = false;
                     }
                     if(value==3 || value==4) {
 
@@ -225,7 +225,7 @@
                         document.getElementById("m").required = true;
 
                         document.getElementById("b3").style.display = "none";
-                        document.getElementById("lab").required = true;
+                        document.getElementById("lab").required = false;
                     }
                     if(value==5) {
 

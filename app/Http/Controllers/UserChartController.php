@@ -23,7 +23,7 @@ class UserChartController extends Controller
     public function chart_options(Request $request)
     {
         $floor = $request->session()->get('floor');
-
+        
         $complaint=DB::table('complaints')
             ->get(['created_at']);
 
@@ -206,19 +206,42 @@ class UserChartController extends Controller
             $unique  =  $unique->values()->all();
             sort($unique);
         
+            $a = [];
             if($floor!=7){
                 for($i=0; $i<count($unique); $i++){
-                    $count[$i] = DB::table('complaints')
+                    $count[$i] = 0;
+
+                    $rows = DB::table('complaints')
                             ->where(['floor'=>$floor])
                             ->whereYear('created_at', $unique[$i])
-                            ->count();
+                            ->get(['sysno']);
+
+                    for($k=0; $k<$rows->count(); $k++){
+                        if(strpos($rows[$k]->sysno, ',')) {
+                            $a = explode(',', $rows[$k]->sysno);
+                            $count[$i] += count($a);
+                        }
+                        else
+                            $count[$i] += 1;
+                    }       
                 }
             }
             else{
                 for($i=0; $i<count($unique); $i++){
-                    $count[$i] = DB::table('complaints')
+                    $count[$i] = 0;
+
+                    $rows = DB::table('complaints')
                             ->whereYear('created_at', $unique[$i])
-                            ->count();
+                            ->get(['sysno']);
+
+                            for($k=0; $k<$rows->count(); $k++){
+                                if(strpos($rows[$k]->sysno, ',')) {
+                                    $a = explode(',', $rows[$k]->sysno);
+                                    $count[$i] += count($a);
+                                }
+                        else
+                            $count[$i] += 1;
+                    }       
                 }
             }
 
@@ -241,34 +264,62 @@ class UserChartController extends Controller
             $count_up = [0,0,0,0,0,0,0,0,0,0,0,0];
             
             if($floor!=7){
+                $a = [];
                 for($i=1; $i<=12; $i++){
-                    $count[$i-1] = DB::table('complaints')
-                                    ->where(['floor'=>$floor, 'status'=>3])
-                                    ->whereYear('created_at', $year)
-                                    ->whereMonth('created_at', $i)
-                                    ->count();
+                    $count[$i-1] = 0;
+                    $count_up[$i-1] = 0;
 
-                    $count_up[$i-1] = DB::table('complaints')
-                                    ->where(['floor'=>$floor])
-                                    ->whereIn('status', [1, 2])
-                                    ->whereYear('created_at', $year)
-                                    ->whereMonth('created_at', $i)
-                                    ->count();
+                    $rows = DB::table('complaints')
+                                ->where(['floor'=>$floor])
+                                ->whereIn('status', [1, 2, 3])
+                                ->whereYear('created_at', $year)
+                                ->whereMonth('created_at', $i)
+                                ->get(['sysno', 'status']);
+
+                    for($k=0; $k<$rows->count(); $k++){
+                        if(strpos($rows[$k]->sysno, ',')) {
+                            $a = explode(',', $rows[$k]->sysno);
+                            if($rows[$k]->status == 3)
+                                $count[$i-1] += count($a);
+                            else
+                                $count_up[$i-1] += count($a);
+                        }
+                        else{
+                            if($rows[$k]->status == 3)
+                                $count[$i-1] += 1;
+                            else
+                                $count_up[$i-1] += 1;
+                        }
+                    }
                 }
             }
             else{
+                $a = [];
                 for($i=1; $i<=12; $i++){
-                    $count[$i-1] = DB::table('complaints')
-                                    ->where(['status'=>3])
-                                    ->whereYear('created_at', $year)
-                                    ->whereMonth('created_at', $i)
-                                    ->count();
+                    $count[$i-1] = 0;
+                    $count_up[$i-1] = 0;
 
-                    $count_up[$i-1] = DB::table('complaints')
-                                    ->whereIn('status', [1, 2])
-                                    ->whereYear('created_at', $year)
-                                    ->whereMonth('created_at', $i)
-                                    ->count();
+                    $rows = DB::table('complaints')
+                                ->whereIn('status', [1, 2, 3])
+                                ->whereYear('created_at', $year)
+                                ->whereMonth('created_at', $i)
+                                ->get(['sysno', 'status']);
+
+                    for($k=0; $k<$rows->count(); $k++){
+                        if(strpos($rows[$k]->sysno, ',')) {
+                            $a = explode(',', $rows[$k]->sysno);
+                            if($rows[$k]->status == 3)
+                                $count[$i-1] += count($a);
+                            else
+                                $count_up[$i-1] += count($a);
+                        }
+                        else{
+                            if($rows[$k]->status == 3)
+                                $count[$i-1] += 1;
+                            else
+                                $count_up[$i-1] += 1;
+                        }
+                    }
                 }
             }
             
@@ -293,27 +344,37 @@ class UserChartController extends Controller
         else if($graph==3)
         {
             if($floor!=7){
-                $complaint=DB::table('complaints')
-                    ->where(['floor'=>$floor])
-                    ->whereYear('created_at', $year)
-                    ->whereMonth('created_at', $month)->get();
+                $rows = DB::table('complaints')
+                        ->where(['floor'=>$floor])
+                        ->whereYear('created_at', $year)
+                        ->whereMonth('created_at', $month)
+                        ->get(['sysno', 'status']);      
             }
             else{
-                $complaint=DB::table('complaints')
+                $rows = DB::table('complaints')
                     ->whereYear('created_at', $year)
-                    ->whereMonth('created_at', $month)->get();
+                    ->whereMonth('created_at', $month)->get(['sysno', 'status']);
             }
             
             $pending = 0;
             $done = 0;
 
-            for($i=0; $i<$complaint->count(); $i++){
-                if($complaint[$i]->status == 3)
-                    $done += 1;
-                else
-                    $pending += 1; 
+            for($k=0; $k<$rows->count(); $k++){
+                if(strpos($rows[$k]->sysno, ',')) {
+                    $a = explode(',', $rows[$k]->sysno);
+                    if($rows[$k]->status == 3)
+                        $done += count($a);
+                    else
+                        $pending += count($a);
+                }
+                else{
+                    if($rows[$k]->status == 3)
+                        $done += 1;
+                    else
+                        $pending += 1;
+                }
             }
-
+            
             $usersChart = new UserChart;
             $usersChart->minimalist(false)
                         ->barWidth(0.5)
@@ -337,19 +398,33 @@ class UserChartController extends Controller
             }
             sort($unique);
 
+            $a = [];
             for($i=0; $i<count($unique); $i++){
-                $count[$i] = DB::table('complaints')
-                        ->where(['floor'=>$floor, 'labno'=>$unique[$i], 'status'=>3])
-                        ->whereYear('created_at', $year)
-                        ->whereMonth('created_at', $month)
-                        ->count();
+                $count[$i] = 0;
+                $count_up[$i] = 0;
 
-                $count_up[$i] = DB::table('complaints')
+                $rows = DB::table('complaints')
                         ->where(['floor'=>$floor, 'labno'=>$unique[$i]])
-                        ->whereIn('status', [1, 2])
+                        ->whereIn('status', [1, 2, 3])
                         ->whereYear('created_at', $year)
                         ->whereMonth('created_at', $month)
-                        ->count();
+                        ->get(['sysno', 'status']);
+
+                for($k=0; $k<$rows->count(); $k++){
+                    if(strpos($rows[$k]->sysno, ',')) {
+                        $a = explode(',', $rows[$k]->sysno);
+                        if($rows[$k]->status == 3)
+                            $count[$i] += count($a);
+                        else
+                            $count_up[$i] += count($a);
+                    }
+                    else{
+                        if($rows[$k]->status == 3)
+                            $count[$i] += 1;
+                        else
+                            $count_up[$i] += 1;
+                    }
+                }
             }
                        
             $usersChart = new UserChart;
@@ -376,31 +451,53 @@ class UserChartController extends Controller
             ->where(['labno'=>$lab])
             ->get(['problem']);
 
-            $issues = []; 
+            $issues = [];
+            $a = [];
+
             for($i=0; $i<$complaint->count(); $i++){
-                array_push($issues, $complaint[$i]->problem); 
+                if (strpos($complaint[$i]->problem, ',')) {
+                    $a = explode(',', $complaint[$i]->problem);
+                    for($k=0; $k<count($a); $k++){
+                        array_push($issues, $a[$k]);
+                    }
+                }
+                else
+                    array_push($issues, $complaint[$i]->problem); 
             }
 
             $collection = collect($issues);
             $unique = $collection->unique();
             $unique  =  $unique->values()->all();
             sort($unique);
-        
-            for($i=0; $i<count($unique); $i++){
-                $count[$i] = DB::table('complaints')
-                        ->where(['floor'=>$floor, 'labno'=>$lab, 'status'=>3])
-                        ->where ( 'problem', 'LIKE', '%' . $unique[$i] . '%' )
-                        ->whereYear('created_at', $year)
-                        ->whereMonth('created_at', $month)
-                        ->count();
 
-                $count_up[$i] = DB::table('complaints')
+            $a = [];
+            for($i=0; $i<count($unique); $i++){
+                $count[$i] = 0;
+                $count_up[$i] = 0;
+
+                $rows = DB::table('complaints')
                         ->where(['floor'=>$floor, 'labno'=>$lab])
                         ->where ( 'problem', 'LIKE', '%' . $unique[$i] . '%' )
-                        ->whereIn('status', [1, 2])
+                        ->whereIn('status', [1, 2, 3])
                         ->whereYear('created_at', $year)
                         ->whereMonth('created_at', $month)
-                        ->count();
+                        ->get(['sysno', 'status']);
+
+                for($k=0; $k<$rows->count(); $k++){
+                    if(strpos($rows[$k]->sysno, ',')) {
+                        $a = explode(',', $rows[$k]->sysno);
+                        if($rows[$k]->status == 3)
+                            $count[$i] += count($a);
+                        else
+                            $count_up[$i] += count($a);
+                    }
+                    else{
+                        if($rows[$k]->status == 3)
+                            $count[$i] += 1;
+                        else
+                            $count_up[$i] += 1;
+                    }
+                }
             }
 
             $usersChart = new UserChart;

@@ -222,21 +222,28 @@ class AdminController extends Controller {
 
         $labno = $request->input('labno');
 
-        $floor = $request->session()->get('floor');
+        // $floor = $request->session()->get('floor');
 
-        $uniqueLab = DB::table('floor_lab')
-        ->select('labno')
-        ->where('floor',$floor)
+        // $uniqueLab = DB::table('floor_lab')
+        // ->select('labno')
+        // ->where('floor',$floor)
+        // ->get();
+
+        $uniqueFloor = DB::table('floor_lab')
+        ->select('floor')
+        ->groupBy('floor')
         ->get();
+
+        $check=DB::table('floor_lab')->get();
 
         $complaintTable = DB::table('complaints')
             ->where ( 'labno', 'LIKE', '%' . $labno . '%' )
             ->get();
 
         if (count ($complaintTable) > 0)
-            return view ( 'principal_search' )->with('lab',$uniqueLab)->withDetails ( $complaintTable )->withQuery ( $labno );
+            return view ( 'principal_search' )->with('floor',$uniqueFloor)->with('systems',$check)->withDetails ( $complaintTable )->withQuery ( $labno );
         else
-            return view ( 'principal_search' )->with('lab',$uniqueLab)->withMessage ( 'No Details found. Try to search again !' );
+            return view ( 'principal_search' )->with('floor',$uniqueFloor)->with('systems',$check)->withMessage ( 'No Details found. Try to search again !' );
         }
 
     public function principal_lab_search(Request $request){
@@ -246,11 +253,17 @@ class AdminController extends Controller {
         ->groupBy('floor')
         ->get();
 
-        $floor_lab = DB::table('floor_lab')
-        ->get();
+        $check=DB::table('floor_lab')->get();
 
-        return view('principal_search')->with('floor',$uniqueFloor)->with('lab',$floor_lab);
+        // $floor_lab = DB::table('floor_lab')
+        // ->get();
+
+        return view('principal_search')->with('floor',$uniqueFloor)->with('systems',$check);
     }
+
+
+
+
 
 
     public function status_admin_confirm(Request $request){
@@ -264,7 +277,9 @@ class AdminController extends Controller {
         DB::table('complaints')->where('comp_no',$comp_no)->update(
             ['status'=>2, 'updated_at'=>$current_date_time]);
 
-            $complaint=DB::table('complaints')->get();
+
+            $f = $request->session()->get('floor');
+            $complaint=DB::table('complaints')->where(['floor'=>$f])->get();
             
             return view('admin_home')->with('complaint',$complaint)->with('admin',$admin);
         
@@ -279,16 +294,23 @@ class AdminController extends Controller {
         $admin = $request->session()->get('admin');
 
         $c = DB::table('complaints')->where('comp_no',$comp_no)->get();
-
+        $fname;
+        $lname;
+        $date_of_complaint = date('d M Y', strtotime($c[0]->created_at)) ->created_at;
         if($c[0]->rollno!='NULL'){
             $rollno = $c[0]->rollno;
             $f = DB::table('stu_record')->where('Roll_no',$rollno)->get();
             $email = $f[0]->emailid;
+            $fname = $f[0]->First_name;
+            $lname = $f[0]->Last_name;
+
         }
         else{
             $sdrn = $c[0]->sdrn;
             $f = DB::table('faculty')->where('Sdrn',$sdrn)->get();
             $email = $f[0]->Email;
+            $fname = $f[0]->First_name;
+            $lname = $f[0]->Last_name;
         }
         
         // $to= $email;;
@@ -304,25 +326,23 @@ class AdminController extends Controller {
         //     echo "Email not sent";
         // }
 
-         function basic_email($email) {
-            $data = array('name'=>"Lab Maintenance");
-            
-            Mail::send(['text'=>'mail'], $data, function($message) use ($email){
+            $data = array('name'=>"Lab Maintenance",'fname'=>$fname,'lname'=>$lname,'date_of_complaint'=>$date_of_complaint);
+            $msg="Mail confirmation";
+            Mail::send(['text'=>'mail'], $data, function($message) use ($email,$fname,$lname,$date_of_complaint){
                
                $message->to($email, 'Lab Maintenance')->subject
                   ('Lab Maintenance Testing Mail');
                $message->from('shrivastavaman171@gmail.com','Lab Maintenance');
             });
             echo "Basic Email Sent. Check your inbox.";
-         }
+         
 
-         basic_email($email);
          
         DB::table('complaints')->where('comp_no',$comp_no)->update(
             ['status'=>3, 'updated_at'=>$current_date_time]);
 
             
-            $complaint=DB::table('complaints')->get();
+            $complaint=DB::table('complaints')->where(['floor'=>$f])->get();
             
             return view('admin_home')->with('complaint',$complaint)->with('admin',$admin);
         

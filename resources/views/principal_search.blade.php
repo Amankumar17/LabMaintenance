@@ -34,15 +34,41 @@
 		<br><br>
 
 
-		<form action="/hodsearchLab" method="POST" role="search">
+		<!-- <div id="p_floor" class='box'>
+                    <h4>Select Floor</h4>
+                    <select name="p_floor" id="f" onchange="function2(this.value)">
+                        <option value="" disabled selected>Select</option>
+                        <option value="0">Ground</option>
+                        <option value="1">First</option>
+                        <option value="2">Second</option>
+                        <option value="3">Third</option>
+                        <option value="4">Fourth</option>
+                        <option value="5">Fifth</option>
+                        <option value="6">Sixth</option>
+                    </select>
+                </div> -->
 
-			<div class="selectLabNo">
-    			<label>Search by lab number:</label>
+		<p><b>Enter the floor number and lab number for custom search:</b></p>
+		<form action="/principalsearchLab" method="POST" role="search">
+			<select id="lb" name="labno" required style="width:200px;height:25px;" onchange="labsearch(this.value)">
+				<option value="" disabled selected>Select</option>
+					@for($i=0; $i<$floor->count(); $i++)
+						<option >{{$floor[$i]->floor}}</option>
+					@endfor
+			</select>
+			<br><br>
 
-				<button type="submit" class="btn btn-primary" style="width:100px;margin-left:2%;padding:2px;">
+			<select id="syst" name="labno" style="width:200px;height:25px;">
+					
+				<option value="" disabled selected>Select</option>
+					
+			</select>
+
+			<br><br>
+
+			<button type="submit" class="btn btn-primary" style="width:100px;margin-left:2%;padding:2px;">
 					GO
-				</button>
-  			</div>
+			</button>
 		</form>
 
 		<div class="container">
@@ -87,6 +113,36 @@
     <button class="btn btn-primary" onclick="window.location.href = '/admin_home';">Back</button>
 	<!-- </form> -->
     </center>
+
+	<script>
+  function labsearch(value) {
+	console.log(value);
+	if (value.length==0) {
+	  document.getElementById("syst").innerHTML = '<option value="" disabled selected>Select</option>';
+	  
+      }
+    else {
+      var obj = <?php echo json_encode($systems); ?>;
+      var arr=[];
+
+      for(a in obj) {
+        arr.push(obj[a])
+      }
+
+      var cont='<option value="" disabled selected>Select</option>';
+
+      for(i=0; i<arr.length; i++) {
+        if(arr[i].floor == value) {
+          cont = cont + "<option>" + arr[i].labno + "</option>";
+        }
+      }
+      document.getElementById('syst').innerHTML = cont;
+    }
+    return 0;
+  }
+
+  </script>
+
 
 </body>
 </html>
