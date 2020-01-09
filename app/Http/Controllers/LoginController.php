@@ -7,6 +7,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use DB;
+use Mail;
 use Carbon\Carbon;
 
 class LoginController extends BaseController
@@ -139,6 +140,8 @@ class LoginController extends BaseController
 
         $comp_no = $request->input('comp_no');
 
+        $justification=$request->input('justification');
+
         $current_date_time = Carbon::now()->toDateTimeString();
 
         $sdrn = $request->session()->get('sdrn');
@@ -150,28 +153,39 @@ class LoginController extends BaseController
                 
         } else if (isset($_POST['Reject'])) {
 
+            $c = DB::table('complaints')->where('comp_no',$comp_no)->get();
+
+            $labno = $c[0]->labno;
+            $sysno = $c[0]->sysno;
+            $problem = $c[0]->problem;
+            $date_of_complaint = date('d M Y', strtotime($c[0]->created_at));
+
+            $rollno = $c[0]->rollno;
+            $f = DB::table('stu_record')->where('Roll_no',$rollno)->get();
+            $email = $f[0]->emailid;
+            $fname = $f[0]->First_name;
+            $lname = $f[0]->Last_name;
+
+            $sdrn = $c[0]->sdrn;
+            $f = DB::table('faculty')->where('Sdrn',$sdrn)->get();
+            $teacher_f = $f[0]->First_name;
+            $teacher_l = $f[0]->Last_name;
+
+            $data = array('name'=>"Lab Maintenance",'fname'=>$fname,'lname'=>$lname,'date_of_complaint'=>$date_of_complaint, 'justification'=>$justification, 'teacher_f'=>$teacher_f, 'teacher_l'=>$teacher_l, 'labno'=>$labno, 'sysno'=>$sysno, 'problem'=>$problem);
+            $msg="Complaint Rejection Mail";
+            Mail::send(['text'=>'mail_reject'], $data, function($message) use ($email,$fname,$lname,$date_of_complaint,$justification,$teacher_f,$teacher_l, $labno, $sysno, $problem){
+               
+               $message->to($email, 'Lab Maintenance')->subject
+                  ('Lab Maintenance Complaint Rejection Mail');
+               $message->from('shrivastavaman171@gmail.com','Lab Maintenance');
+            });
+            // echo "Basic Email Sent. Check your inbox.";
+
+
             DB::table('complaints')->where([
                 ['comp_no', '=', $comp_no]])->delete();
 
-            // $c = DB::table('complaints')->where('comp_no',$comp_no)->get();
-
-            // $rollno = $c[0]->rollno;
-
-            // $f = DB::table('stu_record')->where('Roll_no',$rollno)->get();
-            // $email = $f[0]->emailid;
-            
-            // $to= $email;;
-            // $subject="testing";
-            // $msg="Sorry, your complaint has been rejected";
-            // $headers="From : laliteshkhan1@gmail.com";
-            // if(mail($to,$subject,$msg,$headers))
-            // {
-            //     echo "Email send Successfully";
-            // }
-            // else
-            // {
-            //     echo "Email not sent";
-            // }
+        
         }
 
         $fac_details=DB::table('faculty')->where(['sdrn'=>$sdrn])->get();
@@ -289,7 +303,8 @@ class LoginController extends BaseController
         
         $floor=$request->input('floor');
         $labno=$request->input('lab');
-
+        $otherfield=$request->input('otherfield');
+        echo $otherfield;
         $systemno="";
         if(!empty($_POST['chk'])){
             foreach($_POST['chk'] as $selected){        
@@ -318,9 +333,17 @@ class LoginController extends BaseController
         $des=$request->input('description');
         $current_date_time = Carbon::now()->toDateTimeString();
 
-        DB::table('complaints')->insert(
-            ['floor'=>$floor,'labno'=>$labno,'sysno'=>$systemno,'rollno'=>$rollno,'sdrn'=>$sdrn,'problem'=>$check ,'description' =>$des,'status'=>0, 'created_at'=>$current_date_time, 'updated_at'=>$current_date_time]
-        );
+        if($otherfield==NULL)
+        {
+            DB::table('complaints')->insert(
+                ['floor'=>$floor,'labno'=>$labno,'sysno'=>$systemno,'rollno'=>$rollno,'sdrn'=>$sdrn,'problem'=>$check ,'description' =>$des,'status'=>0, 'created_at'=>$current_date_time, 'updated_at'=>$current_date_time]
+            );
+        }
+        else{
+                DB::table('complaints')->insert(
+                    ['floor'=>$floor,'labno'=>$labno,'sysno'=>$systemno,'rollno'=>$rollno,'sdrn'=>$sdrn,'problem'=>$otherfield ,'description' =>$des,'status'=>0, 'created_at'=>$current_date_time, 'updated_at'=>$current_date_time]
+                );
+        }
 
         return view('data_submited');
     }

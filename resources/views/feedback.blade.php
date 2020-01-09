@@ -230,7 +230,13 @@ Welcome qwr</h2>  -->
          <input type="checkbox" id="mycheckbox2" name="problem[]" value="monitor" ><span> Monitor</span>
          <input type="checkbox" id="mycheckbox3" name="problem[]" value="printer"><span> Printer</span>
          <input type="checkbox" id="mycheckbox4" name="problem[]" value="cro"><span> CRO</span>
-         <input type="checkbox" id="mycheckbox5" name="problem[]" value="other"><span> Other</span>
+         <input type="checkbox" id="mycheckbox5" name="problem[]" value="other" onclick="otherOption()"><span> Other</span>
+         
+         <div id="otherOption" style="display:none;margin-left:0px;">
+            <p><b>Enter the device or machine in one word:</b></p>
+            <input type="text" name="otherfield">
+         </div>
+         
          <br>	
       </div>
 
@@ -250,8 +256,21 @@ Welcome qwr</h2>  -->
    <!-- <button onclick="showComplaints()" class="">Show Previous Complaints</button> -->
 </div>
 
+<script>
+function otherOption() {
+  // Get the checkbox
+  var checkBox = document.getElementById("mycheckbox5");
+  // Get the output text
+  var text = document.getElementById("otherOption");
 
-
+  // If the checkbox is checked, display the output text
+  if (checkBox.checked == true){
+    text.style.display = "block";
+  } else {
+    text.style.display = "none";
+  }
+}
+</script>
 
 </body>
 </html>  

@@ -32,14 +32,15 @@
   <th>
       Srno
     </th>
-    <th>
-      Floor
-    </th>
+    
     <th>
       Labno
     </th>
     <th>
       System
+    </th>
+    <th>
+      Problem
     </th>
     <th>
       Description
@@ -55,10 +56,9 @@
       @if($complaint[$i]->status==3 && $complaint[$i]->rollno=="NULL")
       <tr>
           <td width="8%">{{$complaint[$i]->comp_no}}</td>
-          <td width="8%">{{$complaint[$i]->floor}}</td>
-
           <td width="8%">{{$complaint[$i]->labno}}</td>
           <td width="10%">{{$complaint[$i]->sysno}}</td>
+          <td width="8%">{{$complaint[$i]->problem}}</td>
           <td>{{$complaint[$i]->description}}</td>
           <td> {{date('d M, Y', strtotime($complaint[$i]->created_at)) }}</td>
           <td width="8%">
@@ -78,13 +78,13 @@
         Srno
       </th>
       <th>
-        Floor
-      </th>
-      <th>
         Labno
       </th>
       <th>
         System
+      </th>
+      <th>
+          Problem
       </th>
       <th>
         Description
@@ -99,10 +99,10 @@
       @if(($complaint[$i]->status==1 || $complaint[$i]->status==2) && $complaint[$i]->rollno=="NULL")
       <tr>
           <td width="8%">{{$complaint[$i]->comp_no}}</td>
-          <td width="8%">{{$complaint[$i]->floor}}</td>
 
           <td width="8%">{{$complaint[$i]->labno}}</td>
           <td width="10%">{{$complaint[$i]->sysno}}</td>
+          <td width="8%">{{$complaint[$i]->problem}}</td>
           <td>{{$complaint[$i]->description}}</td>
           <td> {{date('d M, Y', strtotime($complaint[$i]->created_at)) }}</td>
 
@@ -129,9 +129,7 @@
       <th>
           Srno
         </th>
-        <th>
-          Floor
-        </th>
+        
         <th>
           Labno
         </th>
@@ -140,6 +138,9 @@
         </th>
         <th>
           Roll no.
+        </th>
+        <th>
+          Problem
         </th>
         <th>
           Description
@@ -159,18 +160,30 @@
       <form action="/teacher_confirm" method="POST">
       <tr>
           <td width="8%"><input type="text" style="background-color:#dddddd;border:none;font-size:17px;text-align:center;" name="comp_no" value="{{$complaint[$i]->comp_no}}" readonly></td>
-          <td width="8%">{{$complaint[$i]->floor}}</td>
+        
 
           <td width="8%">{{$complaint[$i]->labno}}</td>
           <td width="10%">{{$complaint[$i]->sysno}}</td>
           <td width="8%">{{$complaint[$i]->rollno}}</td>
-
+          <td width="8%">{{$complaint[$i]->problem}}</td>
           <td>{{$complaint[$i]->description}}</td>
           <td> {{date('d M, Y', strtotime($complaint[$i]->created_at)) }}</td>
 
           <td>
           <input type="submit" name="Confirm" value="Confirm" /></td>
-          <td><input type="submit" name="Reject" value="Reject" />
+          <td>
+          <button onclick="openReject()">Reject</button>
+          <!-- <input type="submit" name="Reject" value="Reject" /> -->
+    
+          <div class="form-popup" id="RejectBox" >
+
+              <label><b>Justification for rejection of complaint of {{$complaint[$i]->rollno}}:</b></label><br>
+              <textarea  rows="5" cols="40" name="justification" ></textarea><br><br>
+
+              <input type="submit" name="Reject" value="Reject" />
+              <button type="button" onclick="closeReject()">Close</button>
+ 
+          </div>
           </td>
       </tr>
       </form>
@@ -188,9 +201,6 @@
           Srno
         </th>
         <th>
-          Floor
-        </th>
-        <th>
           Labno
         </th>
         <th>
@@ -198,6 +208,9 @@
         </th>
         <th>
           Roll no.
+        </th>
+        <th>
+          Problem
         </th>
         <th>
           Description
@@ -213,11 +226,11 @@
       @if($complaint[$i]->status>0 && $complaint[$i]->rollno!="NULL")
       <tr>
           <td width="8%">{{$complaint[$i]->comp_no}}</td>
-          <td width="8%">{{$complaint[$i]->floor}}</td>
 
           <td width="8%">{{$complaint[$i]->labno}}</td>
           <td width="10%">{{$complaint[$i]->sysno}}</td>
           <td width="8%">{{$complaint[$i]->rollno}}</td>
+          <td width="8%">{{$complaint[$i]->problem}}</td>
           <td>{{$complaint[$i]->description}}</td>
           <td> {{date('d M, Y', strtotime($complaint[$i]->created_at)) }}</td>
 
@@ -240,5 +253,18 @@
      
 </div>
 <script src="js/filecomplaint.js"></script>
+
+<script>
+
+function openReject() {
+  document.getElementById("RejectBox").style.display = "block";
+}
+
+function closeReject() {
+  document.getElementById("RejectBox").style.display = "none";
+}
+
+</script>
+
 </body>
 </html>  

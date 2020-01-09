@@ -111,6 +111,8 @@ class UserChartController extends Controller
                     td{padding: 6px;font-size:16px;}
                     
                     </style>";
+        $data .="<table style='width:75%''><tr><td><img src='img/dypatil-logo.png' width='200' height='70' alt='DY Patil Logo' ></td>";
+        $data .= "<td><h1>Lab Maintenance</h1></td></tr></table>";
          $data .= "<center style='color:black;margin-top:0px;'><h2>Registered Complaint Report</h2></center>".$s1."<br><hr><br>";
         
         $data .= "<table style='border-collapse: collapse;width:100%;'><tr><th >Comp No.</th><th >Lab No.</th><th >System</th><th >Roll No.</th><th >Sdrn</th><th >Problem</th><th >Date</th></tr>";

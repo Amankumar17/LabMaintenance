@@ -5,9 +5,10 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-   <title>Student Complaint</title>
+   <title>Teacher Complaint</title>
    <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
    <link rel="stylesheet" href="css/feedback.css">
+   <link rel="stylesheet" href="css/student.css">
       
 </head>
 <body>
@@ -253,8 +254,13 @@ function showComplaints() {
          <input type="checkbox" id="mycheckbox2" name="problem[]" value="monitor" ><span> Monitor</span>
          <input type="checkbox" id="mycheckbox3" name="problem[]" value="cpu"><span> CPU</span>
          <input type="checkbox" id="mycheckbox4" name="problem[]" value="printer"><span> Printer</span>
-         <input type="checkbox" id="mycheckbox5" name="problem[]" value="other"><span> Other</span>
+         <input type="checkbox" id="mycheckbox5" name="problem[]" value="other" onclick="otherOption()"><span> Other</span>
          <br>	
+
+         <div id="otherOption" style="display:none;margin-left:0px;">
+            <p><b>Enter the device or machine in one word:</b></p>
+            <input type="text" name="" >
+         </div>
       </div>
 
       <div class="txtb">
@@ -273,7 +279,21 @@ function showComplaints() {
    <!-- <button onclick="showComplaints()" class="">Show Previous Complaints</button> -->
 </div>
 
+<script>
+function otherOption() {
+  // Get the checkbox
+  var checkBox = document.getElementById("mycheckbox5");
+  // Get the output text
+  var text = document.getElementById("otherOption");
 
+  // If the checkbox is checked, display the output text
+  if (checkBox.checked == true){
+    text.style.display = "block";
+  } else {
+    text.style.display = "none";
+  }
+}
+</script>
 
 
 </body>

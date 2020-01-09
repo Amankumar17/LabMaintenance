@@ -423,6 +423,20 @@ border:1px solid black;
 border:1px solid black;
 }*/
 
+
+.form-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 35%;
+  border: 1px solid black;
+  width:30%;
+  /* z-index: 9; */
+  background-color: white;
+  padding:2%;
+}
+
+
 @media screen and (max-width: 1145px) {
 
 .header a {
