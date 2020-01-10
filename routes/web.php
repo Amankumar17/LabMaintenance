@@ -95,9 +95,9 @@ Route::get('/delete_admin', function () {
     return view('admin_del_admin');
 });
 
-Route::get('/delete_faculty', function () {
-    return view('admin_del_fac');
-});
+// Route::get('/delete_faculty', function () {
+//     return view('admin_del_fac');
+// });
 
 
 Route::get('/add_system','AdminController@systemAdd2');
@@ -116,9 +116,24 @@ Route::post('/admin_demo1','AdminController@adminAdd');
 
 Route::post('/admin_demo2','AdminController@adminRemove');
 
-Route::post('/faculty_demo1','AdminController@facultyAdd');
+Route::get('/manage_issue_insert', function () {
+    return view('manage_issue_insert');
+});
 
-Route::post('/faculty_demo2','AdminController@facultyRemove');
+Route::post('/admin_demo3','AdminController@admin_manage_issue_insert');
+
+
+Route::get('/manage_issue_delete', 'AdminController@admin_manage_issue');
+
+Route::post('/admin_demo4','AdminController@admin_manage_issue_delete');
+
+
+Route::get('/manage_issue', function () {
+    return view('manage_issue');
+});
+// Route::post('/faculty_demo1','AdminController@facultyAdd');
+
+// Route::post('/faculty_demo2','AdminController@facultyRemove');
 
 
 

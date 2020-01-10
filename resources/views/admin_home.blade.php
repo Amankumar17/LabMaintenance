@@ -137,18 +137,82 @@ input {
 
 }
 
+/* <!-- PopUp --> */
+.bg-model{
+  background-color: rgba(0, 0, 0, 0.8);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	display: none;  
+	justify-content: center;
+	align-items: center;
+}
+
+.modal-contents {
+	height: 300px;
+	width: 500px;
+	background-color: white;
+	text-align: center;
+	padding: 20px;
+	position: relative;
+	border-radius: 4px;
+}
+
+input {
+	margin: 15px auto;
+	display: block;
+	width: 50%;
+	padding: 8px;
+	border: 1px solid gray;
+}
+
+.close {
+	position: absolute;
+	top: 0;
+	right: 10px;
+	font-size: 42px;
+	color: #333;
+	transform: rotate(45deg);
+	cursor: pointer;
+	&:hover {
+		color: #666;
+	}
+}
+
+
+/* <!-- PopUp Ends--> */
+
 </style>
 </head>
 
 <body>
 
+<!-- PopUp -->
+<div class="bg-model">
+  <div class="modal-contents">
+    <div class="close">+</div>
+      <img src="https://www.richardmiddleton.me/wp-content/themes/richardcodes/assets/img/avatar.png" alt="">
+
+      <form action="">
+        <input type="text" placeholder="Name">
+        <input type="email" placeholder="E-Mail">
+        <a href="#" class="button">Submit</a>
+      </form>
+  </div>  
+</div>
+<!-- PopUp Ends-->
+
+
 <div class="header" id="myHeader">
     <a class="active" href="/admin_home">&#x26F7; Home</a>
 		<a href="/testlogin">Logout</a>
     <a href="/admin_search">Search</a>
+    <!-- delete me -->
+    <a href="#" id="button" class="button">Click Me</a>
 	</div>
 
-<h3>Welcome'<span>{{$admin}}</span>'floor Admin!</h3>
+<h3>Welcome '<span>{{$admin}}</span>' floor Admin!</h3>
 
 <div class="btn-group">
   <a href="/add_system"><button>Add System</button></a>
@@ -161,7 +225,7 @@ input {
   <a href="/delete_system"><button>Remove System</button></a>
   <a href="/delete_admin"><button>Remove Admin</button></a>
   <!-- <a href="/delete_faculty"><button>Remove Faculty</button></a> -->
-  <a href="#"><button>Extra Card</button></a>
+  <a href="/manage_issue"><button>Manage Issue</button></a>
 </div>
 
 <br><br>
@@ -182,40 +246,32 @@ input {
       System No.
     </th>
     <th>
-      Roll No.
-    </th>
-    <th>
-      SDRN
-    </th>
-    <th>
       Problem
     </th>       
-    <th>
-      Description
-    </th>
     <th>
       Date
     </th> 
     <th>
+      Count
+    </th>
+    <th>
+      Show Details
+    </th>
+    <th>
       Status
     </th>   
-    
-    @for($i=0;$i<$complaint->count();$i++)
-      @if($complaint[$i]->status==1)
+    @for($i=0;$i<$complaint_frequency->count();$i++)
+      @if($complaint_frequency[$i]->status==1)
+      
       <form action="/admin_confirm" method="POST">
       <tr>
-          <td width="8%"><input type="text" style="background-color:#dddddd;font-size:17px;text-align:center;" name="comp_no" value="{{$complaint[$i]->comp_no}}" readonly></td>
-          <td>{{$complaint[$i]->labno}}</td>
-          <td>{{$complaint[$i]->sysno}}</td>
-          @if($complaint[$i]->rollno=='NULL')
-          <td>-</td>
-          @else
-          <td>{{$complaint[$i]->rollno}}</td>
-          @endif
-          <td>{{$complaint[$i]->sdrn}}</td>
-          <td>{{$complaint[$i]->problem}}</td>
-          <td>{{$complaint[$i]->description}}</td>
-          <td> {{date('d M, Y', strtotime($complaint[$i]->updated_at)) }}</td>
+          <td width="8%"><input type="text" style="background-color:#dddddd;font-size:17px;text-align:center;" name="comp_no" value="{{$complaint_frequency[$i]->srno}}" readonly></td>
+          <td>{{$complaint_frequency[$i]->labno}}</td>
+          <td>{{$complaint_frequency[$i]->sysno}}</td>
+          <td>{{$complaint_frequency[$i]->problem}}</td>
+          <td> {{date('d M, Y', strtotime($complaint_frequency[$i]->date)) }}</td>
+          <td>{{$complaint_frequency[$i]->frequency}}</td>
+          <td><a onclick="show_details({{$complaint_frequency[$i]->srno}})">More Details</a></td>
           <td><a><button >Confirm</button></a></td>
       </tr>
       </form>
@@ -238,41 +294,33 @@ input {
       System No.
     </th>
     <th>
-      Roll No.
-    </th>
-    <th>
-      SDRN
-    </th>
-    <th>
       Problem
-    </th>    
-    <th>
-      Description
-    </th>
+    </th>       
     <th>
       Date
+    </th> 
+    <th>
+      Count
+    </th>
+    <th>
+      Show Details
     </th> 
     <th>
       Status
     </th>   
     
-    @for ($i=0;$i<$complaint->count();$i++)
-      @if($complaint[$i]->status==2)
+    @for ($i=0;$i<$complaint_frequency->count();$i++)
+      @if($complaint_frequency[$i]->status==2)
       <form action="/admin_done" method="POST">
       <tr>
-          <td><input type="text" style="background-color:#dddddd;font-size:17px;text-align:center;" name="comp_no" value="{{$complaint[$i]->comp_no}}"></td>
-          <td>{{$complaint[$i]->labno}}</td>
-          <td>{{$complaint[$i]->sysno}}</td>
-          @if($complaint[$i]->rollno=='NULL')
-          <td>-</td>
-          @else
-          <td>{{$complaint[$i]->rollno}}</td>
-          @endif          
-          <td>{{$complaint[$i]->sdrn}}</td>
-          <td>{{$complaint[$i]->problem}}</td>
-          <td>{{$complaint[$i]->description}}</td>
-          <td> {{date('d M, Y', strtotime($complaint[$i]->updated_at)) }}</td>
-           <td><button name='done'>Done</button></td>
+          <td><input type="text" style="background-color:#dddddd;font-size:17px;text-align:center;" name="comp_no" value="{{$complaint_frequency[$i]->comp_no}}"></td>
+          <td>{{$complaint_frequency[$i]->labno}}</td>
+          <td>{{$complaint_frequency[$i]->sysno}}</td>
+          <td>{{$complaint_frequency[$i]->problem}}</td>
+          <td> {{date('d M, Y', strtotime($complaint_frequency[$i]->date)) }}</td>
+          <td>{{$complaint_frequency[$i]->complaint_frequency}}</td>
+           <td><button>More Details</button></td>
+          <td><button name='done'>Done</button></td>
       </tr>
       </form>
       @endif
@@ -350,6 +398,33 @@ function openPage(pageName,elmnt,color) {
 
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
+
+
+// function show_details(value){
+//   console.log(value);
+//   alert("amankumar");
+// }
+
+function show_details(value){
+  console.log(value);
+  // alert("amankumar");
+  
+  alert("i got clicked");
+	document.querySelector('.bg-model').style.display = "flex";
+};
+document.querySelector('.close').addEventListener("click", function() {
+	document.querySelector('.bg-model').style.display = "none";
+});
+
+
+// document.getElementById('button').addEventListener("click", function() {
+//   alert("i got clicked");
+// 	document.querySelector('.bg-model').style.display = "flex";
+// });
+// document.querySelector('.close').addEventListener("click", function() {
+// 	document.querySelector('.bg-model').style.display = "none";
+// });
+
 </script>
 
 

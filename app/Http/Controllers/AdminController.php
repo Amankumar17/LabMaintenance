@@ -280,8 +280,9 @@ class AdminController extends Controller {
 
             $f = $request->session()->get('floor');
             $complaint=DB::table('complaints')->where(['floor'=>$f])->get();
+            $complaint_frequency=DB::table('complaints_frequency')->where(['floor'=>$f])->get();
             
-            return view('admin_home')->with('complaint',$complaint)->with('admin',$admin);
+            return view('admin_home')->with('complaint',$complaint)->with('admin',$admin)->with('complaint_frequency',$complaint_frequency);
         
     }
     
@@ -343,8 +344,10 @@ class AdminController extends Controller {
 
             
             $complaint=DB::table('complaints')->where(['floor'=>$f])->get();
+            $complaint_frequency=DB::table('complaints_frequency')->where(['floor'=>$f])->get();
             
-            return view('admin_home')->with('complaint',$complaint)->with('admin',$admin);
+            return view('admin_home')->with('complaint',$complaint)->with('admin',$admin)->with('complaint_frequency',$complaint_frequency);
+        
         
     }
 
@@ -435,33 +438,33 @@ class AdminController extends Controller {
     }
 
 
-    public function facultyAdd(Request $request){
+    // public function facultyAdd(Request $request){
 
-        $newsdrn = $request->input('newsdrn');
-        $pass1 = $request->input('pass1');
-        $pass2 = $request->input('pass2');
+    //     $newsdrn = $request->input('newsdrn');
+    //     $pass1 = $request->input('pass1');
+    //     $pass2 = $request->input('pass2');
 
-        if($pass1 == $pass2) {
-            DB::table('faculty_logins')->insert(
-                ['sdrn' => $newsdrn, 'pass' => $pass1]
-            );
+    //     if($pass1 == $pass2) {
+    //         DB::table('faculty_logins')->insert(
+    //             ['sdrn' => $newsdrn, 'pass' => $pass1]
+    //         );
     
-            return view('/admin_operation');
-        } 
-    }
+    //         return view('/admin_operation');
+    //     } 
+    // }
 
-    public function facultyRemove(Request $request){
+    // public function facultyRemove(Request $request){
 
-        $oldsdrn = $request->input('oldsdrn');
-        $pass = $request->input('pass');
+    //     $oldsdrn = $request->input('oldsdrn');
+    //     $pass = $request->input('pass');
         
 
-        DB::table('faculty_logins')->where([
-            ['sdrn', '=', $oldsdrn],
-            ['pass', '=', $pass]])->delete();
+    //     DB::table('faculty_logins')->where([
+    //         ['sdrn', '=', $oldsdrn],
+    //         ['pass', '=', $pass]])->delete();
 
-            return view('/admin_operation');
-    }
+    //         return view('/admin_operation');
+    // }
     
     public function adminAdd(Request $request){
 
@@ -492,6 +495,53 @@ class AdminController extends Controller {
 
             return view('/admin_operation');
     }
+
+
+    public function admin_manage_issue_insert(Request $request){
+
+        $issue = $request->input('issue');
+        
+        $floor = $request->session()->get('floor');
+
+        DB::table('common_issues')->insert(
+            ['issue' => $issue, 'floor' => $floor]
+        );
+
+            return view('manage_issue');
+    }
+
+
+    public function admin_manage_issue(Request $request){
+
+       
+        $floor = $request->session()->get('floor');
+        
+        $uniqueissue = DB::table('common_issues')
+        ->select('issue')
+        ->where('floor',$floor)
+        ->get();
+
+        return view('manage_issue_delete')->with('issue',$uniqueissue);
+
+            
+    }
+
+    public function admin_manage_issue_delete(Request $request){
+
+
+        $floor = $request->session()->get('floor');
+
+         $issue = $request->input('issue');
+
+         DB::table('common_issues')->where([
+            ['floor', '=', $floor],
+            ['issue', '=', $issue]])->delete();
+
+
+            return view('manage_issue');
+
+    }
+
 
 
     

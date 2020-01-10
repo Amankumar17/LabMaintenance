@@ -7,7 +7,8 @@
 
         <link rel="stylesheet" href="css/headerstyle.css">
         <link rel="stylesheet" href="css/footerstyle.css">
-            <title>Add Faculty</title>
+
+            <title>Delete Admin</title>
             <style>
               .header {
 	            margin: 0 0 -4% 0;
@@ -73,16 +74,14 @@
 
 <center>
 <div>
-    <h3>Add Faculty</h3>
-    <form action="/faculty_demo1" method="POST">
-    <label for="adminname">SDRN</label>
-    <input type="text" id="adname" name="newsdrn" placeholder="SDRN" required>
+    <h3>Delete Admin</h3>
+    <form action="/admin_demo33" method="POST">
+    <label for="adminname">Admin Username to be Deleted</label>
+    <input type="text" name="in" placeholder="Admin Username" required>
+ 
     <br><br>  
     <label for="pass">Password</label>
-    <input type="password" id="adpass" name="pass1" placeholder="Password" required>
-    <br><br>
-    <label for="pass">Confirm Password</label>
-    <input type="password" id="adcpass" name="pass2" placeholder="Password" required>
+    <input type="password" id="adpass" name="pass" placeholder="Password" required>
     <br><br>
     <input type="submit" value="Submit">
   </form>
@@ -90,7 +89,7 @@
 </center>
 
 <!-- FOOTER START -->
-<div class="footer" style="margin-top:5%; font-family:courier new;">
+<div class="footer" style="margin-top:9%; font-family:courier new;">
 <br>Site by<br>
 Amankumar Shrivastava,
 Saurabh Varade,

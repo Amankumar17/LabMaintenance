@@ -8,9 +8,9 @@
         <link rel="stylesheet" href="css/headerstyle.css">
         <link rel="stylesheet" href="css/footerstyle.css">
 
-            <title>Delete Faculty</title>
+            <title>Manage Issue</title>
             <style>
-            .header {
+              .header {
 	            margin: 0 0 -4% 0;
               }
 
@@ -74,15 +74,12 @@
 
 <center>
 <div>
-    <h3>Delete Faculty</h3>
-    <form action="/faculty_demo2" method="POST">
-    <label for="adminname">Faculty Sdrn to be Deleted</label>
-    <input type="text" name="oldsdrn" placeholder="Sdrn" required>
-   
-    <br><br>
-    <label for="pass">Password</label>
-    <input type="password" id="adpass" name="pass" placeholder="Password" required>
-    <br><br>
+    <h3>Insert Issue</h3>
+    <form action="/admin_demo3" method="POST">
+    <label for="adminname">Issue</label>
+    <input type="text" name="issue" placeholder="Insert issue" required>
+ 
+    <br><br>  
     <input type="submit" value="Submit">
   </form>
 </div>

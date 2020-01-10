@@ -107,6 +107,31 @@ Welcome qwr</h2>  -->
                 document.getElementById('pcno').innerHTML = cont;
                 document.getElementById("pcgrid").style.display = "block";
 
+               var obj = <?php echo json_encode($common_issues); ?>;
+
+               console.log(obj);
+               var arr=[];
+                  
+                for(a in obj)
+                {
+                    arr.push(obj[a])
+                }
+
+                console.log(arr);
+                var cont='';
+                fl = document.getElementById('lb').value;
+                for(i=0; i<arr.length; i++)
+                {
+                    if(arr[i].floor == fl)
+                    {
+                        cont = cont + '<input type="checkbox" name="problem[]" value="' + arr[i].issue + '"><span>' + arr[i].issue + '</span>';
+                    }
+                }
+
+                console.log(cont);
+                document.getElementById('checkinner').innerHTML = cont;
+                document.getElementById("checkid").style.display = "block";
+
             }
             return 0;
         }
@@ -223,14 +248,15 @@ Welcome qwr</h2>  -->
 }
         </script>
 
-      <div class="checkboxes">
-         
-         <input type="checkbox" id="mycheckbox" name="problem[]" value="mouse"><span>Mouse</span>
+      <div class="checkboxes" id="checkid" style="display:none;">
+         <div id="checkinner">
+         <!-- <input type="checkbox" id="mycheckbox" name="problem[]" value="mouse"><span>Mouse</span>
          <input type="checkbox" id="mycheckbox1" name="problem[]" value="keyboard"><span> Keyboard</span>
          <input type="checkbox" id="mycheckbox2" name="problem[]" value="monitor" ><span> Monitor</span>
          <input type="checkbox" id="mycheckbox3" name="problem[]" value="printer"><span> Printer</span>
-         <input type="checkbox" id="mycheckbox4" name="problem[]" value="cro"><span> CRO</span>
-         <input type="checkbox" id="mycheckbox5" name="problem[]" value="other" onclick="otherOption()"><span> Other</span>
+         <input type="checkbox" id="mycheckbox4" name="problem[]" value="cro"><span> CRO</span> -->
+         </div>
+         <input type="checkbox" id="othercheckbox" name="problem[]" value="other" onclick="otherOption()"><span> Other</span>
          
          <div id="otherOption" style="display:none;margin-left:0px;">
             <p><b>Enter the device or machine in one word:</b></p>
@@ -259,7 +285,7 @@ Welcome qwr</h2>  -->
 <script>
 function otherOption() {
   // Get the checkbox
-  var checkBox = document.getElementById("mycheckbox5");
+  var checkBox = document.getElementById("othercheckbox");
   // Get the output text
   var text = document.getElementById("otherOption");
 

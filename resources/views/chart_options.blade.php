@@ -255,6 +255,8 @@
                             if(arr[i].floor == f)
                                 cont = cont + "<option>" + arr[i].labno + "</option>";
 
+                        cont = cont + '<option>All</option>';
+
                         document.getElementById('lab').innerHTML = cont;      
                     }
                 }

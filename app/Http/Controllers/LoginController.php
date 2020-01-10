@@ -52,13 +52,15 @@ class LoginController extends BaseController
             ->groupBy('labno')
             ->get();
 
+            $common_issues = DB::table('common_issues')->get();
+
             $table2 = $table2->sort();
             // echo $table2;
             // $uniqueFloor = $uniqueFloor->sort();
 
             $complaint=DB::table('complaints')->get();
 
-            return view('feedback')->with('floor_lab',$table1)->with('systems',$table2)->with('floors',$uniqueFloor)->with('lab',$uniqueLab)->with('stud_details',$stud_details)->with('complaint',$complaint);
+            return view('feedback')->with('floor_lab',$table1)->with('systems',$table2)->with('common_issues',$common_issues)->with('floors',$uniqueFloor)->with('lab',$uniqueLab)->with('stud_details',$stud_details)->with('complaint',$complaint);
         }   
         else {
             return view('student_login');   
@@ -150,6 +152,24 @@ class LoginController extends BaseController
             
             DB::table('complaints')->where('comp_no',$comp_no)->update(
                 ['status'=>1, 'updated_at'=>$current_date_time]);
+
+            $fc = DB::table('complaints')->where('comp_no',$comp_no)->get();    
+                
+            $cc = DB::table('complaints_frequency')->where(['labno'=>$fc[0]->labno,'sysno'=>$fc[0]->sysno,'problem'=>$fc[0]->problem])->get();
+
+            if ($cc->count() > 0)
+            {
+                DB::table('complaints_frequency')->where('srno',$cc[0]->srno)->update(
+                    ['frequency'=>($cc[0]->frequency)+1 ,'comp_nos'=>($cc[0]->comp_nos).','.(string)$fc[0]->comp_no]
+                );
+            }
+            else
+            {
+                DB::table('complaints_frequency')->insert(
+                    ['srno'=>$fc[0]->comp_no,'floor'=>$fc[0]->floor,'labno'=>$fc[0]->labno,'sysno'=>$fc[0]->sysno,'problem'=>$fc[0]->problem,'status'=>$fc[0]->status,'date'=>$fc[0]->created_at,'frequency'=>1 ,'comp_nos' =>(string)$fc[0]->comp_no]
+                );
+            
+            }
                 
         } else if (isset($_POST['Reject'])) {
 
@@ -213,7 +233,7 @@ class LoginController extends BaseController
         // $pass2=$request->input('pass2');
         
         $check=DB::table('admin_login')->where(['username'=>$username,'pass'=>$pass2])->get();
-
+        
         if(count($check)>0)    
         {
             $request->session()->put('admin', $username);
@@ -226,11 +246,13 @@ class LoginController extends BaseController
 
             $complaint=DB::table('complaints')->where(['floor'=>$f])->get();
 
-            return view('admin_home')->with('complaint',$complaint)->with('admin',$username);
+            $complaint_frequency=DB::table('complaints_frequency')->where(['floor'=>$f])->get();
+
+            return view('admin_home')->with('complaint',$complaint)->with('admin',$username)->with('complaint_frequency',$complaint_frequency);
         }   
-        else {
+        else 
+        {
             return view('student_login');
-            
         } 
     }
 
