@@ -12,10 +12,25 @@
         font-family: cursive;
         margin: 30px;
     }
+
+    img {
+        width: 240px;
+        height: 80px;
+        margin: 1% 0 0 0;
+    }
+
+    @media screen and (max-width: 480px) {
+        img {
+            width: 140px;
+            height: 50px;
+        }
+    }
     </style>
     <body>
 
         <center>
+        <img src='img/dypatil-logo.png' alt='DyPatilLogo'>
+
         <div class='title'>
         @if($graph==1)
             <h3>Year Wise Chart for Total no. of Complaints </h3>
@@ -54,8 +69,6 @@
 
         <!-- Main Application -->
         <div class="container" style="margin-top:40px;">
-            <!-- <h1></h1> -->
-
             <div class="row">
                 <div class="col-6">
                     <div class="card rounded">
@@ -70,11 +83,12 @@
 
         <br><br>
         <center>
-        <button class="btn btn-default" onclick="window.location.href = '/chart_options';" style="width:16%;">Back</button>
+        <button class="btn btn-default" onclick="window.location.href = '/chart_options'" style="width:16%;">Back</button>
         </center>
+        <!-- <button class="btn btn-default" onclick="window.print();" style="float:right;margin-right:4%;">Print</button> -->
+        <br>
         <br><br>
-
-
+      
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
         {!! $chart->script() !!}
     </body>

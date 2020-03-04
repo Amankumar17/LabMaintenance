@@ -52,6 +52,21 @@
     </style>
 
     <body>
+
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand">RAIT</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="/admin_home">Home</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/testlogin"><span class="glyphicon glyphicon-log-in"></span> LOGOUT</a></li>
+                </ul>
+            </div>
+        </nav>
+
         <center>
 
         <br>

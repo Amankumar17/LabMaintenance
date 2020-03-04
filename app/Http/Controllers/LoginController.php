@@ -18,7 +18,8 @@ class LoginController extends BaseController
         // $rollno=$request->input('rollno');
         // $pass=$request->input('pass');
 
-        if($request->input('rollno') != ""){
+        if($request->input('rollno') != "")
+        {
             // echo "Init login";
             $rollno=$request->input('rollno');
             $pass=$request->input('pass');
@@ -379,9 +380,11 @@ class LoginController extends BaseController
         if(!empty($_POST['chk'])){
             foreach($_POST['chk'] as $selected){        
                 if (strlen($systemno)==0)
-                    {$systemno = "".$selected;
+                {
+                    $systemno = "".$selected;
                 }
-                else{
+                else
+                {
                     $systemno=strval($systemno).",".strval($selected);
                 }
             }

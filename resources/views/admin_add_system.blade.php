@@ -107,7 +107,14 @@ input[type=text]{
 Amankumar Shrivastava,
 Saurabh Varade,
 Siddhi Jagtap,
-Rasika Deshmukh
+Rasika Deshmukh,
+Pratik Aher,
+Gaurav Gajare,
+Lokesh Badgujar
+<br>
+<br>Under the guidance of<br>
+Dr. Amit Barve
+
 <br><br><br>
 Copyright © 2019 Ramrao Adik Institute of Technology
 </div>

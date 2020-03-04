@@ -36,6 +36,7 @@
       <li><a href="/admin_home">Home</a></li>
       <li><a href="/admin_search">Search</a></li>
       <li><a href="/admin_deadstock">Deadstock</a></li>
+      <li><a href="/system_logs">System Logs</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="/testlogin"><span class="glyphicon glyphicon-log-in"></span> LOGOUT</a></li>
@@ -44,27 +45,18 @@
 </nav>
 
 	<div class="container">
-		<form action="/search" method="POST" role="search">
-			{{ csrf_field() }}
-			<div class="input-group">
-				<input type="text" class="form-control" name="q"
-					placeholder="Search users"> <span class="input-group-btn">
-					<button type="submit" class="btn btn-default">
-						<span class="glyphicon glyphicon-search"></span>
-					</button>
-				</span>
-			</div>
-		</form>
+		
 		<br><br>
-		<form action="/searchLab" method="POST" role="search">
+		<form action="/search_action" method="POST" role="search">
 
 			<div class="selectLabNo">
-    			<label>Search by lab number:</label>
-    			<select id="lb" name="labno" required style="width:150px;margin-left:2%;">
-            		<option value="" disabled selected>Select</option>
-            			@for($i=0; $i<$lab->count(); $i++)
-                			<option >{{$lab[$i]->labno}}</option>
-            			@endfor
+    			<label>Select Action:</label>
+    			<select id="lb" name="action" required style="width:150px;margin-left:2%;">
+                    <option value="" disabled selected>Select</option>
+            		<option value="add">Add logs</option>
+                    <option value="remove">Remove logs</option>
+                    <option value="transfer">Transfer logs</option>
+                    <option value="all">All logs</option>
     			</select>
 				<button type="submit" class="btn btn-primary" style="width:100px;margin-left:2%;padding:2px;">
 					GO
@@ -75,38 +67,31 @@
 		<div class="container">
 			@if(isset($details))
 			<p> The Search results for your query <b> {{ $query }} </b> are :</p>
-			<h2>Complaint details</h2>
+			<h2>System Transfer Logs</h2>
 			<table class="table table-striped table-responsive">
 				<thead>
 					<tr>
-                        <th>Comp No</th>
+                        <th>Sr No</th>
 						<th>Labno</th>
 						<th>Sysno</th>
-                        <th>Roll No</th>
-						<th>Sdrn</th>
-                        <th>Problem</th>
-						<th>Desciption</th>
-						<th>Status</th>
+                        <th>Labno</th>
+						<th>Sysno</th>
+                        <th>Admin</th>
+						<th>Action</th>
+                        <th>Date</th>
 					</tr>
 				</thead>
 				<tbody>
 					@foreach($details as $complaint)
-					<form action="/admin_confirm" method="POST">
 					<tr>
-						<td><input type="text" style="width:100px;text-align:center;border:none;" name="comp_no" value="{{$complaint->comp_no}}" readonly></td>
-						<td>{{$complaint->labno}}</td>
-						<td>{{$complaint->sysno}}</td>
-                        <td>{{$complaint->rollno}}</td>
-						<td>{{$complaint->sdrn}}</td>
-                        <td>{{$complaint->problem}}</td>
-						<td>{{$complaint->description}}</td>
-						@if($complaint->status==1)
-						<td><button >Confirm</button></td>
-						@elseif($complaint->status==2)
-						<td><button >Done</button></td>
-						@else
-						<td>Resolved</td>
-						@endif
+						<td>{{$complaint->srno}}</td>
+						<td>{{$complaint->lab_source}}</td>
+						<td>{{$complaint->sysno_source}}</td>
+                        <td>{{$complaint->lab_target}}</td>
+						<td>{{$complaint->sysno_target}}</td>
+                        <td>{{$complaint->admin}}</td>
+						<td>{{$complaint->action}}</td>
+                        <td>{{$complaint->Date}}</td>
 					</tr>
 					</form>
 					@endforeach

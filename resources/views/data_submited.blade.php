@@ -36,13 +36,11 @@
 </style>
 </head>
 <body>
-
-  <div class="contact-form">
-  
-    <h1>Complaint Submitted Successfully</h1>
-        <form action="/feedback" method="POST">
-            <button class="btn btn-primary">Back</button>
-        </form>
+    <div class="contact-form">
+        <h1>Complaint Submitted Successfully</h1>
+            <form action="/feedback" method="POST">
+                <button class="btn btn-primary">Back</button>
+            </form>
     </div>
 
 </body>

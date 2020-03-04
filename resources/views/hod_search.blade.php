@@ -6,6 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <style>
 .container {
@@ -16,9 +18,28 @@
 	width:15%;
 	min-width: 100px;
 }
+.navbar{
+	border-radius:0px;
+}
 </style>
 
 <body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid" id="myHeader">
+    <div class="navbar-header">
+      <a class="navbar-brand">Dy Patil RAIT</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="/hod_home">Home</a></li>
+      <li><a href="/hod_search">Search</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/testlogin"><span class="glyphicon glyphicon-log-in"></span> LOGOUT</a></li>
+    </ul>
+  </div>
+</nav>
+
 	<div class="container">
 		<form action="/hodsearch" method="POST" role="search">
 			{{ csrf_field() }}
@@ -87,7 +108,7 @@
 
     <center>
 	<!-- <form action="/admin_home"> -->
-    <button class="btn btn-primary" onclick="window.location.href = '/admin_home';">Back</button>
+    <button class="btn btn-primary" onclick="window.location.href = '/hod_home';">Back</button>
 	<!-- </form> -->
     </center>
 

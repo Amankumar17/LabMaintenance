@@ -16,9 +16,28 @@
 	width:15%;
 	min-width: 100px;
 }
+.navbar{
+	border-radius:0px;
+}
 </style>
 
 <body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid" id="myHeader">
+    <div class="navbar-header">
+      <a class="navbar-brand">Dy Patil RAIT</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="/principal_home">Home</a></li>
+      <li><a href="/principal_search">Search</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/testlogin"><span class="glyphicon glyphicon-log-in"></span> LOGOUT</a></li>
+    </ul>
+  </div>
+</nav>
+
 	<div class="container">
 		<form action="/principalsearch" method="POST" role="search">
 			{{ csrf_field() }}
@@ -32,21 +51,6 @@
 			</div>
 		</form>
 		<br><br>
-
-
-		<!-- <div id="p_floor" class='box'>
-                    <h4>Select Floor</h4>
-                    <select name="p_floor" id="f" onchange="function2(this.value)">
-                        <option value="" disabled selected>Select</option>
-                        <option value="0">Ground</option>
-                        <option value="1">First</option>
-                        <option value="2">Second</option>
-                        <option value="3">Third</option>
-                        <option value="4">Fourth</option>
-                        <option value="5">Fifth</option>
-                        <option value="6">Sixth</option>
-                    </select>
-                </div> -->
 
 		<p><b>Enter the floor number and lab number for custom search:</b></p>
 		<form action="/principalsearchLab" method="POST" role="search">
@@ -109,9 +113,9 @@
 		</div>
 
     <center>
-	<!-- <form action="/admin_home"> -->
-    <button class="btn btn-primary" onclick="window.location.href = '/admin_home';">Back</button>
-	<!-- </form> -->
+	
+    <button class="btn btn-primary" onclick="window.location.href = '/principal_home';">Back</button>
+	
     </center>
 
 	<script>

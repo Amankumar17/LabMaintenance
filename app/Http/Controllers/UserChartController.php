@@ -138,6 +138,94 @@ class UserChartController extends Controller
         return $pdf->stream();
     }
 
+    public function displayRegistry(Request $request)
+    {
+        // $floor = $request->session()->get('floor');
+
+        $deadstock=DB::table('deadstock')
+            ->get();
+
+        $data ="<head><title>Deadstock Registry</title></head>";
+        $data .= "<style>
+                    table{font-family: 'Times New Roman', Times, serif;
+                    }
+                    th{color:black;text-align:center;
+                        padding:2px;
+                        padding-top: 8px;
+                        padding-bottom: 12px;
+                        font-size:14px;
+                        
+                    }
+                
+                    tr:nth-child(even){background-color: #f2f2f2;}
+                    td{padding: 6px;font-size:13px;
+                        }
+                    
+                    </style>";
+        $data .="<table style='width:75%''><tr><td><img src='img/dypatil-logo.png' width='200' height='70' alt='DY Patil Logo' ></td>";
+        $data .= "<td><h1>Lab Maintenance</h1></td></tr></table>";
+        $data .= "<center style='color:black;margin-top:0px;'><h2>Deadstock Registry</h2></center><br><hr><br>";
+        
+        $data .= "<table style='border-collapse: collapse;width:100%;'><tr><th>Sr.</th><th>Date</th><th>Name of Item</th><th>Description</th><th>Warranty</th><th>Quantity</th><th>Amount</th><th>GPR Refno</th><th>Supplier</th><th>Bill no</th><th>Purchase Date</th><th>Disposal</th><th>Remarks</th></tr>";
+
+        foreach($deadstock as $a){
+            $data .= "<tr style='text-align:center;'>";
+            $data .= "<td >".$a->Srno."</td>";
+            $data .= "<td >".date('d M Y', strtotime($a->Date))."</td>";
+            $data .= "<td >".$a->Name_of_Item."</td>";
+            // if($a-> == 'NULL')
+            //     $data .= "<td > - </td>";
+            // else{
+                $data .= "<td >".$a->Description."</td>";
+                $data .= "<td >".$a->Warranty."</td>";
+                $data .= "<td >".$a->Quantity."</td>";
+                $data .= "<td >".$a->Amount."</td>";
+                $data .= "<td >".$a->GPR_Refno."</td>";
+                $data .= "<td >".$a->Supplier."</td>";
+                $data .= "<td >".$a->Billno."</td>";
+                $data .= "<td >".date('d M Y', strtotime($a->Purchase_Date))."</td>";
+                $data .= "<td >".$a->Disposal."</td>";
+                $data .= "<td >".$a->Remarks."</td>";
+            // }
+            $data .= "</tr>";
+        }
+        $data .= "</table>";
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($data);
+        return $pdf->stream();
+    }
+
+    // public function downloadChart(Request $request)
+    // {
+    //     $data = '<head>
+    //             <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+    //         </head>
+    //         <body>
+    //             <!-- Main Application -->
+    //             <div class="container" style="margin-top:40px;">
+    //                 <div class="row">
+    //                     <div class="col-6">
+    //                         <div class="card rounded">
+    //                             <div class="card-body py-3 px-3">
+    //                                 .$chart->container().
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //             <!-- End Of Main Application -->
+        
+    //             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+    //             .$chart->script().
+    //         </body>
+    //     </html>
+    //     ';
+
+    //     $pdf = App::make('dompdf.wrapper');
+    //     $pdf->loadHTML($data);
+    //     return $pdf->stream();
+    // }
 
     public function index(Request $request)
     {

@@ -152,26 +152,18 @@ class AdminController extends Controller {
             return view ( 'hod_search' )->with('lab',$uniqueLab)->withDetails ( $complaintTable )->withQuery ( $labno );
         else
             return view ( 'hod_search' )->with('lab',$uniqueLab)->withMessage ( 'No Details found. Try to search again !' );
-        }
+    }
 
     public function hod_lab_search(Request $request){
 
-
         $floor = $request->session()->get('floor');
-
-        // $check=DB::table('systems')->get();
 
         $uniqueLab = DB::table('floor_lab')
         ->select('labno')
         ->where('floor',$floor)
         ->get();
 
-        // $check = $check->sort();
-
-
         return view('hod_search')->with('lab',$uniqueLab);
-
-
     }
 
 
@@ -268,87 +260,88 @@ class AdminController extends Controller {
 
     public function status_admin_confirm(Request $request){
 
-        $comp_no = $request->input('comp_no');
+        $srno = $request->input('srno');
 
         $current_date_time = Carbon::now()->toDateTimeString();
 
         $admin = $request->session()->get('admin');
 
-        DB::table('complaints')->where('comp_no',$comp_no)->update(
-            ['status'=>2, 'updated_at'=>$current_date_time]);
+        $c_f = DB::table('complaints_frequency')->where('srno',$srno)->get();
 
+        $comp_nos = [];
+        $comp_nos = explode(',', $c_f[0]->comp_nos);
 
-            $f = $request->session()->get('floor');
-            $complaint=DB::table('complaints')->where(['floor'=>$f])->get();
-            $complaint_frequency=DB::table('complaints_frequency')->where(['floor'=>$f])->get();
-            
-            return view('admin_home')->with('complaint',$complaint)->with('admin',$admin)->with('complaint_frequency',$complaint_frequency);
+        for($i=0; $i<count($comp_nos); $i++){
+            DB::table('complaints')->where('comp_no',$comp_nos[$i])->update(
+                ['status'=>2, 'updated_at'=>$current_date_time]);
+        }
+
+        DB::table('complaints_frequency')->where('srno',$srno)->update(
+            ['status'=>2]);
+
+        $f = $request->session()->get('floor');
+        $complaint=DB::table('complaints')->where(['floor'=>$f])->get();
+        $complaint_frequency=DB::table('complaints_frequency')->where(['floor'=>$f])->get();
         
+        return view('admin_home')->with('complaint',$complaint)->with('admin',$admin)->with('complaint_frequency',$complaint_frequency);
     }
     
     public function status_admin_done(Request $request){
 
-        $comp_no = $request->input('comp_no');
+        $srno = $request->input('srno');
 
         $current_date_time = Carbon::now()->toDateTimeString();
 
         $admin = $request->session()->get('admin');
 
-        $c = DB::table('complaints')->where('comp_no',$comp_no)->get();
-        $fname;
-        $lname;
-        $date_of_complaint = date('d M Y', strtotime($c[0]->created_at)) ->created_at;
-        if($c[0]->rollno!='NULL'){
-            $rollno = $c[0]->rollno;
-            $f = DB::table('stu_record')->where('Roll_no',$rollno)->get();
-            $email = $f[0]->emailid;
-            $fname = $f[0]->First_name;
-            $lname = $f[0]->Last_name;
+        $c_f = DB::table('complaints_frequency')->where('srno',$srno)->get();
 
-        }
-        else{
-            $sdrn = $c[0]->sdrn;
-            $f = DB::table('faculty')->where('Sdrn',$sdrn)->get();
-            $email = $f[0]->Email;
-            $fname = $f[0]->First_name;
-            $lname = $f[0]->Last_name;
-        }
-        
-        // $to= $email;;
-        // $subject="testing";
-        // $msg="Your issue has been solved sucessfully";
-        // $headers="From : laliteshkhan1@gmail.com";
-        // if(mail($to,$subject,$msg,$headers))
-        // {
-        //     echo "Email send Successfully";
-        // }
-        // else
-        // {
-        //     echo "Email not sent";
-        // }
+        $comp_nos = [];
+        $comp_nos = explode(',', $c_f[0]->comp_nos);
+
+        for($i=0; $i<count($comp_nos); $i++){
+
+            $c = DB::table('complaints')->where('comp_no',$comp_nos[$i])->get();
+            $fname;
+            $lname;
+            $date_of_complaint = date('d M Y', strtotime($c[0]->created_at));
+            if($c[0]->rollno!='NULL'){
+                $rollno = $c[0]->rollno;
+                $f = DB::table('stu_record')->where('Roll_no',$rollno)->get();
+                $email = $f[0]->emailid;
+                $fname = $f[0]->First_name;
+                $lname = $f[0]->Last_name;
+            }
+            else{
+                $sdrn = $c[0]->sdrn;
+                $f = DB::table('faculty')->where('Sdrn',$sdrn)->get();
+                $email = $f[0]->Email;
+                $fname = $f[0]->First_name;
+                $lname = $f[0]->Last_name;
+            }
 
             $data = array('name'=>"Lab Maintenance",'fname'=>$fname,'lname'=>$lname,'date_of_complaint'=>$date_of_complaint);
             $msg="Mail confirmation";
             Mail::send(['text'=>'mail'], $data, function($message) use ($email,$fname,$lname,$date_of_complaint){
-               
-               $message->to($email, 'Lab Maintenance')->subject
-                  ('Lab Maintenance Testing Mail');
-               $message->from('shrivastavaman171@gmail.com','Lab Maintenance');
+            
+            $message->to($email, 'Lab Maintenance')->subject
+                ('Lab Maintenance Testing Mail');
+            $message->from('shrivastavaman171@gmail.com','Lab Maintenance');
             });
-            echo "Basic Email Sent. Check your inbox.";
-         
-
-         
-        DB::table('complaints')->where('comp_no',$comp_no)->update(
-            ['status'=>3, 'updated_at'=>$current_date_time]);
-
             
-            $complaint=DB::table('complaints')->where(['floor'=>$f])->get();
-            $complaint_frequency=DB::table('complaints_frequency')->where(['floor'=>$f])->get();
-            
-            return view('admin_home')->with('complaint',$complaint)->with('admin',$admin)->with('complaint_frequency',$complaint_frequency);
+            DB::table('complaints')->where('comp_no',$comp_nos[$i])->update(
+                ['status'=>3, 'updated_at'=>$current_date_time]);
+        }
+
+        DB::table('complaints_frequency')->where('srno',$srno)->delete();
+
+        echo '<script>alert("Thank you, the email sent has been sent.")</script>';
         
+        $f = $request->session()->get('floor');
+        $complaint=DB::table('complaints')->where(['floor'=>$f])->get();
+        $complaint_frequency=DB::table('complaints_frequency')->where(['floor'=>$f])->get();
         
+        return view('admin_home')->with('complaint',$complaint)->with('admin',$admin)->with('complaint_frequency',$complaint_frequency);
     }
 
     public function systemAdd2(Request $request)
@@ -388,6 +381,13 @@ class AdminController extends Controller {
             ['labno' => $labno, 'sys' => $new]
         );
 
+        $admin = $request->session()->get('admin');
+        $current_date = Carbon::now()->toDateString();
+
+        DB::table('system_logs')->insert(
+            ['lab_source' => $labno, 'sysno_source' => $new, 'admin' => $admin, 'action' => 'add', 'Date'=> $current_date]
+        );
+
         return view('/admin_operation');
     }
 
@@ -404,8 +404,15 @@ class AdminController extends Controller {
         DB::table('systems')->insert(
             ['labno' => $labno1, 'sys' => $pc]
         );
+
+        $admin = $request->session()->get('admin');
+        $current_date = Carbon::now()->toDateString();
+
+        DB::table('system_logs')->insert(
+            ['lab_source' => $labno, 'sysno_source' => $pc, 'lab_target' => $labno1, 'sysno_target' => $pc, 'admin' => $admin, 'action' => 'tranfer', 'Date'=> $current_date]
+        );
     
-            return view('/admin_operation');
+        return view('/admin_operation');
     }
 
 
@@ -434,37 +441,15 @@ class AdminController extends Controller {
             ['labno', '=', $labno],
             ['sys', '=', $old]])->delete();
 
+        $admin = $request->session()->get('admin');
+        $current_date = Carbon::now()->toDateString();
+
+        DB::table('system_logs')->insert(
+            ['lab_source' => $labno, 'sysno_source' => $old, 'admin' => $admin, 'action' => 'remove', 'Date'=> $current_date]
+        );
+
         return view('/admin_operation');
     }
-
-
-    // public function facultyAdd(Request $request){
-
-    //     $newsdrn = $request->input('newsdrn');
-    //     $pass1 = $request->input('pass1');
-    //     $pass2 = $request->input('pass2');
-
-    //     if($pass1 == $pass2) {
-    //         DB::table('faculty_logins')->insert(
-    //             ['sdrn' => $newsdrn, 'pass' => $pass1]
-    //         );
-    
-    //         return view('/admin_operation');
-    //     } 
-    // }
-
-    // public function facultyRemove(Request $request){
-
-    //     $oldsdrn = $request->input('oldsdrn');
-    //     $pass = $request->input('pass');
-        
-
-    //     DB::table('faculty_logins')->where([
-    //         ['sdrn', '=', $oldsdrn],
-    //         ['pass', '=', $pass]])->delete();
-
-    //         return view('/admin_operation');
-    // }
     
     public function adminAdd(Request $request){
 
@@ -543,6 +528,71 @@ class AdminController extends Controller {
     }
 
 
+
+    public function admin_deadstock_form(Request $request){
+
+        $Srno = $request->input('srno');
+        $Date = $request->input('date');
+        $Name_of_item = $request->input('name_of_item');
+
+
+        $Description = $request->input('description');
+        if($Description=='')
+            $Description='-';
+        $Warranty = $request->input('warranty');
+        if($Warranty=='')
+            $Warranty='-';
+        $Quantity = $request->input('quantity');
+        if($Quantity=='')
+            $Quantity='-';
+        $Amount = $request->input('amount');
+        if($Amount=='')
+            $Amount='-';
+        $Supplier = $request->input('supplier');
+        if($Supplier=='')
+            $Supplier='-';
+        $GPR_Refno = $request->input('gpr_refno');
+        if($GPR_Refno=='')
+            $GPR_Refno='-';
+        $Billno = $request->input('bill_no');
+        if($Billno=='')
+            $Billno='-';
+        $Purchase_Date = $request->input('purchase_date');
+        if($Purchase_Date=='')
+            $Purchase_Date='-';
+        $Disposal = $request->input('disposal');
+        if($Disposal=='')
+            $Disposal='-';
+        $Remarks = $request->input('remark');
+        if($Remarks=='')
+            $Remarks='-';
+
+
+        DB::table('deadstock')->insert(
+            ['Srno'=>$Srno,'Date'=>$Date,'Name_of_item'=>$Name_of_item,'Description'=>$Description,'Warranty'=>$Warranty,'Quantity'=>$Quantity ,'Amount' =>$Amount,'GPR_Refno'=>$GPR_Refno, 'Supplier'=>$Supplier, 'Billno'=>$Billno, 'Purchase_Date'=>$Purchase_Date, 'Disposal'=>$Disposal, 'Remarks'=>$Remarks]
+        );
+        
+        return view('admin_deadstock');
+    }
+
+    public function search_action(Request $request){
+        $action = $request->input('action');
+
+        if($action=='all'){
+            $sys_logs = DB::table('system_logs')
+                        ->get();
+        }
+        else{
+            $sys_logs = DB::table('system_logs')
+                        ->where('action',$action)
+                        ->get();
+        }
+
+        if (count ($sys_logs) > 0)
+            return view ( 'system_logs' )->withDetails ( $sys_logs )->withQuery ( $action );
+        else
+            return view ( 'system_logs' )->withMessage ( 'No Details found. Try to search again !' );
+    }
 
     
     /**

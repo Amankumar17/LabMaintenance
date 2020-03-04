@@ -2,7 +2,10 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="css/headerstyle.css">
 <link rel="stylesheet" href="css/footerstyle.css">
@@ -11,26 +14,35 @@
 
 <style>
 
-* {
-	border-sizing: border-box;
+*{
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-/*.header {
-  background-color: #af504c;
-}*/
-
-.header a.active {
-	    background-color: #a32732;
-	    color: white;
-    }
-
 .header{
-  border-radius: 8px;
+  overflow: hidden;
   width: 100%;
 }
 
+.btn {
+  border: none;
+  outline: none;
+  padding: 10px 16px;
+  background-color: #666;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.active, .btn:hover {
+  background-color: #a32732;
+  color: white;
+}
+
 .btn-group {
-	width: 100%;
+  width: 100%;
 }
 
 .btn-group a:link, a:visited {
@@ -39,18 +51,18 @@
 }
 
 .btn-group button {
-	width: 22%;
-	height: 120px;
+  width: 22%;
+  min-width: 210px;
+	height: 100px;
 	margin: 30px 5%;
 	padding: 10px;
 	font-family: century gothic;
-	/*background: #d2d9db;*/
-	border: none;
+  border: none;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	text-align: center;
 	background-color: #4CAF50;
 	color: white;
-   font-size: 20px;
+   font-size: 30px;
    cursor: pointer;
 }
 
@@ -141,8 +153,8 @@ input {
 .bg-model{
   background-color: rgba(0, 0, 0, 0.8);
 	width: 100%;
-	height: 100%;
-	position: absolute;
+	height: 100%  ;
+	position: fixed;
 	top: 0;
 	display: none;  
 	justify-content: center;
@@ -150,22 +162,16 @@ input {
 }
 
 .modal-contents {
-	height: 300px;
-	width: 500px;
+	height: 500px;
+	width: 800px;
 	background-color: white;
 	text-align: center;
-	padding: 20px;
+	padding: 35px;
 	position: relative;
 	border-radius: 4px;
 }
 
-input {
-	margin: 15px auto;
-	display: block;
-	width: 50%;
-	padding: 8px;
-	border: 1px solid gray;
-}
+
 
 .close {
 	position: absolute;
@@ -180,56 +186,52 @@ input {
 	}
 }
 
-
 /* <!-- PopUp Ends--> */
+
+
+.button {
+  cursor: pointer;
+}
 
 </style>
 </head>
 
 <body>
 
-<!-- PopUp -->
-<div class="bg-model">
-  <div class="modal-contents">
-    <div class="close">+</div>
-      <img src="https://www.richardmiddleton.me/wp-content/themes/richardcodes/assets/img/avatar.png" alt="">
-
-      <form action="">
-        <input type="text" placeholder="Name">
-        <input type="email" placeholder="E-Mail">
-        <a href="#" class="button">Submit</a>
-      </form>
-  </div>  
-</div>
-<!-- PopUp Ends-->
-
-
-<div class="header" id="myHeader">
-    <a class="active" href="/admin_home">&#x26F7; Home</a>
-		<a href="/testlogin">Logout</a>
-    <a href="/admin_search">Search</a>
-    <!-- delete me -->
-    <a href="#" id="button" class="button">Click Me</a>
-	</div>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid" id="myHeader">
+    <div class="navbar-header">
+      <a class="navbar-brand">Dy Patil RAIT</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="/admin_search">Search</a></li>
+      <li><a href="/admin_deadstock">Deadstock</a></li>
+      <li><a href="/system_logs">System Logs</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/testlogin"><span class="glyphicon glyphicon-log-in"></span> LOGOUT</a></li>
+    </ul>
+  </div>
+</nav>
 
 <h3>Welcome '<span>{{$admin}}</span>' floor Admin!</h3>
 
 <div class="btn-group">
-  <a href="/add_system"><button>Add System</button></a>
-  <a href="/add_admin"><button>Add Admin</button></a>
-  <!-- <a href="/add_faculty"><button>Add Faculty</button></a> -->
-  <a href="/transfer_pc1"><button>Transfer PC</button></a>
+  <a href="/add_system"><button type="button" class="btn btn-success">Add System</button></a>
+  <a href="/add_admin"><button type="button" class="btn btn-success">Add Admin</button></a>
+  <a href="/transfer_pc1"><button type="button" class="btn btn-success">Transfer PC</button></a>
 </div>
 
 <div class="btn-group">
-  <a href="/delete_system"><button>Remove System</button></a>
-  <a href="/delete_admin"><button>Remove Admin</button></a>
-  <!-- <a href="/delete_faculty"><button>Remove Faculty</button></a> -->
-  <a href="/manage_issue"><button>Manage Issue</button></a>
+  <a href="/delete_system"><button type="button" class="btn btn-success">Remove System</button></a>
+  <a href="/delete_admin"><button type="button" class="btn btn-success">Remove Admin</button></a>
+  <a href="/manage_issue"><button type="button" class="btn btn-success">Manage Issue</button></a>
 </div>
 
 <br><br>
 
+<div>
   <button class="tablink" onclick="openPage('New', this, '#c88380')" id="defaultOpen">New</button>
   <button class="tablink" onclick="openPage('Ongoing', this, '#c88380')">In Progress</button>
   <button class="tablink" onclick="openPage('History', this, '#c88380')">Previously Resolved</button>
@@ -265,14 +267,14 @@ input {
       
       <form action="/admin_confirm" method="POST">
       <tr>
-          <td width="8%"><input type="text" style="background-color:#dddddd;font-size:17px;text-align:center;" name="comp_no" value="{{$complaint_frequency[$i]->srno}}" readonly></td>
+          <td width="8%"><input type="text" style="background-color:#dddddd;font-size:17px;text-align:center;" name="srno" value="{{$complaint_frequency[$i]->srno}}" readonly></td>
           <td>{{$complaint_frequency[$i]->labno}}</td>
           <td>{{$complaint_frequency[$i]->sysno}}</td>
           <td>{{$complaint_frequency[$i]->problem}}</td>
           <td> {{date('d M, Y', strtotime($complaint_frequency[$i]->date)) }}</td>
           <td>{{$complaint_frequency[$i]->frequency}}</td>
-          <td><a onclick="show_details({{$complaint_frequency[$i]->srno}})">More Details</a></td>
-          <td><a><button >Confirm</button></a></td>
+          <td><a class="button" onclick="show_details({{$complaint_frequency[$i]->srno}})">More Details</a></td>
+          <td><a><button >Viewed</button></a></td>
       </tr>
       </form>
       @endif
@@ -313,13 +315,13 @@ input {
       @if($complaint_frequency[$i]->status==2)
       <form action="/admin_done" method="POST">
       <tr>
-          <td><input type="text" style="background-color:#dddddd;font-size:17px;text-align:center;" name="comp_no" value="{{$complaint_frequency[$i]->comp_no}}"></td>
+          <td><input type="text" style="background-color:#dddddd;font-size:17px;text-align:center;bordor:none;" name="srno" value="{{$complaint_frequency[$i]->srno}}"></td>
           <td>{{$complaint_frequency[$i]->labno}}</td>
           <td>{{$complaint_frequency[$i]->sysno}}</td>
           <td>{{$complaint_frequency[$i]->problem}}</td>
           <td> {{date('d M, Y', strtotime($complaint_frequency[$i]->date)) }}</td>
-          <td>{{$complaint_frequency[$i]->complaint_frequency}}</td>
-           <td><button>More Details</button></td>
+          <td>{{$complaint_frequency[$i]->frequency}}</td>
+           <td><a class="button" onclick="show_details({{$complaint_frequency[$i]->srno}})">More Details</a></td>
           <td><button name='done'>Done</button></td>
       </tr>
       </form>
@@ -381,6 +383,41 @@ input {
   </table>
 </div>
 
+
+</div>
+
+<!-- FOOTER START -->
+<div class="footer" style="margin-top:5%; font-family:courier new; border-top: 2px solid #af504c;">
+<br>Site by<br>
+Amankumar Shrivastava,
+Saurabh Varade,
+Siddhi Jagtap,
+Rasika Deshmukh,
+Pratik Aher,
+Gaurav Gajare,
+Lokesh Badgujar
+<br>
+<br>Under the guidance of<br>
+Dr. Amit Barve
+
+<br><br><br>
+Copyright © 2019 Ramrao Adik Institute of Technology
+</div>
+<!-- END OF FOOTER -->
+
+<!-- PopUp -->
+<div class="bg-model">
+  <div class="modal-contents">
+    <div class="close">+</div>
+      <div id="popup">
+  
+      </div>
+          
+      
+  </div>  
+</div>
+<!-- PopUp Ends-->
+
 <script>
 function openPage(pageName,elmnt,color) {
   var i, tabcontent, tablinks;
@@ -400,20 +437,68 @@ function openPage(pageName,elmnt,color) {
 document.getElementById("defaultOpen").click();
 
 
-// function show_details(value){
-//   console.log(value);
-//   alert("amankumar");
-// }
-
 function show_details(value){
-  console.log(value);
-  // alert("amankumar");
+  // console.log(value);
+
+  var cont = "";
+  var obj = <?php echo json_encode($complaint_frequency); ?>;
+  var arr_complaints=[];
+  var i;
+  var arr =[];
+  for(a in obj)
+      {
+        arr.push(obj[a]);
+      }
   
-  alert("i got clicked");
+  for(var i=0;i<arr.length;i++)
+  {
+      if (arr[i].srno==value)
+      {
+          arr_complaints = arr[i].comp_nos.split(',');
+          console.log(arr_complaints);
+          break;
+      }
+  }
+
+  var obj1 = <?php echo json_encode($complaint); ?>;
+  var arr1 =[];
+  for(a in obj1)
+      {
+        arr1.push(obj1[a]);
+      }
+  
+  cont = cont + "<table><tr><th>Complaint No.</th><th>Roll_no</th><th>sdrn</th><th>Date</th><th>Description</th></tr>"
+  
+
+  for(var i=0;i<arr_complaints.length;i++)
+  {
+    arr_complaints[i] = parseInt(arr_complaints[i]);
+  }
+  console.log(arr_complaints);
+
+  for(var j=0;j<arr_complaints.length;j++)
+  {
+      for(var i=arr1.length-1;i>=0;i--)
+      {
+        console.log(arr1[i].comp_no);
+          if(arr1[i].comp_no==arr_complaints[j])
+          {
+              cont = cont + "<tr><td>"+arr1[i].comp_no+"</td><td>"+arr1[i].rollno+"</td><td>"+arr1[i].sdrn+"</td><td>"+arr1[i].created_at+"</td><td>"+arr1[i].description+"</td></tr>";
+              break;
+          }
+      }
+  }
+  cont = cont + "</table>"
+  console.log(cont);
+  document.getElementById('popup').innerHTML = cont;
+
 	document.querySelector('.bg-model').style.display = "flex";
-};
-document.querySelector('.close').addEventListener("click", function() {
-	document.querySelector('.bg-model').style.display = "none";
+
+}
+
+  document.querySelector('.close').addEventListener("click", function() {
+  document.querySelector('.bg-model').style.display = "none";
+
 });
 
 
@@ -425,23 +510,16 @@ document.querySelector('.close').addEventListener("click", function() {
 // 	document.querySelector('.bg-model').style.display = "none";
 // });
 
+
+
+
 </script>
 
 
 
 
 
-<!-- FOOTER START -->
-<div class="footer" style="margin-top:5%; font-family:courier new; border-top: 2px solid #af504c;">
-<br>Site by<br>
-Amankumar Shrivastava,
-Saurabh Varade,
-Siddhi Jagtap,
-Rasika Deshmukh
-<br><br><br>
-Copyright © 2019 Ramrao Adik Institute of Technology
-</div>
-<!-- END OF FOOTER -->
+
 
 
 

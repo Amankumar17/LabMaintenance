@@ -54,12 +54,6 @@
       Srno
     </th>
     <th>
-      Floor
-    </th>
-    <th>
-      Labno
-    </th>
-    <th>
       System
     </th>
     <th>
@@ -73,9 +67,7 @@
       @if($complaint[$i]->status==3)
       <tr>
           <td width="8%">{{$complaint[$i]->comp_no}}</td>
-          <td width="8%">{{$complaint[$i]->floor}}</td>
-          <td width="8%">{{$complaint[$i]->labno}}</td>
-          <td width="8%">{{$complaint[$i]->sysno}}</td>
+          <td width="8%">{{$complaint[$i]->labno}} - {{$complaint[$i]->sysno}}</td>
           <td >{{$complaint[$i]->description}}</td>
           <td> {{date('d M, Y', strtotime($complaint[$i]->created_at)) }}</td>
       </tr>
@@ -91,12 +83,6 @@
     
     <th >
       Srno
-    </th>
-    <th>
-      Floor
-    </th>
-    <th>
-      Labno
     </th>
     <th>
       System
@@ -116,9 +102,7 @@
         @if($complaint[$i]->status!=3)
         <tr>
           <td width="8%">{{$complaint[$i]->comp_no}}</td>
-          <td width="8%">{{$complaint[$i]->floor}}</td>
-          <td width="8%">{{$complaint[$i]->labno}}</td>
-          <td width="10%">{{$complaint[$i]->sysno}}</td>
+          <td width="10%">{{$complaint[$i]->labno}} - {{$complaint[$i]->sysno}}</td>
           <td>{{$complaint[$i]->description}}</td>
           <td> {{date('h:i:s a m/d/Y', strtotime($complaint[$i]->created_at)) }}</td>
           
@@ -128,7 +112,7 @@
           @elseif ($complaint[$i]->status==1)
             Yet to be viewed by Admin
           @else
-            Underprocess
+            Under process
           @endif
           </td>
         </tr>

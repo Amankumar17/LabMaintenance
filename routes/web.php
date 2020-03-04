@@ -22,11 +22,10 @@ Route::get('sendattachmentemail','MailController@attachment_email');
 
 Route::get ('/admin_search', 'AdminController@admin_lab_search');
 
-Route::get ('/hod_search', 'AdminController@hod_lab_search');
-
 Route::any('/search', 'AdminController@admin_search');
 
 Route::any('/searchLab', 'AdminController@admin_lab_search1');
+
 
 Route::get ('/hod_search', 'AdminController@hod_lab_search');
 
@@ -34,15 +33,19 @@ Route::any('/hodsearch', 'AdminController@hod_search');
 
 Route::any('/hodsearchLab', 'AdminController@hod_lab_search1');
 
+
 Route::get ('/principal_search', 'AdminController@principal_lab_search');
 
 Route::any('/principalsearch', 'AdminController@principal_search');
 
 Route::any('/principalsearchLab', 'AdminController@principal_lab_search1');
 
+
 Route::post('/chart', 'UserChartController@index');
 
 Route::get('/chart_options', 'UserChartController@chart_options');
+
+Route::get('/download_chart', 'UserChartController@downloadChart');
 
 Route::post('/report', 'UserChartController@displayReport');
 
@@ -87,18 +90,9 @@ Route::get('/add_admin', function () {
     return view('admin_add_admin');
 });
 
-// Route::get('/add_faculty', function () {
-//     return view('admin_add_fac');
-// });
-
 Route::get('/delete_admin', function () {
     return view('admin_del_admin');
 });
-
-// Route::get('/delete_faculty', function () {
-//     return view('admin_del_fac');
-// });
-
 
 Route::get('/add_system','AdminController@systemAdd2');
 
@@ -131,9 +125,23 @@ Route::post('/admin_demo4','AdminController@admin_manage_issue_delete');
 Route::get('/manage_issue', function () {
     return view('manage_issue');
 });
-// Route::post('/faculty_demo1','AdminController@facultyAdd');
 
-// Route::post('/faculty_demo2','AdminController@facultyRemove');
+
+Route::get ( '/admin_deadstock', function () {
+    return view ( 'admin_deadstock' );
+} );
+
+Route::post('/admin_deadstock_form','AdminController@admin_deadstock_form');
+
+Route::get('/view_registry', 'UserChartController@displayRegistry');
+
+
+
+Route::get ( '/system_logs', function () {
+    return view ( 'system_logs' );
+} );
+
+Route::post('/search_action', 'AdminController@search_action');
 
 
 

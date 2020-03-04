@@ -46,6 +46,8 @@ class VerifyCsrfToken extends Middleware
         '/hodsearchLab',
         '/principalsearchLab',
         '/admin_demo3',
-        '/admin_demo4'
+        '/admin_demo4',
+        '/admin_deadstock_form',
+        '/search_action'
     ];
 }

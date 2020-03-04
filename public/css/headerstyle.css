@@ -4,7 +4,7 @@
 	font-family: courier new;
 	overflow: hidden;
 	background-color: black;
-	margin: 0 0 4% 0;
+	margin: 0 0 0 0;
 	padding: 10px 0px 10px 4%;
 }
 
@@ -24,15 +24,9 @@
 	color: black;
 }
 
-.header a.active {
-	background-color: rgb(41, 139, 44);
-	color: white;
+.navbar{
+	border-radius: 0px;
 }
-
-/*.header a.active {
-	background-color: #ddd;
-	color: rgb(32, 30, 30);
-}*/
 
 .header .icon {
 	display: none;

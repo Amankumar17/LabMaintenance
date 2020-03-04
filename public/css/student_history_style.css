@@ -46,7 +46,7 @@ body {
 
 #Home, #News {background-color: #e5e4e2;}
 
-
+/* 
 table{
   width:100%;
   font-family: century gothic;
@@ -68,7 +68,7 @@ td{
 }
 tr:nth-child(even) {
   background-color: #dddddd;
-}
+} */
 
 
 
@@ -405,10 +405,14 @@ table{
 }
 
 th{
+  width:13%;
+  height:50px;
   text-align:center;
   border: 1px solid #dddddd;
 } 
 td{
+  padding-top:15px ;
+  padding-bottom: 15px;
   border: 1px solid #dddddd;
   text-align:center;
 

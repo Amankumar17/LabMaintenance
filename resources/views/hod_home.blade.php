@@ -7,6 +7,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <link rel="stylesheet" href="css/headerstyle.css">
 <link rel="stylesheet" href="css/footerstyle.css">
 
@@ -134,11 +138,26 @@ input {
 
 <body>
 
-<div class="header" id="myHeader">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid" id="myHeader">
+    <div class="navbar-header">
+      <a class="navbar-brand">Dy Patil RAIT</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/hod_home">Home</a></li>
+      <li><a href="/hod_search">Search</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/testlogin"><span class="glyphicon glyphicon-log-in"></span> LOGOUT</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- <div class="header" id="myHeader">
     <a class="active" href="/hod_home">&#x26F7; Home</a>
 		<a href="/testlogin">Logout</a>
     <a href="/hod_search">Search</a>
-	</div>
+</div> -->
 
 <h3>Welcome'<span>{{$hodname}}</span>'!</h3><br>
 
@@ -320,7 +339,14 @@ document.getElementById("defaultOpen").click();
 Amankumar Shrivastava,
 Saurabh Varade,
 Siddhi Jagtap,
-Rasika Deshmukh
+Rasika Deshmukh,
+Pratik Aher,
+Gaurav Gajare,
+Lokesh Badgujar
+<br>
+<br>Under the guidance of<br>
+Dr. Amit Barve
+
 <br><br><br>
 Copyright © 2019 Ramrao Adik Institute of Technology
 </div>
